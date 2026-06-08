@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
+import { Navbar } from "@/components/ui-custom/Navbar";
+import { Footer } from "@/components/ui-custom/Footer";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -27,7 +29,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${playfair.variable} ${inter.variable} antialiased`}>
-        {children}
+        <Navbar />
+        <main className="min-h-screen">{children}</main>
+        <Footer />
       </body>
     </html>
   );
