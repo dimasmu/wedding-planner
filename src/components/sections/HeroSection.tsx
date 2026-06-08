@@ -1,16 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
+import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  type CarouselApi,
-} from "@/components/ui/carousel";
 
 const slides = [
   {
@@ -54,8 +49,7 @@ const slides = [
   },
   {
     id: 5,
-    image:
-      "/asset/home_carousel/young-wedding-couple-their-wedding.jpg",
+    image: "/asset/home_carousel/young-wedding-couple-their-wedding.jpg",
     title: "Your Love Story, Beautifully Told",
     subtitle:
       "Join thousands of couples who trusted Sola Planner to bring their dream wedding to life.",
@@ -65,29 +59,33 @@ const slides = [
 ];
 
 export function HeroSection() {
-  const [api, setApi] = useState<CarouselApi>();
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    { loop: true },
+    [Autoplay({ delay: 6000, stopOnInteraction: false })]
+  );
   const [current, setCurrent] = useState(0);
 
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    setCurrent(emblaApi.selectedScrollSnap());
+  }, [emblaApi]);
+
   useEffect(() => {
-    if (!api) return;
-    const onSelect = () => setCurrent(api.selectedScrollSnap());
-    api.on("select", onSelect);
-    return () => {
-      api.off("select", onSelect);
-    };
-  }, [api]);
+    if (!emblaApi) return;
+    emblaApi.on("select", onSelect);
+    onSelect();
+  }, [emblaApi, onSelect]);
 
   return (
     <section className="relative h-[90vh] min-h-[600px] overflow-hidden bg-brand-dark">
-      <Carousel
-        opts={{ loop: true }}
-        plugins={[Autoplay({ delay: 6000, stopOnInteraction: false })]}
-        setApi={setApi}
-        className="absolute inset-0"
-      >
-        <CarouselContent className="h-full -ml-0">
+      {/* Embla viewport */}
+      <div className="absolute inset-0 overflow-hidden" ref={emblaRef}>
+        <div className="flex h-full">
           {slides.map((slide) => (
-            <CarouselItem key={slide.id} className="pl-0 relative">
+            <div
+              key={slide.id}
+              className="relative min-w-0 shrink-0 grow-0 basis-full h-full"
+            >
               <Image
                 src={slide.image}
                 alt={slide.title}
@@ -118,17 +116,17 @@ export function HeroSection() {
                   </Button>
                 </Link>
               </div>
-            </CarouselItem>
+            </div>
           ))}
-        </CarouselContent>
-      </Carousel>
+        </div>
+      </div>
 
       {/* Dot indicators */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-20">
         {slides.map((_, i) => (
           <button
             key={i}
-            onClick={() => api?.scrollTo(i)}
+            onClick={() => emblaApi?.scrollTo(i)}
             className={`w-2.5 h-2.5 rounded-full transition-all duration-500 ${
               i === current
                 ? "bg-brand-gold w-8"
