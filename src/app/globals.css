@@ -1,29 +1,29 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-brand-cream: #FDFBF7;
-  --color-brand-taupe: #4A3E3D;
-  --color-brand-gold: #D3A27F;
-  --color-brand-sand: #F5EFEB;
-  --color-brand-dark: #1E1E1E;
+  --color-brand-cream: rgb(253 251 247);
+  --color-brand-taupe: rgb(74 62 61);
+  --color-brand-gold: rgb(211 162 127);
+  --color-brand-sand: rgb(245 239 235);
+  --color-brand-dark: rgb(30 30 30);
 
   --color-primary: var(--color-brand-gold);
-  --color-primary-foreground: #FFFFFF;
-  --color-secondary: #4A3E3D;
-  --color-secondary-foreground: #FDFBF7;
-  --color-muted: #F5EFEB;
-  --color-muted-foreground: #706E6B;
-  --color-accent: #D3A27F;
-  --color-accent-foreground: #4A3E3D;
-  --color-destructive: #EF4444;
-  --color-destructive-foreground: #FFFFFF;
-  --color-border: #F5EFEB;
-  --color-input: #F5EFEB;
-  --color-ring: #D3A27F;
-  --color-background: #FDFBF7;
-  --color-foreground: #4A3E3D;
-  --color-card: #FFFFFF;
-  --color-card-foreground: #4A3E3D;
+  --color-primary-foreground: rgb(255 255 255);
+  --color-secondary: rgb(74 62 61);
+  --color-secondary-foreground: rgb(253 251 247);
+  --color-muted: rgb(245 239 235);
+  --color-muted-foreground: rgb(112 110 107);
+  --color-accent: rgb(211 162 127);
+  --color-accent-foreground: rgb(74 62 61);
+  --color-destructive: rgb(239 68 68);
+  --color-destructive-foreground: rgb(255 255 255);
+  --color-border: rgb(245 239 235);
+  --color-input: rgb(245 239 235);
+  --color-ring: rgb(211 162 127);
+  --color-background: rgb(253 251 247);
+  --color-foreground: rgb(74 62 61);
+  --color-card: rgb(255 255 255);
+  --color-card-foreground: rgb(74 62 61);
 
   --font-serif: var(--font-playfair), serif;
   --font-sans: var(--font-inter), sans-serif;
