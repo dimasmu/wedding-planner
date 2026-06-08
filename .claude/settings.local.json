@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "Bash(tail:*)",
+      "Bash(npm:*)",
+      "Bash(ls:*)",
+      "Bash(taskkill:*)",
+      "Bash(echo success:*)",
+      "Bash(powershell:*)",
+      "Bash(mkdir:*)",
+      "Bash(cd \"D:/FE/wedding landing page\" && npm_config_registry=https://registry.npmmirror.com npx shadcn@latest init --defaults --force 2>&1)",
+      "Bash(cd \"D:/FE/wedding landing page\" && npm_config_registry=https://registry.npmmirror.com npx shadcn@latest add button card dialog sheet separator input label form toast checkbox progress badge tabs select avatar table dropdown-menu navigation-menu --overwrite --yes 2>&1)",
+      "Bash(cd \"D:/FE/wedding landing page\" && npm_config_registry=https://registry.npmmirror.com npx shadcn@latest add button card dialog sheet separator input label form sonner checkbox progress badge tabs select avatar table dropdown-menu navigation-menu --overwrite --yes 2>&1)",
+      "Bash(cd \"D:/FE/wedding landing page\" && git add -A && git commit -m \"chore: install shadcn/ui, motion, zustand, recharts, and form dependencies\" 2>&1)"
+    ]
+  }
+}
