@@ -32,6 +32,13 @@ export function Navbar() {
         <NavigationMenu className="hidden md:flex">
           <NavigationMenuList>
             <NavigationMenuItem>
+              <Link href="/" legacyBehavior passHref>
+                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                  Home
+                </NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
               <Link href="/vendors" legacyBehavior passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                   Find Vendors
@@ -78,6 +85,9 @@ export function Navbar() {
             </SheetTrigger>
             <SheetContent side="right" className="bg-brand-cream w-[300px]">
               <nav className="flex flex-col gap-6 mt-10">
+                <Link href="/" className="font-serif text-lg text-brand-taupe">
+                  Home
+                </Link>
                 <Link href="/vendors" className="font-serif text-lg text-brand-taupe">
                   Find Vendors
                 </Link>
