@@ -67,7 +67,6 @@ export function HeroSection() {
   const [current, setCurrent] = useState(0);
   const apiRef = useRef(emblaApi);
 
-  // Keep apiRef in sync
   useEffect(() => {
     apiRef.current = emblaApi;
   }, [emblaApi]);
