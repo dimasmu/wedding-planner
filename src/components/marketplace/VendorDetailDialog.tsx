@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Star, MapPin, DollarSign } from "lucide-react";
+import { Star, MapPin } from "lucide-react";
 import { Vendor } from "@/lib/types/vendor";
 import { toast } from "sonner";
 

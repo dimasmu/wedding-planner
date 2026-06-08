@@ -20,7 +20,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import { CalendarDays, Star, DollarSign, Image, Package, Settings, FileText } from "lucide-react";
+import { CalendarDays, Star, DollarSign, Image as ImageIcon, Package, Settings, FileText } from "lucide-react";
 
 const bookings = [
   { id: "B001", client: "Sarah & James", event: "Wedding Reception", date: "2026-08-15", status: "confirmed", amount: 3200 },
@@ -39,7 +39,7 @@ const stats = [
   { label: "Total Bookings", value: "24", icon: CalendarDays },
   { label: "Average Rating", value: "4.8 ★", icon: Star },
   { label: "Revenue YTD", value: "$48,500", icon: DollarSign },
-  { label: "Portfolio Views", value: "1,234", icon: Image },
+  { label: "Portfolio Views", value: "1,234", icon: ImageIcon },
 ];
 
 export default function VendorDashboard() {
@@ -74,7 +74,7 @@ export default function VendorDashboard() {
         <Card className="bg-white border-brand-sand shadow-sm">
           <CardHeader>
             <CardTitle className="font-serif text-lg text-brand-taupe flex items-center gap-2">
-              <Image className="w-4 h-4 text-brand-gold" /> Portfolio
+              <ImageIcon className="w-4 h-4 text-brand-gold" aria-hidden="true" /> Portfolio
             </CardTitle>
             <CardDescription>Manage your gallery and packages.</CardDescription>
           </CardHeader>

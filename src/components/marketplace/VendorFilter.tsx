@@ -22,7 +22,12 @@ interface VendorFilterProps {
 const CATEGORIES = ["Photography", "Videography", "Catering", "Decoration", "Venue", "Music & DJ"];
 const LOCATIONS = ["Jakarta", "Bandung", "Surabaya", "Bali", "Yogyakarta", "Medan"];
 
-export function VendorFilter({ filters, onFilterChange }: VendorFilterProps) {
+interface FilterContentProps {
+  filters: VendorFilters;
+  onFilterChange: (filters: VendorFilters) => void;
+}
+
+function FilterContent({ filters, onFilterChange }: FilterContentProps) {
   const hasActiveFilters =
     filters.category || filters.location || filters.rating || filters.search;
 
@@ -30,7 +35,7 @@ export function VendorFilter({ filters, onFilterChange }: VendorFilterProps) {
     onFilterChange({ category: null, location: null, priceRange: null, rating: null, search: "" });
   };
 
-  const FilterContent = () => (
+  return (
     <div className="space-y-6">
       <div>
         <Label className="text-brand-taupe text-sm">Search</Label>
@@ -138,6 +143,11 @@ export function VendorFilter({ filters, onFilterChange }: VendorFilterProps) {
       )}
     </div>
   );
+}
+
+export function VendorFilter({ filters, onFilterChange }: VendorFilterProps) {
+  const hasActiveFilters =
+    filters.category || filters.location || filters.rating || filters.search;
 
   return (
     <>
@@ -148,7 +158,7 @@ export function VendorFilter({ filters, onFilterChange }: VendorFilterProps) {
               <SlidersHorizontal className="w-4 h-4" /> Filters
             </h3>
           </div>
-          <FilterContent />
+          <FilterContent filters={filters} onFilterChange={onFilterChange} />
         </div>
       </aside>
 
@@ -169,7 +179,7 @@ export function VendorFilter({ filters, onFilterChange }: VendorFilterProps) {
               <SheetTitle className="font-serif text-brand-taupe">Filters</SheetTitle>
             </SheetHeader>
             <div className="mt-6">
-              <FilterContent />
+              <FilterContent filters={filters} onFilterChange={onFilterChange} />
             </div>
           </SheetContent>
         </Sheet>

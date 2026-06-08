@@ -30,7 +30,7 @@ export default function LoginPage() {
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = async (data: LoginFormData) => {
+  const onSubmit = async () => {
     setIsLoading(true);
     await new Promise((r) => setTimeout(r, 1000));
     toast("Welcome back! You've been logged in successfully.");

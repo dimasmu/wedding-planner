@@ -23,10 +23,8 @@ const navItems = [
   { href: "/dashboard/settings", label: "Settings", icon: Settings },
 ];
 
-export function Sidebar() {
-  const pathname = usePathname();
-
-  const NavLinks = () => (
+function NavLinks({ pathname }: { pathname: string }) {
+  return (
     <nav className="flex flex-col gap-1">
       {navItems.map(({ href, label, icon: Icon }) => (
         <Link
@@ -45,6 +43,10 @@ export function Sidebar() {
       ))}
     </nav>
   );
+}
+
+export function Sidebar() {
+  const pathname = usePathname();
 
   return (
     <>
@@ -56,7 +58,7 @@ export function Sidebar() {
               SOLA
             </span>
           </Link>
-          <NavLinks />
+          <NavLinks pathname={pathname} />
         </div>
       </aside>
 
@@ -70,7 +72,7 @@ export function Sidebar() {
           </SheetTrigger>
           <SheetContent side="left" className="bg-white w-[260px]">
             <div className="mt-8">
-              <NavLinks />
+              <NavLinks pathname={pathname} />
             </div>
           </SheetContent>
         </Sheet>
