@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
@@ -59,21 +59,36 @@ const slides = [
 ];
 
 export function HeroSection() {
+  const autoplayRef = useRef(Autoplay({ delay: 6000, stopOnInteraction: false }));
   const [emblaRef, emblaApi] = useEmblaCarousel(
     { loop: true },
-    [Autoplay({ delay: 6000, stopOnInteraction: false })]
+    [autoplayRef.current]
   );
   const [current, setCurrent] = useState(0);
+  const apiRef = useRef(emblaApi);
+
+  // Keep apiRef in sync
+  useEffect(() => {
+    apiRef.current = emblaApi;
+  }, [emblaApi]);
 
   const onSelect = useCallback(() => {
-    if (!emblaApi) return;
-    setCurrent(emblaApi.selectedScrollSnap());
-  }, [emblaApi]);
+    const api = apiRef.current;
+    if (!api) return;
+    setCurrent(api.selectedScrollSnap());
+  }, []);
+
+  const scrollTo = useCallback((index: number) => {
+    apiRef.current?.scrollTo(index);
+  }, []);
 
   useEffect(() => {
     if (!emblaApi) return;
     emblaApi.on("select", onSelect);
     onSelect();
+    return () => {
+      emblaApi.off("select", onSelect);
+    };
   }, [emblaApi, onSelect]);
 
   return (
@@ -126,7 +141,7 @@ export function HeroSection() {
         {slides.map((_, i) => (
           <button
             key={i}
-            onClick={() => emblaApi?.scrollTo(i)}
+            onClick={() => scrollTo(i)}
             className={`w-2.5 h-2.5 rounded-full transition-all duration-500 ${
               i === current
                 ? "bg-brand-gold w-8"
