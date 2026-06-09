@@ -361,7 +361,7 @@ export default function AboutPage() {
             <div className="relative rounded-sm overflow-hidden max-w-4xl mx-auto">
               {/* 3 equal 16:9 images in a row */}
               <div className="grid grid-cols-3 gap-1 md:gap-2">
-                <div className="relative aspect-[4/3]">
+                <div className="relative aspect-[3/2]">
                   <Image
                     src="/asset/about_us/pexels-rebornfilmes-35114152.jpg"
                     alt="Beautifully decorated wedding reception hall with elegant table settings"
@@ -370,7 +370,7 @@ export default function AboutPage() {
                     sizes="(max-width: 768px) 100vw, 33vw"
                   />
                 </div>
-                <div className="relative aspect-[4/3]">
+                <div className="relative aspect-[3/2]">
                   <Image
                     src="/asset/about_us/pexels-esma-nur-buyukguclu-112544374-35241391.jpg"
                     alt="Close-up of wedding reception floral centerpiece arrangement"
@@ -379,7 +379,7 @@ export default function AboutPage() {
                     sizes="(max-width: 768px) 100vw, 33vw"
                   />
                 </div>
-                <div className="relative aspect-[4/3]">
+                <div className="relative aspect-[3/2]">
                   <Image
                     src="/asset/about_us/StockSnap_NABNCHL6PX.jpg"
                     alt="Wedding celebration with champagne toast and elegant décor"
