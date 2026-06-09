@@ -600,42 +600,97 @@ export default function AboutPage() {
           <RevealSection>
             {/* card container */}
             <div className="max-w-2xl mx-auto bg-white/60 backdrop-blur-sm rounded-2xl border border-brand-gold/10 shadow-lg shadow-brand-gold/5 p-10 md:p-14">
-              {/* social links row */}
-              <div className="flex items-center justify-center gap-6">
+              {/* social links grid — 3x2 */}
+              <div className="grid grid-cols-3 gap-6 md:gap-10">
+                {/* Facebook */}
                 <Link
                   href="https://facebook.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Facebook"
-                  className="text-brand-taupe/50 hover:text-brand-gold hover:scale-110 transition-all duration-300"
+                  className="flex flex-col items-center gap-1.5 text-brand-taupe/40 hover:text-brand-gold hover:scale-110 transition-all duration-300"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
                   </svg>
+                  <span className="text-[10px] tracking-[0.15em] uppercase">Facebook</span>
                 </Link>
+
+                {/* Instagram */}
+                <Link
+                  href="https://instagram.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram"
+                  className="flex flex-col items-center gap-1.5 text-brand-taupe/40 hover:text-brand-gold hover:scale-110 transition-all duration-300"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5" />
+                    <circle cx="12" cy="12" r="4" />
+                    <circle cx="17.5" cy="6.5" r="1" />
+                  </svg>
+                  <span className="text-[10px] tracking-[0.15em] uppercase">Instagram</span>
+                </Link>
+
+                {/* TikTok */}
+                <Link
+                  href="https://tiktok.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="TikTok"
+                  className="flex flex-col items-center gap-1.5 text-brand-taupe/40 hover:text-brand-gold hover:scale-110 transition-all duration-300"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+                  </svg>
+                  <span className="text-[10px] tracking-[0.15em] uppercase">TikTok</span>
+                </Link>
+
+                {/* LinkedIn */}
                 <Link
                   href="https://linkedin.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="LinkedIn"
-                  className="text-brand-taupe/50 hover:text-brand-gold hover:scale-110 transition-all duration-300"
+                  className="flex flex-col items-center gap-1.5 text-brand-taupe/40 hover:text-brand-gold hover:scale-110 transition-all duration-300"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
                     <rect width="4" height="12" x="2" y="9" />
                     <circle cx="4" cy="4" r="2" />
                   </svg>
+                  <span className="text-[10px] tracking-[0.15em] uppercase">LinkedIn</span>
                 </Link>
+
+                {/* X / Twitter */}
                 <Link
                   href="https://x.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Twitter"
-                  className="text-brand-taupe/50 hover:text-brand-gold hover:scale-110 transition-all duration-300"
+                  className="flex flex-col items-center gap-1.5 text-brand-taupe/40 hover:text-brand-gold hover:scale-110 transition-all duration-300"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M4 4l11.733 16h4.267l-11.733 -16z" /><path d="M4 20l6.768 -6.768m2.46 -2.46L20 4" />
                   </svg>
+                  <span className="text-[10px] tracking-[0.15em] uppercase">X</span>
+                </Link>
+
+                {/* Pinterest */}
+                <Link
+                  href="https://pinterest.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Pinterest"
+                  className="flex flex-col items-center gap-1.5 text-brand-taupe/40 hover:text-brand-gold hover:scale-110 transition-all duration-300"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="m8 22 4-14" />
+                    <path d="M12 2a7.3 7.3 0 0 0-7 7c0 2.6 1.4 4.9 3.5 6" />
+                    <path d="M12 2a7.3 7.3 0 0 1 7 7c0 2.6-1.4 4.9-3.5 6" />
+                  </svg>
+                  <span className="text-[10px] tracking-[0.15em] uppercase">Pinterest</span>
                 </Link>
               </div>
             </div>
