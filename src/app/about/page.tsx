@@ -250,42 +250,39 @@ export default function AboutPage() {
       </section>
 
       {/* ─── 2. Who We Are ──────────────────── */}
-      <section className="py-32 md:py-40 relative overflow-hidden">
+      <section className="py-32 md:py-40 relative overflow-hidden" style={{ background: "linear-gradient(180deg, #fdf0e4 0%, #fef9f2 100%)" }}>
         <div
-          className="absolute inset-0 opacity-[0.015]"
-          style={{ backgroundImage: "radial-gradient(circle, #3d3025 1px, transparent 1px)", backgroundSize: "32px 32px" }}
+          className="absolute top-0 right-0 w-80 h-80 opacity-[0.04]"
+          style={{ background: "radial-gradient(circle, rgb(211 162 127) 0%, transparent 70%)" }}
         />
         <div className="container mx-auto px-6 relative z-10">
           <RevealSection>
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center max-w-7xl mx-auto">
               {/* Image */}
               <div className="lg:col-span-5 relative">
-                <div className="relative aspect-[3/4] overflow-hidden rounded-sm">
+                <div className="relative aspect-[3/4] overflow-hidden rounded-sm group">
                   <Image
                     src="/asset/about_us/StockSnap_NABNCHL6PX.jpg"
                     alt="Elegant wedding champagne toast celebration"
                     fill
-                    className="object-cover"
+                    className="object-cover transition-all duration-700 ease-out group-hover:scale-[1.03]"
                     sizes="(max-width: 1024px) 100vw, 42vw"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-taupe/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                 </div>
-                <div className="absolute -bottom-6 -right-6 w-32 h-32 border border-brand-gold/30 hidden lg:block" />
+                {/* Corner ornament — softer */}
+                <div className="absolute -bottom-6 -right-6 w-20 h-20 border-r border-b border-brand-gold/20 hidden lg:block" />
               </div>
 
               {/* Text */}
               <div className="lg:col-span-7 lg:pl-8">
-                <div className="mb-6">
-                  <Image
-                    src="/asset/about_us/Sola-Logo-2.png"
-                    alt="SOLA Logo"
-                    width={120}
-                    height={40}
-                    className="h-auto w-auto"
-                  />
+                {/* SOLA logo — moved to text side */}
+                <div className="mb-4">
+                  <span className="font-serif text-3xl text-brand-gold italic tracking-wider">SOLA</span>
                 </div>
                 <div className="flex items-center gap-3 mb-8">
-                  <div className="h-px w-12 bg-brand-gold/40" />
-                  <span className="text-xs tracking-[0.2em] uppercase text-brand-taupe/60 font-medium">
+                  <div className="h-px w-12 bg-gradient-to-r from-transparent to-brand-gold/40" />
+                  <span className="text-[11px] tracking-[0.2em] uppercase text-brand-gold/60 font-medium">
                     Who We Are
                   </span>
                 </div>
@@ -293,14 +290,20 @@ export default function AboutPage() {
                   Event Planner <span className="text-brand-gold italic text-[1.3em]">&amp;</span> Organizer
                 </h2>
                 <div className="space-y-5 max-w-xl">
-                  <p className="text-brand-taupe/70 leading-relaxed text-lg font-light">
+                  <p className="text-brand-taupe/65 leading-relaxed text-lg font-light">
                     Turn your event dreams into reality with SOLA. We&rsquo;re a passionate event planning
                     and orchestration team, dedicated to crafting unforgettable experiences tailored just for you.
                   </p>
-                  <p className="text-brand-taupe/70 leading-relaxed">
+                  <p className="text-brand-taupe/65 leading-relaxed font-light">
                     From pinpointing the perfect venue to seamlessly coordinating with vendors, we work
                     hand-in-hand to understand your preferences, budget, and the unique vibe you desire.
                   </p>
+                </div>
+                {/* Closing flourish */}
+                <div className="flex items-center gap-2 mt-8">
+                  <div className="h-px w-6 bg-gradient-to-r from-transparent to-brand-gold/30" />
+                  <div className="w-1 h-1 rounded-full bg-brand-gold/30" />
+                  <div className="h-px w-6 bg-gradient-to-l from-transparent to-brand-gold/30" />
                 </div>
               </div>
             </div>
