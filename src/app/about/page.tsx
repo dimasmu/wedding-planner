@@ -464,39 +464,49 @@ export default function AboutPage() {
       </section>
 
       {/* ─── 5. Why Choose SOLA ─────────────── */}
-      <section className="py-32 md:py-40 bg-brand-sand relative overflow-hidden">
-        <div className="container mx-auto px-6 max-w-6xl relative z-10">
+      <section className="py-32 md:py-40 relative overflow-hidden" style={{ background: "linear-gradient(180deg, #fdf0e4 0%, #fef9f2 60%, #fef4ee 100%)" }}>
+        {/* Center glow */}
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[400px]"
+          style={{ background: "radial-gradient(ellipse, rgba(211,162,127,0.05) 0%, transparent 70%)" }}
+        />
+        <div className="container mx-auto px-6 max-w-5xl relative z-10">
           <RevealSection>
             <div className="text-center mb-20">
-              <SectionOrnament />
-              <h2 className="font-serif text-4xl md:text-5xl text-brand-taupe mb-4">
+              <ConcentricRings />
+              <h2 className="font-serif text-4xl md:text-5xl text-brand-taupe italic mb-4">
                 Why Choose SOLA
               </h2>
-              <p className="text-brand-taupe/70 text-lg font-light">
+              <p className="text-brand-gold/60 text-lg font-light">
                 What sets us apart from the rest
               </p>
             </div>
           </RevealSection>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {[
               { num: "01", title: "Personal Touch", desc: "Every client gets a dedicated planner who knows your style, preferences, and story inside out. You're never just a number." },
               { num: "02", title: "Vetted Vendors", desc: "We only work with thoroughly vetted professionals who share our obsession with quality and attention to detail." },
               { num: "03", title: "Transparent Pricing", desc: "No hidden fees, no surprises. You receive a detailed proposal upfront so you know exactly what you're paying for." },
               { num: "04", title: "Stress-Free Day", desc: "On-site coordination means you can relax and soak in every moment while we handle everything behind the scenes." },
-            ].map((item) => (
-              <RevealSection key={item.num}>
-                <Card className="group h-full border-brand-gold/10 bg-white/60 backdrop-blur-sm hover:bg-white hover:shadow-lg hover:shadow-brand-gold/5 hover:-translate-y-1 transition-all duration-500 cursor-pointer">
-                  <CardHeader>
-                    <span className="font-serif text-5xl text-brand-gold/20 group-hover:text-brand-gold/40 transition-colors duration-500">
+            ].map((item, i) => (
+              <RevealSection key={item.num} delay={i * 100}>
+                <Card className="group h-full bg-white/70 backdrop-blur-sm border-brand-gold/10 hover:border-brand-gold/20 transition-all duration-500 relative overflow-hidden">
+                  {/* Corner glow */}
+                  <div
+                    className="absolute top-0 right-0 w-16 h-16"
+                    style={{ background: "radial-gradient(circle at 100% 0%, rgba(211,162,127,0.06) 0%, transparent 70%)" }}
+                  />
+                  <CardHeader className="relative z-10">
+                    <span className="font-serif text-5xl italic text-brand-gold/[0.12]">
                       {item.num}
                     </span>
-                    <CardTitle className="font-serif text-2xl text-brand-taupe mt-2">
+                    <CardTitle className="font-serif text-xl md:text-2xl text-brand-taupe mt-2">
                       {item.title}
                     </CardTitle>
                   </CardHeader>
-                  <CardContent>
-                    <p className="text-brand-taupe/70 leading-relaxed font-light">
+                  <CardContent className="relative z-10">
+                    <p className="text-brand-taupe/55 leading-relaxed font-light text-sm md:text-base">
                       {item.desc}
                     </p>
                   </CardContent>
