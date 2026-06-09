@@ -312,47 +312,60 @@ export default function AboutPage() {
       </section>
 
       {/* ─── 3. Our Story ────────────────────── */}
-      <section className="py-32 md:py-40 bg-brand-sand relative overflow-hidden">
+      <section className="py-32 md:py-40 relative overflow-hidden" style={{ background: "linear-gradient(180deg, #fef9f2 0%, #fef4ee 100%)" }}>
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: "radial-gradient(circle, rgba(211,162,127,0.04) 1px, transparent 1px)",
+            backgroundSize: "20px 20px",
+          }}
+        />
         <div className="container mx-auto px-6 max-w-5xl relative z-10">
           <RevealSection>
             <div className="text-center mb-24">
-              <SectionOrnament />
+              <WreathDivider />
               <h2 className="font-serif text-4xl md:text-5xl text-brand-taupe mb-4">
                 The Story Between Us
               </h2>
-              <p className="text-brand-taupe/70 text-lg font-light">
+              <p className="text-brand-gold/70 text-lg font-light italic">
                 How a passion became a purpose
               </p>
             </div>
           </RevealSection>
 
           <div className="relative">
-            <div className="absolute left-6 md:left-1/2 md:-translate-x-px top-0 bottom-0 w-px bg-brand-gold/30" />
-            <div className="space-y-20">
+            {/* Gradient center line */}
+            <div
+              className="absolute left-6 md:left-1/2 md:-translate-x-px top-0 bottom-0 w-px"
+              style={{ background: "linear-gradient(180deg, transparent 0%, rgba(211,162,127,0.25) 10%, rgba(211,162,127,0.25) 90%, transparent 100%)" }}
+            />
+            <div className="space-y-24">
               {storySteps.map((step, i) => {
                 const isLeft = i % 2 === 0;
+                const isLast = i === storySteps.length - 1;
                 return (
-                  <RevealSection key={step.year}>
+                  <RevealSection key={step.year} delay={i * 100}>
                     <div className="relative grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-                      <div className="absolute left-[18px] md:left-1/2 md:-translate-x-1/2 top-2 w-4 h-4 rounded-full border-2 border-brand-gold bg-brand-sand z-10" />
+                      {/* Timeline dot — larger and solid on last item */}
+                      <div className={`absolute left-[22px] md:left-1/2 md:-translate-x-1/2 top-2 rounded-full border-2 border-brand-gold bg-[#fef4ee] z-10 ${isLast ? "w-3.5 h-3.5 bg-brand-gold" : "w-2.5 h-2.5 bg-brand-gold/50"}`} />
                       {isLeft ? (
                         <>
                           <div className="md:text-right md:pr-14 pt-0">
-                            <span className="font-serif text-5xl text-brand-gold/20">{step.year}</span>
+                            <span className="font-serif text-5xl italic text-brand-gold/[0.15]">{step.year}</span>
                           </div>
                           <div className="md:pl-14">
                             <h3 className="font-serif text-2xl text-brand-taupe mb-3">{step.title}</h3>
-                            <p className="text-brand-taupe/70 leading-relaxed font-light">{step.text}</p>
+                            <p className="text-brand-taupe/60 leading-relaxed font-light">{step.text}</p>
                           </div>
                         </>
                       ) : (
                         <>
                           <div className="md:col-start-2 md:pl-14">
-                            <span className="font-serif text-5xl text-brand-gold/20">{step.year}</span>
+                            <span className="font-serif text-5xl italic text-brand-gold/[0.15]">{step.year}</span>
                           </div>
                           <div className="md:col-start-1 md:row-start-1 md:text-right md:pr-14">
                             <h3 className="font-serif text-2xl text-brand-taupe mb-3">{step.title}</h3>
-                            <p className="text-brand-taupe/70 leading-relaxed font-light">{step.text}</p>
+                            <p className="text-brand-taupe/60 leading-relaxed font-light">{step.text}</p>
                           </div>
                         </>
                       )}
