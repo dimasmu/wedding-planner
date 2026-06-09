@@ -622,60 +622,58 @@ export default function AboutPage() {
       </section>
 
       {/* ─── 8. Connect With Us ──────────────── */}
-      <section className="py-32 md:py-40 bg-brand-sand relative overflow-hidden">
-        <div
-          className="absolute -top-32 -right-32 w-96 h-96 rounded-full opacity-[0.03]"
-          style={{ background: "radial-gradient(circle, rgb(211 162 127) 0%, transparent 70%)" }}
-        />
-        <div className="container mx-auto px-6 max-w-4xl relative z-10">
+      <section className="py-32 md:py-40 relative overflow-hidden" style={{ background: "linear-gradient(180deg, #C4856E 0%, #a06a56 30%, #fef4ee 50%, #fef9f2 100%)" }}>
+        {/* Decorative rings */}
+        <div className="absolute top-[20%] right-[15%] w-[180px] h-[180px] border border-white/[0.06] rounded-full" />
+        <div className="absolute bottom-[30%] left-[10%] w-[100px] h-[100px] border border-brand-gold/[0.08] rounded-full" />
+        <div className="container mx-auto px-6 max-w-lg relative z-10">
           <RevealSection>
-            <div className="text-center mb-16">
-              <div className="flex items-center justify-center gap-3 mb-6">
-                <div className="h-px w-8 bg-brand-gold/40" />
-                <SparklesIcon className="w-4 h-4 text-brand-gold" />
-                <div className="h-px w-8 bg-brand-gold/40" />
+            <div className="text-center mb-14">
+              <div className="mb-6">
+                <MonogramBadge />
               </div>
-              <h2 className="font-serif text-4xl md:text-5xl text-brand-taupe mb-4">
+              <SteppedLinesDot />
+              <h2 className="font-serif text-4xl md:text-5xl text-brand-taupe italic mb-4">
                 Connect With Us
               </h2>
-              <p className="text-brand-taupe/70 text-lg font-light max-w-md mx-auto">
+              <p className="text-brand-gold/60 text-lg font-light italic max-w-md mx-auto">
                 Stay inspired — follow our journey and see the magic we create every day
               </p>
             </div>
           </RevealSection>
 
-          <RevealSection>
-            <Card className="max-w-md mx-auto bg-white/60 backdrop-blur-sm border-brand-gold/10">
-              <CardContent className="p-10 flex flex-col items-center gap-6">
-                <div className="flex items-center gap-6">
-                  <Link href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-brand-taupe/40 hover:text-brand-gold hover:scale-110 transition-all duration-300">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
-                      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-                    </svg>
-                  </Link>
-                  <Link href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-brand-taupe/40 hover:text-brand-gold hover:scale-110 transition-all duration-300">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
-                      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-                      <rect width="4" height="12" x="2" y="9" />
-                      <circle cx="4" cy="4" r="2" />
-                    </svg>
-                  </Link>
-                  <Link href="https://x.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter" className="text-brand-taupe/40 hover:text-brand-gold hover:scale-110 transition-all duration-300">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
-                      <path d="M4 4l11.733 16h4.267l-11.733 -16z" /><path d="M4 20l6.768 -6.768m2.46 -2.46L20 4" />
-                    </svg>
-                  </Link>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="h-px w-8 bg-brand-gold/15" />
-                  <span className="w-1 h-1 rounded-full bg-brand-gold/20" />
-                  <div className="h-px w-8 bg-brand-gold/15" />
-                </div>
-                <p className="text-brand-taupe/40 text-sm font-light italic">
-                  Let&rsquo;s create something beautiful together
-                </p>
-              </CardContent>
-            </Card>
+          <RevealSection delay={200}>
+            {/* Social icons — circle frames */}
+            <div className="flex justify-center gap-5 mb-8">
+              <Link href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="w-11 h-11 rounded-full border border-brand-gold/20 flex items-center justify-center text-brand-gold/40 hover:text-brand-gold hover:border-brand-gold/40 hover:scale-110 transition-all duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                </svg>
+              </Link>
+              <Link href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="w-11 h-11 rounded-full border border-brand-gold/20 flex items-center justify-center text-brand-gold/40 hover:text-brand-gold hover:border-brand-gold/40 hover:scale-110 transition-all duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                  <rect width="4" height="12" x="2" y="9" />
+                  <circle cx="4" cy="4" r="2" />
+                </svg>
+              </Link>
+              <Link href="https://x.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter" className="w-11 h-11 rounded-full border border-brand-gold/20 flex items-center justify-center text-brand-gold/40 hover:text-brand-gold hover:border-brand-gold/40 hover:scale-110 transition-all duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M4 4l11.733 16h4.267l-11.733 -16z" /><path d="M4 20l6.768 -6.768m2.46 -2.46L20 4" />
+                </svg>
+              </Link>
+            </div>
+
+            {/* Closing ornament */}
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <div className="h-px w-6 bg-gradient-to-r from-transparent to-brand-gold/15" />
+              <div className="w-1 h-1 rounded-full bg-brand-gold/20" />
+              <div className="h-px w-6 bg-gradient-to-l from-transparent to-brand-gold/15" />
+            </div>
+
+            <p className="text-brand-gold/40 text-sm font-light italic text-center">
+              Let&rsquo;s create something beautiful together
+            </p>
           </RevealSection>
         </div>
       </section>
