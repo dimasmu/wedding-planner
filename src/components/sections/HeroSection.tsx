@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
-import useEmblaCarousel from "embla-carousel-react";
+import { useState, useEffect, useRef } from "react";
+import EmblaCarousel from "embla-carousel";
 import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
 import Link from "next/link";
@@ -59,41 +59,36 @@ const slides = [
 ];
 
 export function HeroSection() {
-  const autoplayRef = useRef(Autoplay({ delay: 6000, stopOnInteraction: false }));
-  const [emblaRef, emblaApi] = useEmblaCarousel(
-    { loop: true },
-    [autoplayRef.current]
-  );
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const emblaApiRef = useRef<ReturnType<typeof EmblaCarousel> | null>(null);
+  const autoplayPlugin = useRef(Autoplay({ delay: 6000, stopOnInteraction: false }));
   const [current, setCurrent] = useState(0);
-  const apiRef = useRef(emblaApi);
 
   useEffect(() => {
-    apiRef.current = emblaApi;
-  }, [emblaApi]);
+    const viewport = viewportRef.current;
+    if (!viewport) return;
 
-  const onSelect = useCallback(() => {
-    const api = apiRef.current;
-    if (!api) return;
-    setCurrent(api.selectedScrollSnap());
-  }, []);
+    const emblaApi = EmblaCarousel(viewport, { loop: true }, [autoplayPlugin.current]);
+    emblaApiRef.current = emblaApi;
 
-  const scrollTo = useCallback((index: number) => {
-    apiRef.current?.scrollTo(index);
-  }, []);
-
-  useEffect(() => {
-    if (!emblaApi) return;
+    const onSelect = () => setCurrent(emblaApi.selectedScrollSnap());
     emblaApi.on("select", onSelect);
     onSelect();
+
     return () => {
-      emblaApi.off("select", onSelect);
+      emblaApi.destroy();
+      emblaApiRef.current = null;
     };
-  }, [emblaApi, onSelect]);
+  }, []);
+
+  const scrollTo = (index: number) => {
+    emblaApiRef.current?.scrollTo(index);
+  };
 
   return (
     <section className="relative h-[90vh] min-h-[600px] overflow-hidden bg-brand-dark">
       {/* Embla viewport */}
-      <div className="absolute inset-0 overflow-hidden" ref={emblaRef}>
+      <div className="absolute inset-0 overflow-hidden" ref={viewportRef}>
         <div className="flex h-full">
           {slides.map((slide) => (
             <div

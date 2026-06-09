@@ -12,7 +12,6 @@ import {
 import {
   NavigationMenu,
   NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
@@ -32,31 +31,28 @@ export function Navbar() {
         <NavigationMenu className="hidden md:flex">
           <NavigationMenuList>
             <NavigationMenuItem>
-              <Link href="/" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  Home
-                </NavigationMenuLink>
+              <Link href="/" className={navigationMenuTriggerStyle()}>
+                Home
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/vendors" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  Find Vendors
-                </NavigationMenuLink>
+              <Link href="/about" className={navigationMenuTriggerStyle()}>
+                About
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/inspiration" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  Inspiration
-                </NavigationMenuLink>
+              <Link href="/vendors" className={navigationMenuTriggerStyle()}>
+                Find Vendors
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/pricing" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  Pricing
-                </NavigationMenuLink>
+              <Link href="/inspiration" className={navigationMenuTriggerStyle()}>
+                Inspiration
+              </Link>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <Link href="/pricing" className={navigationMenuTriggerStyle()}>
+                Pricing
               </Link>
             </NavigationMenuItem>
           </NavigationMenuList>
@@ -78,15 +74,18 @@ export function Navbar() {
         {/* Mobile Navigation Drawer */}
         <div className="flex md:hidden">
           <Sheet>
-            <SheetTrigger>
-              <Button variant="ghost" className="px-2 text-brand-taupe" aria-label="Menu">
-                <Menu className="h-6 w-6" />
-              </Button>
+            <SheetTrigger
+              render={<Button variant="ghost" className="px-2 text-brand-taupe" aria-label="Menu" />}
+            >
+              <Menu className="h-6 w-6" />
             </SheetTrigger>
             <SheetContent side="right" className="bg-brand-cream w-[300px]">
               <nav className="flex flex-col gap-6 mt-10">
                 <Link href="/" className="font-serif text-lg text-brand-taupe">
                   Home
+                </Link>
+                <Link href="/about" className="font-serif text-lg text-brand-taupe">
+                  About
                 </Link>
                 <Link href="/vendors" className="font-serif text-lg text-brand-taupe">
                   Find Vendors
