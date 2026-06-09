@@ -571,45 +571,43 @@ export default function AboutPage() {
       </section>
 
       {/* ─── 7. FAQ ─────────────────────────── */}
-      <section
-        className="py-32 md:py-40 relative overflow-hidden"
-        style={{ backgroundColor: "#628E90" }}
-      >
-        <div className="container mx-auto px-6 max-w-3xl relative z-10">
+      <section className="py-32 md:py-40 relative overflow-hidden" style={{ background: "linear-gradient(180deg, #b07560 0%, #C4856E 20%, #C4856E 100%)" }}>
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px)",
+            backgroundSize: "18px 18px",
+          }}
+        />
+        <div className="container mx-auto px-6 max-w-2xl relative z-10">
           <RevealSection>
-            <div className="text-center mb-20">
-              <div className="flex items-center justify-center gap-3 mb-6">
-                <div className="h-px w-8 bg-white/20" />
-                <SparklesIcon className="w-4 h-4 text-white/70" />
-                <div className="h-px w-8 bg-white/20" />
-              </div>
-              <h2 className="font-serif text-4xl md:text-5xl text-white mb-4">
+            <div className="text-center mb-16">
+              <SimpleLineDotDivider />
+              <h2 className="font-serif text-4xl md:text-5xl text-white italic mb-4">
                 Your Questions, Answered
               </h2>
-              <p className="text-white/60 text-lg font-light">
+              <p className="text-white/45 text-lg font-light italic">
                 Everything you need to know
               </p>
             </div>
           </RevealSection>
 
           <RevealSection>
-            <Card className="bg-white/95 backdrop-blur-sm border-none shadow-lg">
+            <Card className="bg-white/95 backdrop-blur-md border-none shadow-lg shadow-black/5 rounded-lg">
               <CardContent className="p-6 md:p-8">
                 <Accordion className="w-full">
                   {faqs.map((faq, i) => (
-                    <AccordionItem key={i} value={`item-${i}`} className="border-[#628E90]/10">
-                      <AccordionTrigger
-                        className="font-sans text-base md:text-lg text-brand-taupe font-medium hover:text-brand-gold transition-colors duration-300 hover:no-underline py-5 px-3 rounded-md"
-                        style={{ backgroundColor: "#FFFFF0" }}
-                      >
-                        <span className="font-serif text-2xl text-brand-gold/40 w-10 shrink-0 tabular-nums mr-4">
+                    <AccordionItem key={i} value={`item-${i}`} className="border-[#C4856E]/10">
+                      <AccordionTrigger className="font-sans text-base md:text-lg text-brand-taupe font-medium hover:text-brand-gold transition-colors duration-300 hover:no-underline py-5 px-2 rounded-md bg-transparent">
+                        <span className="font-serif text-xl italic text-brand-gold/35 w-8 shrink-0 mr-3 tabular-nums">
                           {String(i + 1).padStart(2, "0")}
                         </span>
-                        {faq.q}
+                        <span className="text-left">{faq.q}</span>
+                        <span className="ml-auto text-brand-gold/40 text-xl font-light">+</span>
                       </AccordionTrigger>
                       <AccordionContent>
-                        <div className="pl-14 pr-3 pb-4" style={{ backgroundColor: "#FFFFF0" }}>
-                          <p className="text-brand-taupe/70 leading-relaxed text-sm md:text-base">
+                        <div className="pl-12 pr-4 pb-5">
+                          <p className="text-brand-taupe/65 leading-relaxed text-sm md:text-base">
                             {faq.a}
                           </p>
                         </div>
