@@ -207,37 +207,44 @@ export default function AboutPage() {
   return (
     <main className="bg-brand-cream">
       {/* ─── 1. Hero ─────────────────────────── */}
-      <section className="relative h-screen min-h-[600px] overflow-hidden">
-        <Image
-          src="/asset/about_us/pexels-rebornfilmes-32805118.jpg"
-          alt="Elegant wedding reception setup with floral centerpieces"
-          fill
-          className="object-cover scale-105"
-          sizes="100vw"
-          priority
-        />
-        <div
-          className="absolute inset-0 z-10"
-          style={{ background: "radial-gradient(ellipse 80% 60% at 50% 40%, transparent 0%, rgba(30,30,30,0.15) 35%, rgba(30,30,30,0.6) 100%)" }}
-        />
-        <div className="absolute inset-0 z-10 bg-gradient-to-t from-brand-dark/40 via-transparent to-transparent" />
+      <section className="relative h-screen min-h-[600px] overflow-hidden" style={{ background: "linear-gradient(180deg, #fef9f2 0%, #fdf0e4 35%, #fbe5d3 70%, #faebd7 100%)" }}>
+        {/* Floating circles */}
+        <div className="absolute top-[12%] right-[15%] w-20 h-20 border border-brand-gold/15 rounded-full animate-float" />
+        <div className="absolute bottom-[25%] left-[10%] w-12 h-12 border border-brand-gold/10 rounded-full animate-float [animation-delay:2s]" />
+        <div className="absolute top-[40%] right-[8%] w-8 h-8 border border-brand-gold/10 rounded-full animate-float [animation-delay:1s]" />
 
-        <div className="relative z-20 h-full flex flex-col items-center justify-center text-center px-6">
-          <div className="flex items-center gap-4 mb-8">
-            <div className="h-px w-16 bg-brand-gold/50" />
-            <span className="w-1.5 h-1.5 rounded-full bg-brand-gold/60" />
-            <div className="h-px w-16 bg-brand-gold/50" />
+        {/* Dot pattern — radial masked */}
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: "radial-gradient(circle, rgba(211,162,127,0.06) 1px, transparent 1px)",
+            backgroundSize: "28px 28px",
+            maskImage: "radial-gradient(ellipse 60% 40% at 50% 50%, black 0%, transparent 100%)",
+            WebkitMaskImage: "radial-gradient(ellipse 60% 40% at 50% 50%, black 0%, transparent 100%)",
+          }}
+        />
+
+        {/* Warm center glow */}
+        <div
+          className="absolute top-[30%] left-1/2 -translate-x-1/2 w-[400px] h-[300px]"
+          style={{ background: "radial-gradient(ellipse, rgba(211,162,127,0.1) 0%, transparent 70%)" }}
+        />
+
+        {/* Content */}
+        <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
+          <div className="mb-6">
+            <MonogramBadge />
           </div>
-          <h1 className="font-serif text-5xl sm:text-7xl md:text-8xl text-brand-cream tracking-[0.02em] mb-6">
+          <SimpleLineDotDivider />
+          <h1 className="font-serif text-5xl sm:text-7xl md:text-[72px] text-brand-taupe italic tracking-[-0.01em] mb-4 leading-[1.1]">
             About SOLA
           </h1>
-          <p className="text-brand-cream/60 text-lg md:text-xl max-w-xl font-light tracking-wide">
-            Where every celebration becomes a masterpiece
+          <p className="text-brand-gold/80 text-base md:text-lg font-light italic tracking-wide">
+            where celebrations bloom
           </p>
-          <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20">
-            <div className="w-6 h-10 rounded-full border-2 border-brand-cream/20 flex justify-center pt-2">
-              <div className="w-1 h-2 rounded-full bg-brand-gold/60 animate-bounce" />
-            </div>
+          <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2">
+            <span className="text-[10px] tracking-[0.2em] uppercase text-brand-gold/50">Discover our story</span>
+            <div className="w-px h-8 bg-gradient-to-b from-brand-gold/40 to-transparent" />
           </div>
         </div>
       </section>
