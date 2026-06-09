@@ -209,9 +209,9 @@ export default function AboutPage() {
       {/* ─── 1. Hero ─────────────────────────── */}
       <section className="relative h-screen min-h-[600px] overflow-hidden" style={{ background: "linear-gradient(180deg, #fef9f2 0%, #fdf0e4 35%, #fbe5d3 70%)" }}>
         {/* Floating circles */}
-        <div className="absolute top-[12%] right-[15%] w-20 h-20 border border-brand-gold/15 rounded-full animate-float" />
-        <div className="absolute bottom-[25%] left-[10%] w-12 h-12 border border-brand-gold/10 rounded-full animate-float [animation-delay:2s]" />
-        <div className="absolute top-[40%] right-[8%] w-8 h-8 border border-brand-gold/10 rounded-full animate-float [animation-delay:1s]" />
+        <div className="absolute top-[12%] right-[15%] w-20 h-20 border border-brand-gold/15 rounded-full motion-safe:animate-float" />
+        <div className="absolute bottom-[25%] left-[10%] w-12 h-12 border border-brand-gold/10 rounded-full motion-safe:animate-float [animation-delay:2s]" />
+        <div className="absolute top-[40%] right-[8%] w-8 h-8 border border-brand-gold/10 rounded-full motion-safe:animate-float [animation-delay:1s]" />
 
         {/* Dot pattern — radial masked */}
         <div
