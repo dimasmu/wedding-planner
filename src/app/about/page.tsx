@@ -51,7 +51,7 @@ function LogoMarquee({ logos, direction }: { logos: string[]; direction: "left" 
                 alt={`Logo ${i + 1}`}
                 width={120}
                 height={64}
-                className="h-16 w-auto object-contain opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-500"
+                className="h-16 w-auto object-contain opacity-80 hover:opacity-100 hover:scale-110 hover:invert transition-all duration-300"
                 unoptimized
               />
             </div>
@@ -111,13 +111,20 @@ function RevealSection({ children, className = "", delay = 0 }: { children: Reac
 
 /* ──────────────── Ornaments ──────────────── */
 
-/** Nested concentric circles monogram badge — used on hero and connect section */
-function MonogramBadge() {
+function SparklesIcon({ className }: { className?: string }) {
   return (
-    <div className="inline-block border border-brand-gold/25 rounded-full p-[5px]">
-      <div className="w-[50px] h-[50px] border border-brand-gold/15 rounded-full flex items-center justify-center">
-        <span className="font-serif text-xl text-brand-gold italic">S</span>
-      </div>
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
+    </svg>
+  );
+}
+
+function SectionOrnament({ className = "" }: { className?: string }) {
+  return (
+    <div className={`flex items-center justify-center gap-3 mb-6 ${className}`}>
+      <div className="h-px w-8 bg-brand-gold/40" />
+      <SparklesIcon className="w-4 h-4 text-brand-gold" />
+      <div className="h-px w-8 bg-brand-gold/40" />
     </div>
   );
 }
@@ -152,19 +159,6 @@ function ConcentricRings() {
   );
 }
 
-/** Stepped lines + dot ornament */
-function SteppedLinesDot() {
-  return (
-    <div className="flex items-center justify-center gap-2 mb-6">
-      <div className="h-px w-7 bg-gradient-to-r from-transparent to-brand-gold/30" />
-      <div className="h-px w-3 bg-brand-gold/40" />
-      <div className="w-1 h-1 rounded-full bg-brand-gold/40" />
-      <div className="h-px w-3 bg-brand-gold/40" />
-      <div className="h-px w-7 bg-gradient-to-l from-transparent to-brand-gold/30" />
-    </div>
-  );
-}
-
 /** Simple line + dot divider */
 function SimpleLineDotDivider() {
   return (
@@ -176,75 +170,45 @@ function SimpleLineDotDivider() {
   );
 }
 
-/** Community/people icon for Clients & Partners */
-function PeopleIcon() {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-      <circle cx="9" cy="7" r="4" />
-      <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-    </svg>
-  );
-}
-
-/** Gradient divider for light backgrounds (timeline, closing ornaments) */
-function GradientDivider() {
-  return (
-    <div className="flex items-center justify-center gap-2 mb-6">
-      <div className="h-px w-8 bg-gradient-to-r from-transparent to-brand-gold/30" />
-      <div className="w-1 h-1 rounded-full bg-brand-gold/30" />
-      <div className="h-px w-8 bg-gradient-to-l from-transparent to-brand-gold/30" />
-    </div>
-  );
-}
-
 /* ═══════════════════════════════════════════════
    PAGE
    ═══════════════════════════════════════════════ */
 
 export default function AboutPage() {
   return (
-    <main>
+    <main className="bg-brand-cream">
       {/* ─── 1. Hero ─────────────────────────── */}
-      <section className="relative h-screen min-h-[600px] overflow-hidden" style={{ background: "linear-gradient(180deg, #fef9f2 0%, #fdf0e4 35%, #fbe5d3 70%)" }}>
-        {/* Floating circles */}
-        <div className="absolute top-[12%] right-[15%] w-20 h-20 border border-brand-gold/15 rounded-full motion-safe:animate-float" />
-        <div className="absolute bottom-[25%] left-[10%] w-12 h-12 border border-brand-gold/10 rounded-full motion-safe:animate-float [animation-delay:2s]" />
-        <div className="absolute top-[40%] right-[8%] w-8 h-8 border border-brand-gold/10 rounded-full motion-safe:animate-float [animation-delay:1s]" />
-
-        {/* Dot pattern — radial masked */}
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: "radial-gradient(circle, rgba(211,162,127,0.04) 1px, transparent 1px)",
-            backgroundSize: "24px 24px",
-            maskImage: "radial-gradient(ellipse 60% 40% at 50% 50%, black 0%, transparent 100%)",
-            WebkitMaskImage: "radial-gradient(ellipse 60% 40% at 50% 50%, black 0%, transparent 100%)",
-          }}
+      <section className="relative h-screen min-h-[600px] overflow-hidden">
+        <Image
+          src="/asset/about_us/pexels-rebornfilmes-32805118.jpg"
+          alt="Elegant wedding reception setup with floral centerpieces"
+          fill
+          className="object-cover scale-105"
+          sizes="100vw"
+          priority
         />
-
-        {/* Warm center glow */}
         <div
-          className="absolute top-[30%] left-1/2 -translate-x-1/2 w-[400px] h-[300px]"
-          style={{ background: "radial-gradient(ellipse, rgba(211,162,127,0.1) 0%, transparent 70%)" }}
+          className="absolute inset-0 z-10"
+          style={{ background: "radial-gradient(ellipse 80% 60% at 50% 40%, transparent 0%, rgba(30,30,30,0.15) 35%, rgba(30,30,30,0.6) 100%)" }}
         />
+        <div className="absolute inset-0 z-10 bg-gradient-to-t from-brand-dark/40 via-transparent to-transparent" />
 
-        {/* Content */}
-        <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
-          <div className="mb-6">
-            <MonogramBadge />
+        <div className="relative z-20 h-full flex flex-col items-center justify-center text-center px-6">
+          <div className="flex items-center gap-4 mb-8">
+            <div className="h-px w-16 bg-brand-gold/50" />
+            <span className="w-1.5 h-1.5 rounded-full bg-brand-gold/60" />
+            <div className="h-px w-16 bg-brand-gold/50" />
           </div>
-          <SimpleLineDotDivider />
-          <h1 className="font-serif text-5xl sm:text-7xl md:text-[72px] text-brand-taupe italic tracking-[-0.01em] mb-4 leading-[1.1]">
+          <h1 className="font-serif text-5xl sm:text-7xl md:text-8xl text-brand-cream tracking-[0.02em] mb-6">
             About SOLA
           </h1>
-          <p className="text-brand-gold/80 text-base md:text-lg font-light italic tracking-wide">
-            where celebrations bloom
+          <p className="text-brand-cream/60 text-lg md:text-xl max-w-xl font-light tracking-wide">
+            Where every celebration becomes a masterpiece
           </p>
-          <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2">
-            <span className="text-[10px] tracking-[0.2em] uppercase text-brand-gold/50">Discover our story</span>
-            <div className="w-px h-8 bg-gradient-to-b from-brand-gold/40 to-transparent" />
+          <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20">
+            <div className="w-6 h-10 rounded-full border-2 border-brand-cream/20 flex justify-center pt-2">
+              <div className="w-1 h-2 rounded-full bg-brand-gold/60 animate-bounce" />
+            </div>
           </div>
         </div>
       </section>
@@ -379,84 +343,63 @@ export default function AboutPage() {
       </section>
 
       {/* ─── 4. The Experience ──────────────── */}
-      <section className="py-32 md:py-40 relative overflow-hidden" style={{ background: "linear-gradient(180deg, #fef4ee 0%, #fdf0e4 100%)" }}>
-        {/* Decorative rings */}
-        <div className="absolute -top-16 -right-10 w-[200px] h-[200px] border border-brand-gold/[0.06] rounded-full" />
-        <div className="absolute -bottom-10 -left-5 w-[140px] h-[140px] border border-brand-gold/[0.05] rounded-full" />
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: "radial-gradient(circle, rgba(211,162,127,0.04) 1px, transparent 1px)",
-            backgroundSize: "22px 22px",
-          }}
-        />
-        <div className="container mx-auto px-6 max-w-5xl relative z-10">
+      <section className="py-32 md:py-40 bg-brand-cream overflow-hidden">
+        <div className="container mx-auto px-6 max-w-6xl relative z-10">
           <RevealSection>
             <div className="text-center mb-16">
-              <ConcentricRings />
-              <h2 className="font-serif text-4xl md:text-5xl text-brand-taupe italic mb-4">
+              <SectionOrnament />
+              <h2 className="font-serif text-4xl md:text-5xl text-brand-taupe mb-4">
                 The Experience
               </h2>
-              <p className="text-brand-gold/60 text-lg font-light">
+              <p className="text-brand-taupe/70 text-lg font-light">
                 See the moments we craft
               </p>
             </div>
           </RevealSection>
 
-          {/* 2-column editorial grid */}
           <RevealSection>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3">
-              {/* Left: large vertical image */}
-              <div className="relative aspect-[3/4] overflow-hidden rounded-sm group">
-                <Image
-                  src="/asset/about_us/pexels-rebornfilmes-35114152.jpg"
-                  alt="Beautifully decorated wedding reception hall"
-                  fill
-                  className="object-cover transition-all duration-700 ease-out group-hover:scale-[1.03]"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-brand-taupe/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                {/* Editor's tab */}
-                <div className="absolute bottom-4 -left-2 bg-brand-gold text-white text-[10px] tracking-[0.2em] uppercase py-1 px-3 rounded-r-sm opacity-80">
-                  01
+            <div className="relative rounded-sm overflow-hidden">
+              {/* 3-image grid */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
+                {/* Left: large vertical image */}
+                <div className="md:row-span-2 relative aspect-[2/3] md:aspect-auto">
+                  <Image
+                    src="/asset/about_us/pexels-rebornfilmes-35114152.jpg"
+                    alt="Beautifully decorated wedding reception hall with elegant table settings"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
                 </div>
-              </div>
 
-              {/* Right: two stacked horizontals */}
-              <div className="flex flex-col gap-2 md:gap-3">
-                <div className="relative aspect-[16/10] overflow-hidden rounded-sm group">
+                {/* Right top: square */}
+                <div className="relative aspect-square md:col-span-2">
                   <Image
                     src="/asset/about_us/pexels-esma-nur-buyukguclu-112544374-35241391.jpg"
-                    alt="Wedding reception floral centerpiece"
+                    alt="Close-up of wedding reception floral centerpiece arrangement"
                     fill
-                    className="object-cover transition-all duration-700 ease-out group-hover:scale-[1.03]"
-                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 66vw"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-taupe/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                 </div>
-                <div className="relative aspect-[16/10] overflow-hidden rounded-sm group">
+
+                {/* Right bottom: square */}
+                <div className="relative aspect-square md:col-span-2">
                   <Image
                     src="/asset/about_us/StockSnap_NABNCHL6PX.jpg"
-                    alt="Wedding celebration with champagne toast"
+                    alt="Wedding celebration with champagne toast and elegant décor"
                     fill
-                    className="object-cover transition-all duration-700 ease-out group-hover:scale-[1.03]"
-                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 66vw"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-taupe/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                 </div>
               </div>
-            </div>
 
-            {/* Integrated quote */}
-            <div className="text-center mt-14">
-              <span className="font-serif text-6xl text-brand-gold/[0.12] italic leading-none">&ldquo;</span>
-              <p className="font-serif text-2xl md:text-3xl text-brand-taupe italic leading-snug -mt-3">
-                Every detail matters.<br />Every moment counts.
-              </p>
-              <div className="flex items-center justify-center gap-2 mt-5">
-                <div className="h-px w-8 bg-gradient-to-r from-transparent to-brand-gold/30" />
-                <div className="w-1 h-1 rounded-full bg-brand-gold/40" />
-                <div className="h-px w-8 bg-gradient-to-l from-transparent to-brand-gold/30" />
+              {/* Overlay with quote */}
+              <div className="absolute inset-0 bg-brand-dark/95 backdrop-blur-sm flex items-center justify-center">
+                <p className="font-serif text-2xl md:text-4xl lg:text-5xl text-white text-center px-6 italic leading-snug [text-shadow:0_2px_18px_rgba(0,0,0,0.8)]">
+                  &ldquo;Every detail matters.<br />Every moment counts.&rdquo;
+                </p>
               </div>
             </div>
           </RevealSection>
@@ -517,48 +460,30 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ─── 6. Clients & Partners ───────────── */}
-      <section className="py-24 md:py-32 relative overflow-hidden" style={{ background: "linear-gradient(180deg, #b87562 0%, #C4856E 30%, #C4856E 70%, #b07560 100%)" }}>
-        {/* Decorative rings */}
-        <div className="absolute -top-10 left-[10%] w-[120px] h-[120px] border border-white/[0.06] rounded-full" />
-        <div className="absolute -bottom-8 right-[15%] w-[80px] h-[80px] border border-white/[0.05] rounded-full" />
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px)",
-            backgroundSize: "20px 20px",
-          }}
-        />
+      {/* ─── 6. Beloved Clients & Trusted Partners ── */}
+      <section
+        className="py-24 md:py-32 relative overflow-hidden"
+        style={{ backgroundColor: "#628E90" }}
+      >
         <div className="container mx-auto px-6 relative z-10 max-w-7xl">
           <RevealSection>
-            <div className="text-center mb-16">
-              <div className="flex items-center justify-center gap-3 mb-6">
-                <div className="h-px w-8 bg-gradient-to-r from-transparent to-white/15" />
-                <PeopleIcon />
-                <div className="h-px w-8 bg-gradient-to-l from-transparent to-white/15" />
-              </div>
-              <h2 className="font-serif text-4xl md:text-5xl text-white italic mb-4">
-                Who Trusts Us
-              </h2>
-              <p className="text-white/50 text-lg font-light italic max-w-xl mx-auto">
-                The brands and partners who believe in the magic we create
-              </p>
-            </div>
-          </RevealSection>
-
-          <RevealSection>
             <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-start gap-0">
+              {/* Left: Clients */}
               <div className="overflow-hidden">
-                <h3 className="font-serif text-lg md:text-xl text-white/70 italic text-center mb-8">
+                <h3 className="font-serif text-2xl md:text-3xl text-white text-center mb-8">
                   Our Beloved Clients
                 </h3>
                 <div className="[mask-image:linear-gradient(to_right,transparent,#000_15%,#000_85%,transparent)] [-webkit-mask-image:linear-gradient(to_right,transparent,#000_15%,#000_85%,transparent)]">
                   <LogoMarquee logos={clientLogos} direction="left" />
                 </div>
               </div>
-              <div className="hidden md:block w-px mx-8 self-stretch" style={{ background: "linear-gradient(180deg, transparent, rgba(255,255,255,0.15) 20%, rgba(255,255,255,0.15) 80%, transparent)" }} />
+
+              {/* Vertical Divider */}
+              <div className="hidden md:block w-px bg-gradient-to-b from-transparent via-white/30 to-transparent mx-8 self-stretch" />
+
+              {/* Right: Partners */}
               <div className="overflow-hidden">
-                <h3 className="font-serif text-lg md:text-xl text-white/70 italic text-center mb-8">
+                <h3 className="font-serif text-2xl md:text-3xl text-white text-center mb-8">
                   Our Trusted Partners
                 </h3>
                 <div className="[mask-image:linear-gradient(to_right,transparent,#000_15%,#000_85%,transparent)] [-webkit-mask-image:linear-gradient(to_right,transparent,#000_15%,#000_85%,transparent)]">
@@ -622,58 +547,75 @@ export default function AboutPage() {
       </section>
 
       {/* ─── 8. Connect With Us ──────────────── */}
-      <section className="py-32 md:py-40 relative overflow-hidden" style={{ background: "linear-gradient(180deg, #C4856E 0%, #a06a56 30%, #fef4ee 50%, #fef9f2 100%)" }}>
-        {/* Decorative rings */}
-        <div className="absolute top-[20%] right-[15%] w-[180px] h-[180px] border border-white/[0.06] rounded-full" />
-        <div className="absolute bottom-[30%] left-[10%] w-[100px] h-[100px] border border-brand-gold/[0.08] rounded-full" />
-        <div className="container mx-auto px-6 max-w-lg relative z-10">
+      <section className="py-32 md:py-40 bg-brand-cream relative overflow-hidden">
+        {/* background ornament — large faint gold circle */}
+        <div
+          className="absolute -top-32 -right-32 w-96 h-96 rounded-full opacity-[0.03]"
+          style={{
+            background:
+              "radial-gradient(circle, rgb(211 162 127) 0%, transparent 70%)",
+          }}
+        />
+
+        <div className="container mx-auto px-6 max-w-5xl relative z-10">
           <RevealSection>
-            <div className="text-center mb-14">
-              <div className="mb-6">
-                <MonogramBadge />
+            <div className="text-center mb-20">
+              <div className="flex items-center justify-center gap-3 mb-6">
+                <div className="h-px w-8 bg-brand-gold/40" />
+                <SparklesIcon className="w-4 h-4 text-brand-gold" />
+                <div className="h-px w-8 bg-brand-gold/40" />
               </div>
-              <SteppedLinesDot />
-              <h2 className="font-serif text-4xl md:text-5xl text-brand-taupe italic mb-4">
+              <h2 className="font-serif text-4xl md:text-5xl text-brand-taupe mb-4">
                 Connect With Us
               </h2>
-              <p className="text-brand-gold/60 text-lg font-light italic max-w-md mx-auto">
+              <p className="text-brand-taupe/70 text-lg font-light max-w-md mx-auto">
                 Stay inspired — follow our journey and see the magic we create every day
               </p>
             </div>
           </RevealSection>
 
-          <RevealSection delay={200}>
-            {/* Social icons — circle frames */}
-            <div className="flex justify-center gap-5 mb-8">
-              <Link href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="w-11 h-11 rounded-full border border-brand-gold/20 flex items-center justify-center text-brand-gold/40 hover:text-brand-gold hover:border-brand-gold/40 hover:scale-110 transition-all duration-300">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-                </svg>
-              </Link>
-              <Link href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="w-11 h-11 rounded-full border border-brand-gold/20 flex items-center justify-center text-brand-gold/40 hover:text-brand-gold hover:border-brand-gold/40 hover:scale-110 transition-all duration-300">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-                  <rect width="4" height="12" x="2" y="9" />
-                  <circle cx="4" cy="4" r="2" />
-                </svg>
-              </Link>
-              <Link href="https://x.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter" className="w-11 h-11 rounded-full border border-brand-gold/20 flex items-center justify-center text-brand-gold/40 hover:text-brand-gold hover:border-brand-gold/40 hover:scale-110 transition-all duration-300">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M4 4l11.733 16h4.267l-11.733 -16z" /><path d="M4 20l6.768 -6.768m2.46 -2.46L20 4" />
-                </svg>
-              </Link>
+          <RevealSection>
+            {/* card container */}
+            <div className="max-w-2xl mx-auto bg-white/60 backdrop-blur-sm rounded-2xl border border-brand-gold/10 shadow-lg shadow-brand-gold/5 p-10 md:p-14">
+              {/* social links row */}
+              <div className="flex items-center justify-center gap-6">
+                <Link
+                  href="https://facebook.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Facebook"
+                  className="text-brand-taupe/50 hover:text-brand-gold hover:scale-110 transition-all duration-300"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
+                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                  </svg>
+                </Link>
+                <Link
+                  href="https://linkedin.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn"
+                  className="text-brand-taupe/50 hover:text-brand-gold hover:scale-110 transition-all duration-300"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                    <rect width="4" height="12" x="2" y="9" />
+                    <circle cx="4" cy="4" r="2" />
+                  </svg>
+                </Link>
+                <Link
+                  href="https://x.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Twitter"
+                  className="text-brand-taupe/50 hover:text-brand-gold hover:scale-110 transition-all duration-300"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
+                    <path d="M4 4l11.733 16h4.267l-11.733 -16z" /><path d="M4 20l6.768 -6.768m2.46 -2.46L20 4" />
+                  </svg>
+                </Link>
+              </div>
             </div>
-
-            {/* Closing ornament */}
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <div className="h-px w-6 bg-gradient-to-r from-transparent to-brand-gold/15" />
-              <div className="w-1 h-1 rounded-full bg-brand-gold/20" />
-              <div className="h-px w-6 bg-gradient-to-l from-transparent to-brand-gold/15" />
-            </div>
-
-            <p className="text-brand-gold/40 text-sm font-light italic text-center">
-              Let&rsquo;s create something beautiful together
-            </p>
           </RevealSection>
         </div>
       </section>
