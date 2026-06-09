@@ -358,11 +358,10 @@ export default function AboutPage() {
           </RevealSection>
 
           <RevealSection>
-            <div className="relative rounded-sm overflow-hidden">
-              {/* 3-image grid */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
-                {/* Left: large vertical image */}
-                <div className="md:row-span-2 relative aspect-[2/3] md:aspect-auto">
+            <div className="relative rounded-sm overflow-hidden max-w-4xl mx-auto">
+              {/* 3 equal 16:9 images in a row */}
+              <div className="grid grid-cols-3 gap-1 md:gap-2">
+                <div className="relative aspect-video">
                   <Image
                     src="/asset/about_us/pexels-rebornfilmes-35114152.jpg"
                     alt="Beautifully decorated wedding reception hall with elegant table settings"
@@ -371,26 +370,22 @@ export default function AboutPage() {
                     sizes="(max-width: 768px) 100vw, 33vw"
                   />
                 </div>
-
-                {/* Right top: square */}
-                <div className="relative aspect-square md:col-span-2">
+                <div className="relative aspect-video">
                   <Image
                     src="/asset/about_us/pexels-esma-nur-buyukguclu-112544374-35241391.jpg"
                     alt="Close-up of wedding reception floral centerpiece arrangement"
                     fill
                     className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 66vw"
+                    sizes="(max-width: 768px) 100vw, 33vw"
                   />
                 </div>
-
-                {/* Right bottom: square */}
-                <div className="relative aspect-square md:col-span-2">
+                <div className="relative aspect-video">
                   <Image
                     src="/asset/about_us/StockSnap_NABNCHL6PX.jpg"
                     alt="Wedding celebration with champagne toast and elegant décor"
                     fill
                     className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 66vw"
+                    sizes="(max-width: 768px) 100vw, 33vw"
                   />
                 </div>
               </div>
@@ -551,7 +546,6 @@ export default function AboutPage() {
                           {String(i + 1).padStart(2, "0")}
                         </span>
                         <span className="text-left">{faq.q}</span>
-                        <span className="ml-auto text-brand-gold/40 text-xl font-light">+</span>
                       </AccordionTrigger>
                       <AccordionContent>
                         <div className="pl-12 pr-4 pb-5">
