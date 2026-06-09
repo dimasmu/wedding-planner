@@ -379,66 +379,85 @@ export default function AboutPage() {
       </section>
 
       {/* ─── 4. The Experience ──────────────── */}
-      <section className="py-32 md:py-40 bg-brand-cream overflow-hidden">
-        <div className="container mx-auto px-6 max-w-6xl relative z-10">
+      <section className="py-32 md:py-40 relative overflow-hidden" style={{ background: "linear-gradient(180deg, #fef4ee 0%, #fdf0e4 100%)" }}>
+        {/* Decorative rings */}
+        <div className="absolute -top-16 -right-10 w-[200px] h-[200px] border border-brand-gold/[0.06] rounded-full" />
+        <div className="absolute -bottom-10 -left-5 w-[140px] h-[140px] border border-brand-gold/[0.05] rounded-full" />
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: "radial-gradient(circle, rgba(211,162,127,0.04) 1px, transparent 1px)",
+            backgroundSize: "22px 22px",
+          }}
+        />
+        <div className="container mx-auto px-6 max-w-5xl relative z-10">
           <RevealSection>
             <div className="text-center mb-16">
-              <SectionOrnament />
-              <h2 className="font-serif text-4xl md:text-5xl text-brand-taupe mb-4">
+              <ConcentricRings />
+              <h2 className="font-serif text-4xl md:text-5xl text-brand-taupe italic mb-4">
                 The Experience
               </h2>
-              <p className="text-brand-taupe/70 text-lg font-light">
+              <p className="text-brand-gold/60 text-lg font-light">
                 See the moments we craft
               </p>
             </div>
           </RevealSection>
 
+          {/* 2-column editorial grid */}
           <RevealSection>
-            <div className="relative">
-              {/* 3-image editorial grid */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
-                <div className="md:row-span-2 relative aspect-[2/3] md:aspect-auto overflow-hidden rounded-sm">
-                  <Image
-                    src="/asset/about_us/pexels-rebornfilmes-35114152.jpg"
-                    alt="Beautifully decorated wedding reception hall"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                  />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3">
+              {/* Left: large vertical image */}
+              <div className="relative aspect-[3/4] overflow-hidden rounded-sm group">
+                <Image
+                  src="/asset/about_us/pexels-rebornfilmes-35114152.jpg"
+                  alt="Beautifully decorated wedding reception hall"
+                  fill
+                  className="object-cover transition-all duration-700 ease-out group-hover:scale-[1.03]"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-taupe/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                {/* Editor's tab */}
+                <div className="absolute bottom-4 -left-2 bg-brand-gold text-white text-[10px] tracking-[0.2em] uppercase py-1 px-3 rounded-r-sm opacity-80">
+                  01
                 </div>
-                <div className="relative aspect-square md:col-span-2 overflow-hidden rounded-sm">
+              </div>
+
+              {/* Right: two stacked horizontals */}
+              <div className="flex flex-col gap-2 md:gap-3">
+                <div className="relative aspect-[16/10] overflow-hidden rounded-sm group">
                   <Image
                     src="/asset/about_us/pexels-esma-nur-buyukguclu-112544374-35241391.jpg"
                     alt="Wedding reception floral centerpiece"
                     fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 66vw"
+                    className="object-cover transition-all duration-700 ease-out group-hover:scale-[1.03]"
+                    sizes="(max-width: 768px) 100vw, 50vw"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-taupe/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                 </div>
-                <div className="relative aspect-square md:col-span-2 overflow-hidden rounded-sm">
+                <div className="relative aspect-[16/10] overflow-hidden rounded-sm group">
                   <Image
                     src="/asset/about_us/StockSnap_NABNCHL6PX.jpg"
                     alt="Wedding celebration with champagne toast"
                     fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 66vw"
+                    className="object-cover transition-all duration-700 ease-out group-hover:scale-[1.03]"
+                    sizes="(max-width: 768px) 100vw, 50vw"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-taupe/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                 </div>
               </div>
+            </div>
 
-              {/* Pull quote card pinned over the grid */}
-              <Card className="absolute bottom-6 right-6 max-w-sm bg-white/90 backdrop-blur-sm border-brand-gold/20 shadow-xl shadow-brand-gold/5">
-                <CardContent className="p-6">
-                  <p className="font-serif text-xl md:text-2xl text-brand-taupe text-center italic leading-snug">
-                    &ldquo;Every detail matters.<br />Every moment counts.&rdquo;
-                  </p>
-                  <div className="flex items-center justify-center gap-3 mt-4">
-                    <div className="h-px w-6 bg-brand-gold/30" />
-                    <span className="w-1 h-1 rounded-full bg-brand-gold/40" />
-                    <div className="h-px w-6 bg-brand-gold/30" />
-                  </div>
-                </CardContent>
-              </Card>
+            {/* Integrated quote */}
+            <div className="text-center mt-14">
+              <span className="font-serif text-6xl text-brand-gold/[0.12] italic leading-none">&ldquo;</span>
+              <p className="font-serif text-2xl md:text-3xl text-brand-taupe italic leading-snug -mt-3">
+                Every detail matters.<br />Every moment counts.
+              </p>
+              <div className="flex items-center justify-center gap-2 mt-5">
+                <div className="h-px w-8 bg-gradient-to-r from-transparent to-brand-gold/30" />
+                <div className="w-1 h-1 rounded-full bg-brand-gold/40" />
+                <div className="h-px w-8 bg-gradient-to-l from-transparent to-brand-gold/30" />
+              </div>
             </div>
           </RevealSection>
         </div>
