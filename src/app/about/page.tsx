@@ -395,11 +395,34 @@ export default function AboutPage() {
                 </div>
               </div>
 
-              {/* Overlay with quote */}
-              <div className="absolute inset-0 bg-brand-dark/95 backdrop-blur-sm flex items-center justify-center">
+              {/* Overlay with quote + stats */}
+              <div className="absolute inset-0 bg-brand-dark/95 backdrop-blur-sm flex flex-col items-center justify-center gap-6">
                 <p className="font-serif text-2xl md:text-4xl lg:text-5xl text-white text-center px-6 italic leading-snug [text-shadow:0_2px_18px_rgba(0,0,0,0.8)]">
                   &ldquo;Every detail matters.<br />Every moment counts.&rdquo;
                 </p>
+
+                {/* Gold divider */}
+                <div className="flex items-center gap-3">
+                  <div className="h-px w-16 bg-brand-gold/40" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-brand-gold/50" />
+                  <div className="h-px w-16 bg-brand-gold/40" />
+                </div>
+
+                {/* Stats row */}
+                <div className="flex gap-10 md:gap-14">
+                  <div className="text-center">
+                    <div className="font-serif text-2xl md:text-3xl text-brand-gold italic">200+</div>
+                    <div className="text-white/50 text-[10px] tracking-[0.2em] uppercase mt-1">Events</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="font-serif text-2xl md:text-3xl text-brand-gold italic">8yr</div>
+                    <div className="text-white/50 text-[10px] tracking-[0.2em] uppercase mt-1">Experience</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="font-serif text-2xl md:text-3xl text-brand-gold italic">50+</div>
+                    <div className="text-white/50 text-[10px] tracking-[0.2em] uppercase mt-1">Vendors</div>
+                  </div>
+                </div>
               </div>
             </div>
           </RevealSection>
