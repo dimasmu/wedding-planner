@@ -51,7 +51,7 @@ function LogoMarquee({ logos, direction }: { logos: string[]; direction: "left" 
                 alt={`Logo ${i + 1}`}
                 width={120}
                 height={64}
-                className="h-16 w-auto object-contain opacity-80 hover:opacity-100 hover:scale-110 hover:invert transition-all duration-300"
+                className="h-16 w-auto object-contain opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-500"
                 unoptimized
               />
             </div>
@@ -518,19 +518,29 @@ export default function AboutPage() {
       </section>
 
       {/* ─── 6. Clients & Partners ───────────── */}
-      <section className="py-24 md:py-32 relative overflow-hidden" style={{ backgroundColor: "#628E90" }}>
+      <section className="py-24 md:py-32 relative overflow-hidden" style={{ background: "linear-gradient(180deg, #b87562 0%, #C4856E 30%, #C4856E 70%, #b07560 100%)" }}>
+        {/* Decorative rings */}
+        <div className="absolute -top-10 left-[10%] w-[120px] h-[120px] border border-white/[0.06] rounded-full" />
+        <div className="absolute -bottom-8 right-[15%] w-[80px] h-[80px] border border-white/[0.05] rounded-full" />
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px)",
+            backgroundSize: "20px 20px",
+          }}
+        />
         <div className="container mx-auto px-6 relative z-10 max-w-7xl">
           <RevealSection>
             <div className="text-center mb-16">
               <div className="flex items-center justify-center gap-3 mb-6">
-                <div className="h-px w-8 bg-white/20" />
-                <SparklesIcon className="w-4 h-4 text-white/70" />
-                <div className="h-px w-8 bg-white/20" />
+                <div className="h-px w-8 bg-gradient-to-r from-transparent to-white/15" />
+                <PeopleIcon />
+                <div className="h-px w-8 bg-gradient-to-l from-transparent to-white/15" />
               </div>
-              <h2 className="font-serif text-4xl md:text-5xl text-white mb-4">
+              <h2 className="font-serif text-4xl md:text-5xl text-white italic mb-4">
                 Who Trusts Us
               </h2>
-              <p className="text-white/60 text-lg font-light max-w-xl mx-auto">
+              <p className="text-white/50 text-lg font-light italic max-w-xl mx-auto">
                 The brands and partners who believe in the magic we create
               </p>
             </div>
@@ -539,16 +549,16 @@ export default function AboutPage() {
           <RevealSection>
             <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-start gap-0">
               <div className="overflow-hidden">
-                <h3 className="font-serif text-2xl md:text-3xl text-white text-center mb-8">
+                <h3 className="font-serif text-lg md:text-xl text-white/70 italic text-center mb-8">
                   Our Beloved Clients
                 </h3>
                 <div className="[mask-image:linear-gradient(to_right,transparent,#000_15%,#000_85%,transparent)] [-webkit-mask-image:linear-gradient(to_right,transparent,#000_15%,#000_85%,transparent)]">
                   <LogoMarquee logos={clientLogos} direction="left" />
                 </div>
               </div>
-              <div className="hidden md:block w-px bg-gradient-to-b from-transparent via-white/30 to-transparent mx-8 self-stretch" />
+              <div className="hidden md:block w-px mx-8 self-stretch" style={{ background: "linear-gradient(180deg, transparent, rgba(255,255,255,0.15) 20%, rgba(255,255,255,0.15) 80%, transparent)" }} />
               <div className="overflow-hidden">
-                <h3 className="font-serif text-2xl md:text-3xl text-white text-center mb-8">
+                <h3 className="font-serif text-lg md:text-xl text-white/70 italic text-center mb-8">
                   Our Trusted Partners
                 </h3>
                 <div className="[mask-image:linear-gradient(to_right,transparent,#000_15%,#000_85%,transparent)] [-webkit-mask-image:linear-gradient(to_right,transparent,#000_15%,#000_85%,transparent)]">
