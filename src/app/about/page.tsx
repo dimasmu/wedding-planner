@@ -205,9 +205,9 @@ function GradientDivider() {
 
 export default function AboutPage() {
   return (
-    <main className="bg-brand-cream">
+    <main>
       {/* ─── 1. Hero ─────────────────────────── */}
-      <section className="relative h-screen min-h-[600px] overflow-hidden" style={{ background: "linear-gradient(180deg, #fef9f2 0%, #fdf0e4 35%, #fbe5d3 70%, #faebd7 100%)" }}>
+      <section className="relative h-screen min-h-[600px] overflow-hidden" style={{ background: "linear-gradient(180deg, #fef9f2 0%, #fdf0e4 35%, #fbe5d3 70%)" }}>
         {/* Floating circles */}
         <div className="absolute top-[12%] right-[15%] w-20 h-20 border border-brand-gold/15 rounded-full animate-float" />
         <div className="absolute bottom-[25%] left-[10%] w-12 h-12 border border-brand-gold/10 rounded-full animate-float [animation-delay:2s]" />
@@ -217,8 +217,8 @@ export default function AboutPage() {
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: "radial-gradient(circle, rgba(211,162,127,0.06) 1px, transparent 1px)",
-            backgroundSize: "28px 28px",
+            backgroundImage: "radial-gradient(circle, rgba(211,162,127,0.04) 1px, transparent 1px)",
+            backgroundSize: "24px 24px",
             maskImage: "radial-gradient(ellipse 60% 40% at 50% 50%, black 0%, transparent 100%)",
             WebkitMaskImage: "radial-gradient(ellipse 60% 40% at 50% 50%, black 0%, transparent 100%)",
           }}
