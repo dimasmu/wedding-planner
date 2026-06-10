@@ -78,6 +78,56 @@ const storySteps = [
   { year: "2025", title: "Your Story, Our Mission", text: "Today, SOLA stands as a trusted planning partner, serving clients across the region. We don't just plan events — we build relationships, create memories, and turn moments into milestones." },
 ];
 
+/* ──────────────── Count Up Animation ──────────────── */
+
+function useCountUp(end: number, duration = 2200) {
+  const [count, setCount] = useState(0);
+  const [triggered, setTriggered] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node || triggered) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setTriggered(true);
+          observer.unobserve(node);
+        }
+      },
+      { threshold: 0.6 }
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [triggered]);
+
+  useEffect(() => {
+    if (!triggered) return;
+    let startTime: number | null = null;
+    let frame: number;
+    const animate = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.round(eased * end));
+      if (progress < 1) frame = requestAnimationFrame(animate);
+    };
+    frame = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(frame);
+  }, [triggered, end, duration]);
+
+  return { count, ref };
+}
+
+function StatCounter({ end, suffix = "" }: { end: number; suffix?: string }) {
+  const { count, ref } = useCountUp(end);
+  return (
+    <div ref={ref} className="font-serif text-2xl md:text-3xl text-brand-gold italic">
+      {count}{suffix}
+    </div>
+  );
+}
+
 /* ──────────────── Scroll Reveal ──────────────── */
 
 function useReveal() {
@@ -406,15 +456,15 @@ export default function AboutPage() {
                 {/* Stats row */}
                 <div className="flex gap-10 md:gap-14">
                   <div className="text-center">
-                    <div className="font-serif text-2xl md:text-3xl text-brand-gold italic">200+</div>
+                    <StatCounter end={200} suffix="+" />
                     <div className="text-white/50 text-[10px] tracking-[0.2em] uppercase mt-1">Events</div>
                   </div>
                   <div className="text-center">
-                    <div className="font-serif text-2xl md:text-3xl text-brand-gold italic">8yr</div>
+                    <StatCounter end={8} suffix="yr" />
                     <div className="text-white/50 text-[10px] tracking-[0.2em] uppercase mt-1">Experience</div>
                   </div>
                   <div className="text-center">
-                    <div className="font-serif text-2xl md:text-3xl text-brand-gold italic">50+</div>
+                    <StatCounter end={50} suffix="+" />
                     <div className="text-white/50 text-[10px] tracking-[0.2em] uppercase mt-1">Vendors</div>
                   </div>
                 </div>
