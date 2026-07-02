@@ -24,6 +24,8 @@
   --color-foreground: rgb(74 62 61);
   --color-card: rgb(255 255 255);
   --color-card-foreground: rgb(74 62 61);
+  --color-popover: rgb(255 255 255);
+  --color-popover-foreground: rgb(74 62 61);
 
   --font-serif: var(--font-playfair), serif;
   --font-sans: var(--font-inter), sans-serif;
