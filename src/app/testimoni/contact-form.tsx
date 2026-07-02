@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
+import { Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -35,22 +36,21 @@ const contactFormSchema = z.object({
 
 type ContactFormData = z.infer<typeof contactFormSchema>;
 
-/* ── Shared select class ── */
+/* ── Shared styles ── */
 
-const inputOverride = "bg-white";
+const fieldSpacing = "space-y-1.5";
 
 const selectClass = cn(
-  "flex h-10 w-full rounded-lg border border-input px-3 py-2",
-  inputOverride,
-  "text-base md:text-sm",
+  "flex h-10 w-full rounded-lg border border-input bg-white px-3 py-2 pr-10",
+  "text-sm",
   "placeholder:text-muted-foreground",
   "focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/20",
-  "outline-none transition-colors",
+  "outline-none transition-colors duration-200",
   "disabled:cursor-not-allowed disabled:opacity-50",
   "aria-invalid:border-destructive aria-invalid:ring-destructive/20",
   "appearance-none cursor-pointer",
   "bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%234a3e3d%22%20stroke-width%3D%222%22%3E%3Cpath%20d%3D%22m6%209%206%206%206-6%22%2F%3E%3C%2Fsvg%3E')]",
-  "bg-[length:16px] bg-[right_12px_center] bg-no-repeat pr-10",
+  "bg-[length:16px] bg-[right_12px_center] bg-no-repeat",
 );
 
 /* ── Component ── */
@@ -76,9 +76,7 @@ export function ContactForm() {
   });
 
   const onSubmit = async (_data: ContactFormData) => {
-    if (!eventDate) {
-      return;
-    }
+    if (!eventDate) return;
     try {
       await new Promise((resolve) => setTimeout(resolve, 1000));
       toast.success("Thank you! We'll get back to you soon.");
@@ -89,19 +87,20 @@ export function ContactForm() {
     }
   };
 
-  const dateError = !eventDate && Object.keys(errors).length > 0 ? "Event date is required" : undefined;
-
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="rounded-2xl bg-white p-6 md:p-8 shadow-xl shadow-brand-taupe/5 border border-brand-sand/60 space-y-5"
+    >
       {/* Name */}
-      <div className="space-y-2">
+      <div className={fieldSpacing}>
         <Label htmlFor="name">Name</Label>
         <Input
           id="name"
           {...register("name")}
-          placeholder="Your name"
+          placeholder="Your full name"
           aria-invalid={!!errors.name}
-          className="bg-white"
+          className="bg-white h-10"
         />
         {errors.name && (
           <p className="text-sm text-destructive" role="alert">
@@ -111,7 +110,7 @@ export function ContactForm() {
       </div>
 
       {/* Contact Method */}
-      <div className="space-y-2">
+      <div className={fieldSpacing}>
         <Label htmlFor="contactMethod">Contact Method</Label>
         <select
           id="contactMethod"
@@ -131,7 +130,7 @@ export function ContactForm() {
       </div>
 
       {/* Event Type */}
-      <div className="space-y-2">
+      <div className={fieldSpacing}>
         <Label htmlFor="eventType">Event Type</Label>
         <select
           id="eventType"
@@ -159,19 +158,18 @@ export function ContactForm() {
         label="Event Date"
         date={eventDate}
         onDateChange={setEventDate}
-        aria-invalid={!!dateError}
-        error={dateError}
+        className={fieldSpacing}
       />
 
       {/* Event Location */}
-      <div className="space-y-2">
+      <div className={fieldSpacing}>
         <Label htmlFor="eventLocation">Event Location</Label>
         <Input
           id="eventLocation"
           {...register("eventLocation")}
           placeholder="City or venue"
           aria-invalid={!!errors.eventLocation}
-          className="bg-white"
+          className="bg-white h-10"
         />
         {errors.eventLocation && (
           <p className="text-sm text-destructive" role="alert">
@@ -181,24 +179,32 @@ export function ContactForm() {
       </div>
 
       {/* Description */}
-      <div className="space-y-2">
-        <Label htmlFor="description">Description</Label>
+      <div className={fieldSpacing}>
+        <Label htmlFor="description">
+          Description <span className="text-muted-foreground font-normal">(optional)</span>
+        </Label>
         <textarea
           id="description"
           {...register("description")}
-          placeholder="Tell us about your event..."
+          placeholder="Tell us about your event, preferences, and any special requests..."
           rows={4}
           className={cn(
-            "flex min-h-[100px] w-full rounded-lg border border-input bg-white px-3 py-2",
-            "text-base md:text-sm placeholder:text-muted-foreground",
+            "flex min-h-[100px] w-full rounded-lg border border-input bg-white px-3 py-2.5",
+            "text-sm placeholder:text-muted-foreground",
             "focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/20",
-            "outline-none transition-colors resize-none",
+            "outline-none transition-colors duration-200 resize-none",
           )}
         />
       </div>
 
       {/* Submit */}
-      <Button type="submit" disabled={isSubmitting} className="w-full">
+      <Button
+        type="submit"
+        disabled={isSubmitting}
+        size="lg"
+        className="w-full h-11 text-base shadow-lg shadow-brand-gold/20 transition-all duration-300 hover:shadow-xl hover:shadow-brand-gold/30 hover:-translate-y-0.5"
+      >
+        <Send className="mr-2 h-4 w-4" />
         {isSubmitting ? "Sending..." : "Send Message"}
       </Button>
     </form>
