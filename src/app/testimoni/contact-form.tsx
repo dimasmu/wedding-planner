@@ -5,14 +5,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-
 /* ── Schema ── */
 
 const contactFormSchema = z.object({
@@ -43,15 +35,14 @@ export function ContactForm() {
   const {
     register,
     handleSubmit,
-    setValue,
     reset,
     formState: { errors, isSubmitting },
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),
     defaultValues: {
       name: "",
-      contactMethod: undefined,
-      eventType: undefined,
+      contactMethod: "" as ContactFormData["contactMethod"],
+      eventType: "" as ContactFormData["eventType"],
       eventDate: "",
       eventLocation: "",
       description: "",
@@ -99,25 +90,16 @@ export function ContactForm() {
         >
           Contact Method
         </label>
-        <Select
-          onValueChange={(value) =>
-            value &&
-            setValue("contactMethod", value as ContactFormData["contactMethod"], {
-              shouldValidate: true,
-            })
-          }
+        <select
+          id="contactMethod"
+          {...register("contactMethod")}
+          aria-invalid={!!errors.contactMethod}
+          className="w-full rounded-lg border border-brand-sand bg-white px-4 py-3 text-brand-taupe text-sm outline-none transition-colors appearance-none cursor-pointer focus:border-brand-gold focus:ring-2 focus:ring-brand-gold/20 bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%234a3e3d%22%20stroke-width%3D%222%22%3E%3Cpath%20d%3D%22m6%209%206%206%206-6%22%2F%3E%3C%2Fsvg%3E')] bg-[length:16px] bg-[right_12px_center] bg-no-repeat pr-10"
         >
-          <SelectTrigger
-            id="contactMethod"
-            className="w-full rounded-lg border border-brand-sand bg-white px-4 py-3 text-brand-taupe text-sm h-auto"
-          >
-            <SelectValue placeholder="Select contact method" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="WhatsApp">WhatsApp</SelectItem>
-            <SelectItem value="Email">Email</SelectItem>
-          </SelectContent>
-        </Select>
+          <option value="">Select contact method</option>
+          <option value="WhatsApp">WhatsApp</option>
+          <option value="Email">Email</option>
+        </select>
         {errors.contactMethod && (
           <p className="mt-1 text-sm text-red-400" role="alert">
             {errors.contactMethod.message}
@@ -133,28 +115,19 @@ export function ContactForm() {
         >
           Event Type
         </label>
-        <Select
-          onValueChange={(value) =>
-            value &&
-            setValue("eventType", value as ContactFormData["eventType"], {
-              shouldValidate: true,
-            })
-          }
+        <select
+          id="eventType"
+          {...register("eventType")}
+          aria-invalid={!!errors.eventType}
+          className="w-full rounded-lg border border-brand-sand bg-white px-4 py-3 text-brand-taupe text-sm outline-none transition-colors appearance-none cursor-pointer focus:border-brand-gold focus:ring-2 focus:ring-brand-gold/20 bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%234a3e3d%22%20stroke-width%3D%222%22%3E%3Cpath%20d%3D%22m6%209%206%206%206-6%22%2F%3E%3C%2Fsvg%3E')] bg-[length:16px] bg-[right_12px_center] bg-no-repeat pr-10"
         >
-          <SelectTrigger
-            id="eventType"
-            className="w-full rounded-lg border border-brand-sand bg-white px-4 py-3 text-brand-taupe text-sm h-auto"
-          >
-            <SelectValue placeholder="Select event type" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="Wedding Ceremonies">Wedding Ceremonies</SelectItem>
-            <SelectItem value="Corporate Events">Corporate Events</SelectItem>
-            <SelectItem value="Social Gatherings">Social Gatherings</SelectItem>
-            <SelectItem value="Traditional Events">Traditional Events</SelectItem>
-            <SelectItem value="Birthday Parties">Birthday Parties</SelectItem>
-          </SelectContent>
-        </Select>
+          <option value="">Select event type</option>
+          <option value="Wedding Ceremonies">Wedding Ceremonies</option>
+          <option value="Corporate Events">Corporate Events</option>
+          <option value="Social Gatherings">Social Gatherings</option>
+          <option value="Traditional Events">Traditional Events</option>
+          <option value="Birthday Parties">Birthday Parties</option>
+        </select>
         {errors.eventType && (
           <p className="mt-1 text-sm text-red-400" role="alert">
             {errors.eventType.message}
