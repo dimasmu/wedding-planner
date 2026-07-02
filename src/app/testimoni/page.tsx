@@ -2,6 +2,7 @@ import { RevealSection } from "@/components/ui-custom/RevealSection";
 import { Sparkles, Star } from "lucide-react";
 import Image from "next/image";
 import { ContactForm } from "./contact-form";
+import { TestimonialBlock } from "./testimonial-block";
 
 /* ── Mock Data ── */
 
@@ -190,51 +191,6 @@ export default function TestimonialPage() {
           </RevealSection>
         </div>
       </section>
-    </div>
-  );
-}
-
-/* ── Testimonial Block (photo strip + quote) ── */
-
-function TestimonialBlock({
-  testimonial,
-  photos,
-}: {
-  testimonial: Testimonial;
-  photos: string[];
-}) {
-  return (
-    <div>
-      {/* Photo strip */}
-      <div className="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4 snap-x snap-mandatory scrollbar-hide">
-        {photos.map((file, i) => (
-          <div
-            key={i}
-            className="relative flex-shrink-0 w-[85vw] max-w-md aspect-[4/3] rounded-lg overflow-hidden snap-center"
-          >
-            <Image
-              src={`/asset/testimonial/testimonial_${testimonial.id}/${file}`}
-              alt={`${testimonial.coupleName} wedding photo ${i + 1}`}
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 85vw, 28rem"
-            />
-          </div>
-        ))}
-      </div>
-
-      {/* Quote */}
-      <div className="text-center mt-8 max-w-2xl mx-auto px-4">
-        <div className="flex justify-center gap-1 mb-4">
-          {Array.from({ length: testimonial.rating }).map((_, i) => (
-            <Star key={i} className="w-5 h-5 fill-brand-gold text-brand-gold" />
-          ))}
-        </div>
-        <blockquote className="font-serif text-lg md:text-xl text-brand-taupe leading-relaxed mb-4 italic">
-          &ldquo;{testimonial.quote}&rdquo;
-        </blockquote>
-        <p className="text-brand-taupe/50 text-sm">{testimonial.coupleName}</p>
-      </div>
     </div>
   );
 }
