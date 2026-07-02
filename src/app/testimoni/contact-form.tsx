@@ -44,15 +44,29 @@ export function ContactForm() {
     register,
     handleSubmit,
     setValue,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),
+    defaultValues: {
+      name: "",
+      contactMethod: undefined,
+      eventType: undefined,
+      eventDate: "",
+      eventLocation: "",
+      description: "",
+    },
   });
 
   const onSubmit = async (_data: ContactFormData) => {
-    // Simulate API call — replace with real endpoint when backend is ready
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    toast.success("Thank you! We'll get back to you soon.");
+    try {
+      // Simulate API call — replace with real endpoint when backend is ready
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      toast.success("Thank you! We'll get back to you soon.");
+      reset();
+    } catch {
+      toast.error("Something went wrong. Please try again.");
+    }
   };
 
   return (
@@ -69,10 +83,11 @@ export function ContactForm() {
           id="name"
           {...register("name")}
           placeholder="Your name"
+          aria-invalid={!!errors.name}
           className="w-full rounded-lg border border-brand-sand bg-white px-4 py-3 text-brand-taupe text-sm outline-none transition-colors placeholder:text-brand-taupe/30 focus:border-brand-gold focus:ring-2 focus:ring-brand-gold/20"
         />
         {errors.name && (
-          <p className="mt-1 text-sm text-red-400">{errors.name.message}</p>
+          <p className="mt-1 text-sm text-red-400" role="alert">{errors.name.message}</p>
         )}
       </div>
 
@@ -104,7 +119,7 @@ export function ContactForm() {
           </SelectContent>
         </Select>
         {errors.contactMethod && (
-          <p className="mt-1 text-sm text-red-400">
+          <p className="mt-1 text-sm text-red-400" role="alert">
             {errors.contactMethod.message}
           </p>
         )}
@@ -141,7 +156,7 @@ export function ContactForm() {
           </SelectContent>
         </Select>
         {errors.eventType && (
-          <p className="mt-1 text-sm text-red-400">
+          <p className="mt-1 text-sm text-red-400" role="alert">
             {errors.eventType.message}
           </p>
         )}
@@ -159,10 +174,11 @@ export function ContactForm() {
           id="eventDate"
           type="date"
           {...register("eventDate")}
+          aria-invalid={!!errors.eventDate}
           className="w-full rounded-lg border border-brand-sand bg-white px-4 py-3 text-brand-taupe text-sm outline-none transition-colors placeholder:text-brand-taupe/30 focus:border-brand-gold focus:ring-2 focus:ring-brand-gold/20"
         />
         {errors.eventDate && (
-          <p className="mt-1 text-sm text-red-400">
+          <p className="mt-1 text-sm text-red-400" role="alert">
             {errors.eventDate.message}
           </p>
         )}
@@ -180,10 +196,11 @@ export function ContactForm() {
           id="eventLocation"
           {...register("eventLocation")}
           placeholder="City or venue"
+          aria-invalid={!!errors.eventLocation}
           className="w-full rounded-lg border border-brand-sand bg-white px-4 py-3 text-brand-taupe text-sm outline-none transition-colors placeholder:text-brand-taupe/30 focus:border-brand-gold focus:ring-2 focus:ring-brand-gold/20"
         />
         {errors.eventLocation && (
-          <p className="mt-1 text-sm text-red-400">
+          <p className="mt-1 text-sm text-red-400" role="alert">
             {errors.eventLocation.message}
           </p>
         )}
