@@ -89,6 +89,9 @@ function DatePicker({
                 onDateChange(d);
                 setOpen(false);
               }}
+              captionLayout="dropdown"
+              startMonth={new Date()}
+              endMonth={new Date(new Date().getFullYear() + 3, 11)}
             />
           </div>
         </div>
