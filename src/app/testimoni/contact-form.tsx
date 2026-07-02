@@ -5,6 +5,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
+
 /* ── Schema ── */
 
 const contactFormSchema = z.object({
@@ -29,6 +33,27 @@ const contactFormSchema = z.object({
 
 type ContactFormData = z.infer<typeof contactFormSchema>;
 
+/* ── Shared input class ── */
+
+const inputClass = cn(
+  // Match shadcn Input + select appearance
+  "flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2",
+  "text-base md:text-sm",
+  "placeholder:text-muted-foreground",
+  "focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/20",
+  "outline-none transition-colors",
+  "disabled:cursor-not-allowed disabled:opacity-50",
+  "aria-invalid:border-destructive aria-invalid:ring-destructive/20",
+  "file:border-0 file:bg-transparent file:text-sm file:font-medium",
+);
+
+const selectClass = cn(
+  inputClass,
+  "appearance-none cursor-pointer",
+  "bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%234a3e3d%22%20stroke-width%3D%222%22%3E%3Cpath%20d%3D%22m6%209%206%206%206-6%22%2F%3E%3C%2Fsvg%3E')]",
+  "bg-[length:16px] bg-[right_12px_center] bg-no-repeat pr-10",
+);
+
 /* ── Component ── */
 
 export function ContactForm() {
@@ -51,7 +76,6 @@ export function ContactForm() {
 
   const onSubmit = async (_data: ContactFormData) => {
     try {
-      // Simulate API call — replace with real endpoint when backend is ready
       await new Promise((resolve) => setTimeout(resolve, 1000));
       toast.success("Thank you! We'll get back to you soon.");
       reset();
@@ -63,63 +87,49 @@ export function ContactForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
       {/* Name */}
-      <div>
-        <label
-          htmlFor="name"
-          className="block text-sm font-medium text-brand-taupe mb-1.5"
-        >
-          Name
-        </label>
-        <input
+      <div className="space-y-2">
+        <Label htmlFor="name">Name</Label>
+        <Input
           id="name"
           {...register("name")}
           placeholder="Your name"
           aria-invalid={!!errors.name}
-          className="w-full rounded-lg border border-brand-sand bg-white px-4 py-3 text-brand-taupe text-sm outline-none transition-colors placeholder:text-brand-taupe/30 focus:border-brand-gold focus:ring-2 focus:ring-brand-gold/20"
         />
         {errors.name && (
-          <p className="mt-1 text-sm text-red-400" role="alert">{errors.name.message}</p>
+          <p className="text-sm text-destructive" role="alert">
+            {errors.name.message}
+          </p>
         )}
       </div>
 
       {/* Contact Method */}
-      <div>
-        <label
-          htmlFor="contactMethod"
-          className="block text-sm font-medium text-brand-taupe mb-1.5"
-        >
-          Contact Method
-        </label>
+      <div className="space-y-2">
+        <Label htmlFor="contactMethod">Contact Method</Label>
         <select
           id="contactMethod"
           {...register("contactMethod")}
           aria-invalid={!!errors.contactMethod}
-          className="w-full rounded-lg border border-brand-sand bg-white px-4 py-3 text-brand-taupe text-sm outline-none transition-colors appearance-none cursor-pointer focus:border-brand-gold focus:ring-2 focus:ring-brand-gold/20 bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%234a3e3d%22%20stroke-width%3D%222%22%3E%3Cpath%20d%3D%22m6%209%206%206%206-6%22%2F%3E%3C%2Fsvg%3E')] bg-[length:16px] bg-[right_12px_center] bg-no-repeat pr-10"
+          className={selectClass}
         >
           <option value="">Select contact method</option>
           <option value="WhatsApp">WhatsApp</option>
           <option value="Email">Email</option>
         </select>
         {errors.contactMethod && (
-          <p className="mt-1 text-sm text-red-400" role="alert">
+          <p className="text-sm text-destructive" role="alert">
             {errors.contactMethod.message}
           </p>
         )}
       </div>
 
       {/* Event Type */}
-      <div>
-        <label
-          htmlFor="eventType"
-          className="block text-sm font-medium text-brand-taupe mb-1.5"
-        >
-          Event Type
-        </label>
+      <div className="space-y-2">
+        <Label htmlFor="eventType">Event Type</Label>
         <select
           id="eventType"
           {...register("eventType")}
           aria-invalid={!!errors.eventType}
-          className="w-full rounded-lg border border-brand-sand bg-white px-4 py-3 text-brand-taupe text-sm outline-none transition-colors appearance-none cursor-pointer focus:border-brand-gold focus:ring-2 focus:ring-brand-gold/20 bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%234a3e3d%22%20stroke-width%3D%222%22%3E%3Cpath%20d%3D%22m6%209%206%206%206-6%22%2F%3E%3C%2Fsvg%3E')] bg-[length:16px] bg-[right_12px_center] bg-no-repeat pr-10"
+          className={selectClass}
         >
           <option value="">Select event type</option>
           <option value="Wedding Ceremonies">Wedding Ceremonies</option>
@@ -129,70 +139,53 @@ export function ContactForm() {
           <option value="Birthday Parties">Birthday Parties</option>
         </select>
         {errors.eventType && (
-          <p className="mt-1 text-sm text-red-400" role="alert">
+          <p className="text-sm text-destructive" role="alert">
             {errors.eventType.message}
           </p>
         )}
       </div>
 
       {/* Event Date */}
-      <div>
-        <label
-          htmlFor="eventDate"
-          className="block text-sm font-medium text-brand-taupe mb-1.5"
-        >
-          Event Date
-        </label>
-        <input
+      <div className="space-y-2">
+        <Label htmlFor="eventDate">Event Date</Label>
+        <Input
           id="eventDate"
           type="date"
           {...register("eventDate")}
           aria-invalid={!!errors.eventDate}
-          className="w-full rounded-lg border border-brand-sand bg-white px-4 py-3 text-brand-taupe text-sm outline-none transition-colors placeholder:text-brand-taupe/30 focus:border-brand-gold focus:ring-2 focus:ring-brand-gold/20"
         />
         {errors.eventDate && (
-          <p className="mt-1 text-sm text-red-400" role="alert">
+          <p className="text-sm text-destructive" role="alert">
             {errors.eventDate.message}
           </p>
         )}
       </div>
 
       {/* Event Location */}
-      <div>
-        <label
-          htmlFor="eventLocation"
-          className="block text-sm font-medium text-brand-taupe mb-1.5"
-        >
-          Event Location
-        </label>
-        <input
+      <div className="space-y-2">
+        <Label htmlFor="eventLocation">Event Location</Label>
+        <Input
           id="eventLocation"
           {...register("eventLocation")}
           placeholder="City or venue"
           aria-invalid={!!errors.eventLocation}
-          className="w-full rounded-lg border border-brand-sand bg-white px-4 py-3 text-brand-taupe text-sm outline-none transition-colors placeholder:text-brand-taupe/30 focus:border-brand-gold focus:ring-2 focus:ring-brand-gold/20"
         />
         {errors.eventLocation && (
-          <p className="mt-1 text-sm text-red-400" role="alert">
+          <p className="text-sm text-destructive" role="alert">
             {errors.eventLocation.message}
           </p>
         )}
       </div>
 
       {/* Description */}
-      <div>
-        <label
-          htmlFor="description"
-          className="block text-sm font-medium text-brand-taupe mb-1.5"
-        >
-          Description
-        </label>
+      <div className="space-y-2">
+        <Label htmlFor="description">Description</Label>
         <textarea
           id="description"
           {...register("description")}
           placeholder="Tell us about your event..."
           rows={4}
-          className="w-full rounded-lg border border-brand-sand bg-white px-4 py-3 text-brand-taupe text-sm outline-none transition-colors placeholder:text-brand-taupe/30 focus:border-brand-gold focus:ring-2 focus:ring-brand-gold/20 resize-none"
+          className={cn(inputClass, "min-h-[100px] resize-none")}
         />
       </div>
 
@@ -200,7 +193,7 @@ export function ContactForm() {
       <Button
         type="submit"
         disabled={isSubmitting}
-        className="w-full bg-brand-gold hover:bg-brand-gold/80 text-white font-serif text-base py-6 rounded-lg transition-all duration-300 disabled:opacity-60"
+        className="w-full"
       >
         {isSubmitting ? "Sending..." : "Send Message"}
       </Button>
