@@ -58,6 +58,12 @@
   50% { transform: translateY(-12px); }
 }
 
+@utility scrollbar-hide {
+  &::-webkit-scrollbar { display: none; }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 @layer base {
   * {
     border-color: var(--color-border);

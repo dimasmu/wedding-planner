@@ -83,7 +83,7 @@ function SectionOrnament() {
 /* ── Page ── */
 
 export default function TestimonialPage() {
-  const latestTestimonials = testimonials
+  const latestTestimonials = [...testimonials]
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .slice(0, 3);
 
