@@ -39,7 +39,7 @@ function DatePicker({
               variant="outline"
               aria-invalid={ariaInvalid}
               className={cn(
-                "w-full justify-start text-left font-normal h-10 px-3",
+                "w-full justify-start text-left font-normal h-10 px-3 bg-white",
                 !date && "text-muted-foreground",
                 ariaInvalid &&
                   "border-destructive focus-visible:border-destructive focus-visible:ring-destructive/20"

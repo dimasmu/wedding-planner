@@ -37,8 +37,11 @@ type ContactFormData = z.infer<typeof contactFormSchema>;
 
 /* ── Shared select class ── */
 
+const inputOverride = "bg-white";
+
 const selectClass = cn(
-  "flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2",
+  "flex h-10 w-full rounded-lg border border-input px-3 py-2",
+  inputOverride,
   "text-base md:text-sm",
   "placeholder:text-muted-foreground",
   "focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/20",
@@ -98,6 +101,7 @@ export function ContactForm() {
           {...register("name")}
           placeholder="Your name"
           aria-invalid={!!errors.name}
+          className="bg-white"
         />
         {errors.name && (
           <p className="text-sm text-destructive" role="alert">
@@ -167,6 +171,7 @@ export function ContactForm() {
           {...register("eventLocation")}
           placeholder="City or venue"
           aria-invalid={!!errors.eventLocation}
+          className="bg-white"
         />
         {errors.eventLocation && (
           <p className="text-sm text-destructive" role="alert">
@@ -184,7 +189,7 @@ export function ContactForm() {
           placeholder="Tell us about your event..."
           rows={4}
           className={cn(
-            "flex min-h-[100px] w-full rounded-lg border border-input bg-background px-3 py-2",
+            "flex min-h-[100px] w-full rounded-lg border border-input bg-white px-3 py-2",
             "text-base md:text-sm placeholder:text-muted-foreground",
             "focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/20",
             "outline-none transition-colors resize-none",
