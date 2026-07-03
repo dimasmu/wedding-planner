@@ -54,26 +54,14 @@ function NavAuth({ mobile }: { mobile?: boolean }) {
 
   if (mobile) {
     return (
-      <>
-        <Link href="/login" className="font-serif text-lg text-brand-taupe">Login</Link>
-        <Link href="/dashboard" className="w-full">
-          <Button className="w-full bg-brand-gold text-white">Start Planning</Button>
-        </Link>
-      </>
+      <Link href="/login" className="font-serif text-lg text-brand-taupe">Login</Link>
     );
   }
 
   return (
-    <>
-      <Link href="/login">
-        <Button variant="ghost" className="text-brand-taupe hover:text-brand-gold">Login</Button>
-      </Link>
-      <Link href="/dashboard">
-        <Button className="bg-brand-gold text-white hover:bg-brand-taupe hover:text-brand-cream transition-all duration-300">
-          Start Planning →
-        </Button>
-      </Link>
-    </>
+    <Link href="/login">
+      <Button variant="ghost" className="text-brand-taupe hover:text-brand-gold">Login</Button>
+    </Link>
   );
 }
 
