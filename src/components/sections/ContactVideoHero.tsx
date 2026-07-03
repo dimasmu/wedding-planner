@@ -52,15 +52,16 @@ export function ContactVideoHero() {
           We&rsquo;d love to hear from you. Reach out and let&rsquo;s start planning.
         </p>
 
-        <a
-          href="https://wa.me/6281234567890"
-          target="_blank"
-          rel="noopener noreferrer"
+        <Button
+          onClick={() => {
+            document
+              .getElementById("contact-content")
+              ?.scrollIntoView({ behavior: "smooth" });
+          }}
+          className="bg-brand-gold text-white hover:bg-brand-taupe hover:text-brand-cream transition-all duration-300 text-base px-8 py-6 rounded-md"
         >
-          <Button className="bg-brand-gold text-white hover:bg-brand-taupe hover:text-brand-cream transition-all duration-300 text-base px-8 py-6 rounded-md">
-            Chat via WhatsApp &rarr;
-          </Button>
-        </a>
+          Contact Us &darr;
+        </Button>
 
         {/* Scroll indicator */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20">

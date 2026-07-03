@@ -52,7 +52,7 @@ export default function ContactUsPage() {
       </RevealSection>
 
       {/* 3. Contact Info + Form — Two Columns */}
-      <section className="py-28 bg-brand-cream">
+      <section id="contact-content" className="py-28 bg-brand-cream">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto items-stretch">
             <RevealSection className="flex">
