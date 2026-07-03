@@ -37,9 +37,24 @@ export default function RegisterPage() {
 
   const onSubmit = async (data: RegisterFormData) => {
     setIsLoading(true);
-    await new Promise((r) => setTimeout(r, 1000));
-    toast(`Account created! Welcome to Sola Planner, ${data.name}!`);
-    setIsLoading(false);
+    try {
+      const res = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) {
+        const err = await res.json();
+        toast(err.error || "Registration failed");
+        return;
+      }
+      toast(`Account created! Welcome to Sola Planner, ${data.name}!`);
+      window.location.href = "/dashboard";
+    } catch {
+      toast("Something went wrong. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (

@@ -30,11 +30,26 @@ export default function LoginPage() {
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = async () => {
+  const onSubmit = async (data: LoginFormData) => {
     setIsLoading(true);
-    await new Promise((r) => setTimeout(r, 1000));
-    toast("Welcome back! You've been logged in successfully.");
-    setIsLoading(false);
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) {
+        const err = await res.json();
+        toast(err.error || "Login failed");
+        return;
+      }
+      toast("Welcome back! You've been logged in successfully.");
+      window.location.href = "/dashboard";
+    } catch {
+      toast("Something went wrong. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
