@@ -154,7 +154,7 @@ export function UserTable({
                   <div className="flex items-center justify-end gap-2">
                     <Select
                       value={user.role}
-                      onValueChange={(v) => handleRoleChange(user.id, v)}
+                      onValueChange={(v) => v && handleRoleChange(user.id, v)}
                     >
                       <SelectTrigger className="w-28 h-8 text-xs border-brand-sand">
                         <SelectValue />

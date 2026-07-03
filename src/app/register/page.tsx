@@ -73,7 +73,7 @@ export default function RegisterPage() {
         <CardContent>
           <Tabs
             value={role}
-            onValueChange={(v) => setRole(v as "couple" | "vendor")}
+            onValueChange={(v) => setRole(v as "couple" | "editor")}
             className="mb-6"
           >
             <TabsList className="grid w-full grid-cols-2 bg-brand-sand">
