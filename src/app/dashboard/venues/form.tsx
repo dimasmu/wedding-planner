@@ -2,7 +2,7 @@
 
 import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod/v4";
+import { z } from "zod";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -17,8 +17,8 @@ import { cn } from "@/lib/utils";
 const packageSchema = z.object({
   id: z.number().optional(),
   name: z.string().min(1, "Nama paket wajib diisi"),
-  pax: z.coerce.number().min(1, "Jumlah pax minimal 1"),
-  price: z.coerce.number().min(1, "Harga wajib diisi"),
+  pax: z.number().min(1, "Jumlah pax minimal 1"),
+  price: z.number().min(1, "Harga wajib diisi"),
   features: z.array(z.string().min(1, "Fitur tidak boleh kosong")),
   bookingUrl: z.string().optional(),
 });
@@ -28,7 +28,7 @@ const venueSchema = z.object({
   slug: z.string().min(1, "Slug wajib diisi"),
   location: z.string().min(1, "Lokasi wajib diisi"),
   description: z.string().min(10, "Deskripsi minimal 10 karakter"),
-  maxCapacity: z.coerce.number().min(1, "Kapasitas minimal 1"),
+  maxCapacity: z.number().min(1, "Kapasitas minimal 1"),
   images: z.array(z.string().min(1, "URL gambar tidak boleh kosong")),
   packages: z.array(packageSchema),
 });
@@ -79,8 +79,9 @@ export function VenueForm({ mode, initialData }: VenueFormProps) {
     },
   });
 
+  // useFieldArray narrowed by resolver type — safe cast for dynamic arrays
   const { fields: imageFields, append: addImage, remove: removeImage } = useFieldArray({
-    control,
+    control: control as any,
     name: "images",
   });
 
@@ -89,7 +90,7 @@ export function VenueForm({ mode, initialData }: VenueFormProps) {
     append: addPackage,
     remove: removePackage,
   } = useFieldArray({
-    control,
+    control: control as any,
     name: "packages",
   });
 
@@ -225,7 +226,7 @@ export function VenueForm({ mode, initialData }: VenueFormProps) {
               <Label className="text-brand-taupe">Kapasitas Maksimal</Label>
               <Input
                 type="number"
-                {...register("maxCapacity")}
+                {...register("maxCapacity", { valueAsNumber: true })}
                 className={cn("mt-1.5 bg-brand-cream border-brand-sand w-40", errors.maxCapacity && "border-red-400")}
               />
               {errors.maxCapacity && <p className="text-red-400 text-sm mt-1">{errors.maxCapacity.message}</p>}
@@ -315,7 +316,7 @@ export function VenueForm({ mode, initialData }: VenueFormProps) {
                     <Label className="text-brand-taupe text-xs">Pax</Label>
                     <Input
                       type="number"
-                      {...register(`packages.${pkgIndex}.pax`)}
+                      {...register(`packages.${pkgIndex}.pax`, { valueAsNumber: true })}
                       className={cn("mt-1 bg-white border-brand-sand text-sm")}
                     />
                   </div>
@@ -323,7 +324,7 @@ export function VenueForm({ mode, initialData }: VenueFormProps) {
                     <Label className="text-brand-taupe text-xs">Harga (IDR)</Label>
                     <Input
                       type="number"
-                      {...register(`packages.${pkgIndex}.price`)}
+                      {...register(`packages.${pkgIndex}.price`, { valueAsNumber: true })}
                       className={cn("mt-1 bg-white border-brand-sand text-sm")}
                     />
                   </div>
@@ -377,7 +378,7 @@ function PackageFeatures({
   pkgIndex: number;
 }) {
   const { fields, append, remove } = useFieldArray({
-    control,
+    control: control as any,
     name: `packages.${pkgIndex}.features`,
   });
 
