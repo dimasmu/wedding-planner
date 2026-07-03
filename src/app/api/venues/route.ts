@@ -37,12 +37,16 @@ export async function GET(request: NextRequest) {
       db.venue.count({ where }),
     ]);
 
-    const venuesWithCheapestPrice = venues.map((v) => ({
-      ...v,
-      images: JSON.parse(v.images) as string[],
-      cheapestPrice: v.packages[0]?.price ? Number(v.packages[0].price) : null,
-      packageCount: v._count.packages,
-    }));
+    const venuesWithCheapestPrice = venues.map((v) => {
+      const { packages: _p, _count, ...rest } = v;
+      return {
+        ...rest,
+        images: JSON.parse(v.images) as string[],
+        cheapestPrice: v.packages[0]?.price ? Number(v.packages[0].price) : null,
+        packageCount: v._count.packages,
+        status: v.status,
+      } as const;
+    });
 
     return NextResponse.json({
       venues: venuesWithCheapestPrice,
