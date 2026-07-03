@@ -8,7 +8,7 @@ interface PackageData {
   name: string;
   pax: number;
   price: number;
-  features: string[];
+  content: string;
   bookingUrl: string;
 }
 
@@ -147,19 +147,12 @@ export default async function VenueDetailPage({
                 <p className="text-2xl font-bold text-brand-taupe mt-2 mb-5">
                   {formatIDR(pkg.price)}
                 </p>
-                <ul className="space-y-2 mb-6 flex-1">
-                  {pkg.features.slice(0, 5).map((feature, fi) => (
-                    <li key={fi} className="flex items-start gap-2 text-sm text-brand-taupe/55">
-                      <span className="w-1 h-1 rounded-full bg-brand-gold/40 mt-2 shrink-0" />
-                      {feature}
-                    </li>
-                  ))}
-                  {pkg.features.length > 5 && (
-                    <li className="text-xs text-brand-taupe/35 pl-3">
-                      +{pkg.features.length - 5} fasilitas lainnya
-                    </li>
-                  )}
-                </ul>
+                {pkg.content && (
+                  <div
+                    className="prose prose-sm max-w-none mb-6 flex-1 text-brand-taupe/55 [&_h3]:text-sm [&_h3]:font-semibold [&_h3]:text-brand-taupe/60 [&_h3]:mb-2 [&_h3]:mt-3 [&_ul]:pl-4 [&_ul]:space-y-1 [&_ul]:my-2 [&_li]:text-brand-taupe/50 [&_li]:text-sm"
+                    dangerouslySetInnerHTML={{ __html: pkg.content }}
+                  />
+                )}
                 <a
                   href={pkg.bookingUrl}
                   target="_blank"

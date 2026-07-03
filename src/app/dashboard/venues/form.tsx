@@ -14,13 +14,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { ArrowLeft, Plus, Trash2, Loader2, ImageIcon } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { RichTextEditor } from "@/components/ui/rich-text-editor";
 
 const packageSchema = z.object({
   id: z.number().optional(),
   name: z.string().min(1, "Nama paket wajib diisi"),
   pax: z.number().min(1, "Jumlah pax minimal 1"),
   price: z.number().min(1, "Harga wajib diisi"),
-  features: z.array(z.string().min(1, "Fitur tidak boleh kosong")),
+  content: z.string().optional().default(""),
   bookingUrl: z.string().optional(),
 });
 
@@ -139,7 +140,7 @@ interface VenueFormProps {
       name: string;
       pax: number;
       price: number;
-      features: string[];
+      content: string;
       bookingUrl: string;
     }>;
   };
@@ -157,7 +158,8 @@ export function VenueForm({ mode, initialData }: VenueFormProps) {
     setValue,
     formState: { errors },
   } = useForm<VenueFormData>({
-    resolver: zodResolver(venueSchema),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    resolver: zodResolver(venueSchema) as any,
     defaultValues: initialData || {
       name: "",
       slug: "",
@@ -360,7 +362,7 @@ export function VenueForm({ mode, initialData }: VenueFormProps) {
                 size="sm"
                 className="border-brand-sand text-brand-taupe"
                 onClick={() =>
-                  addPackage({ name: "", pax: 0, price: 0, features: [""], bookingUrl: "" })
+                  addPackage({ name: "", pax: 0, price: 0, content: "", bookingUrl: "" })
                 }
               >
                 <Plus className="w-3 h-3 mr-1" /> Tambah Paket
@@ -417,11 +419,13 @@ export function VenueForm({ mode, initialData }: VenueFormProps) {
                   </div>
                 </div>
 
-                <PackageFeatures
-                  control={control}
-                  register={register}
-                  pkgIndex={pkgIndex}
-                />
+                <div>
+                  <Label className="text-brand-taupe text-xs mb-2 block">Konten Paket</Label>
+                  <RichTextEditor
+                    content={watch(`packages.${pkgIndex}.content`) || ""}
+                    onChange={(html) => setValue(`packages.${pkgIndex}.content`, html)}
+                  />
+                </div>
               </div>
             ))}
           </CardContent>
@@ -447,50 +451,3 @@ export function VenueForm({ mode, initialData }: VenueFormProps) {
   );
 }
 
-function PackageFeatures({
-  control,
-  register,
-  pkgIndex,
-}: {
-  control: any;
-  register: any;
-  pkgIndex: number;
-}) {
-  const { fields, append, remove } = useFieldArray({
-    control: control as any,
-    name: `packages.${pkgIndex}.features`,
-  });
-
-  return (
-    <div className="space-y-2">
-      <Label className="text-brand-taupe text-xs">Fitur</Label>
-      {fields.map((field, featIndex) => (
-        <div key={field.id} className="flex gap-2 items-start">
-          <Input
-            {...register(`packages.${pkgIndex}.features.${featIndex}`)}
-            placeholder="Fasilitas..."
-            className="flex-1 bg-white border-brand-sand text-sm"
-          />
-          <Button
-            type="button"
-            variant="ghost"
-            size="icon"
-            className="text-red-400 hover:text-red-500 shrink-0"
-            onClick={() => remove(featIndex)}
-          >
-            <Trash2 className="w-3 h-3" />
-          </Button>
-        </div>
-      ))}
-      <Button
-        type="button"
-        variant="ghost"
-        size="sm"
-        className="text-brand-gold text-xs"
-        onClick={() => append("")}
-      >
-        <Plus className="w-3 h-3 mr-1" /> Tambah Fitur
-      </Button>
-    </div>
-  );
-}

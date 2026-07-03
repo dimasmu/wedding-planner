@@ -8,7 +8,7 @@ export async function POST(
   try {
     const { slug } = await params;
     const body = await request.json();
-    const { name, pax, price, features, bookingUrl } = body;
+    const { name, pax, price, content, bookingUrl } = body;
 
     if (!name || !pax || !price) {
       return NextResponse.json(
@@ -28,13 +28,13 @@ export async function POST(
         name,
         pax: Number(pax),
         price: BigInt(price),
-        features: JSON.stringify(features || []),
+        content: content || "",
         bookingUrl: bookingUrl || "",
       },
     });
 
     return NextResponse.json(
-      { package: { ...pkg, price: Number(pkg.price), features: JSON.parse(pkg.features) } },
+      { package: { ...pkg, price: Number(pkg.price), content: pkg.content } },
       { status: 201 }
     );
   } catch (error) {

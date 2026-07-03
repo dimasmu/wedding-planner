@@ -12,7 +12,7 @@ interface VenueData {
     name: string;
     pax: number;
     price: number;
-    features: string[];
+    content: string;
     bookingUrl: string;
   }>;
 }

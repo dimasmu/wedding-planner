@@ -21,7 +21,7 @@ export async function GET(
         packages: venue.packages.map((pkg) => ({
           ...pkg,
           price: Number(pkg.price),
-          features: JSON.parse(pkg.features) as string[],
+          content: pkg.content,
         })),
       },
     });

@@ -27,7 +27,7 @@ model Package {
   name       String
   pax        Int
   price      BigInt
-  features   String  @db.Text
+  content    String  @db.Text
   bookingUrl String  @db.Text
 
   venue      Venue   @relation(fields: [venueId], references: [id], onDelete: Cascade)

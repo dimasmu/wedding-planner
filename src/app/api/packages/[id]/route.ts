@@ -8,7 +8,7 @@ export async function PUT(
   try {
     const { id } = await params;
     const body = await request.json();
-    const { name, pax, price, features, bookingUrl } = body;
+    const { name, pax, price, content, bookingUrl } = body;
 
     const pkgId = parseInt(id);
     if (isNaN(pkgId)) {
@@ -21,13 +21,13 @@ export async function PUT(
         ...(name && { name }),
         ...(pax !== undefined && { pax: Number(pax) }),
         ...(price !== undefined && { price: BigInt(price) }),
-        ...(features !== undefined && { features: JSON.stringify(features) }),
+        ...(content !== undefined && { content }),
         ...(bookingUrl !== undefined && { bookingUrl }),
       },
     });
 
     return NextResponse.json({
-      package: { ...pkg, price: Number(pkg.price), features: JSON.parse(pkg.features) },
+      package: { ...pkg, price: Number(pkg.price), content: pkg.content },
     });
   } catch (error) {
     console.error("PUT /api/packages/[id] error:", error);
