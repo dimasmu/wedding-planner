@@ -262,7 +262,7 @@ export function VenueForm({ mode, initialData }: VenueFormProps) {
         </h1>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="max-w-3xl space-y-8">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
         <Card className="bg-white border-brand-sand shadow-sm">
           <CardContent className="p-6 space-y-4">
             <h2 className="font-serif text-xl text-brand-taupe mb-4">Informasi Venue</h2>
