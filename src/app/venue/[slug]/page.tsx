@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, MapPin, Users } from "lucide-react";
+import { ArrowLeft, MapPin, Users, ImageIcon } from "lucide-react";
 import { notFound } from "next/navigation";
 
 interface PackageData {
@@ -69,20 +69,26 @@ export default async function VenueDetailPage({
       {/* Image Gallery */}
       <div className="container mx-auto px-4 pt-8 max-w-5xl">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2 rounded-2xl overflow-hidden">
-          {venue.images.map((img, i) => (
-            <div
-              key={i}
-              className={`relative ${i === 0 ? "col-span-2 row-span-2" : ""} min-h-[200px]`}
-            >
-              <Image
-                src={img}
-                alt={`${venue.name} photo ${i + 1}`}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 50vw, 25vw"
-              />
+          {venue.images.length > 0 ? (
+            venue.images.map((img, i) => (
+              <div
+                key={i}
+                className={`relative ${i === 0 ? "col-span-2 row-span-2" : ""} min-h-[200px]`}
+              >
+                <Image
+                  src={img}
+                  alt={`${venue.name} photo ${i + 1}`}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 50vw, 25vw"
+                />
+              </div>
+            ))
+          ) : (
+            <div className="col-span-full min-h-[250px] bg-gradient-to-br from-brand-sand via-brand-cream to-brand-gold/20 flex items-center justify-center rounded-2xl">
+              <ImageIcon className="w-16 h-16 text-brand-gold/30" />
             </div>
-          ))}
+          )}
         </div>
       </div>
 

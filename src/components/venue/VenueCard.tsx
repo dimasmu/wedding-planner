@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
-import { MapPin, Users } from "lucide-react";
+import { MapPin, Users, ImageIcon } from "lucide-react";
 
 interface VenueCardProps {
   slug: string;
@@ -38,9 +38,7 @@ export function VenueCard({
             />
           ) : (
             <div className="h-full bg-gradient-to-br from-brand-sand via-brand-cream to-brand-gold/20 flex items-center justify-center">
-              <span className="font-serif text-5xl text-brand-gold/30">
-                {name.charAt(0)}
-              </span>
+              <ImageIcon className="w-10 h-10 text-brand-gold/30" />
             </div>
           )}
         </div>

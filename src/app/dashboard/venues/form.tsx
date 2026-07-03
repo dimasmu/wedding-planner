@@ -6,11 +6,12 @@ import { z } from "zod";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowLeft, Plus, Trash2, Loader2 } from "lucide-react";
+import { ArrowLeft, Plus, Trash2, Loader2, ImageIcon } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
@@ -34,6 +35,95 @@ const venueSchema = z.object({
 });
 
 type VenueFormData = z.infer<typeof venueSchema>;
+
+function ImageUploadRow({
+  value,
+  onChange,
+  onRemove,
+  canRemove,
+}: {
+  value: string;
+  onChange: (url: string) => void;
+  onRemove: () => void;
+  canRemove: boolean;
+}) {
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState("");
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (file.size > 5 * 1024 * 1024) {
+      setUploadError("File terlalu besar (maks 5MB)");
+      return;
+    }
+
+    setUploading(true);
+    setUploadError("");
+
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      const res = await fetch("/api/upload", { method: "POST", body: formData });
+      if (!res.ok) {
+        const err = await res.json();
+        setUploadError(err.error || "Upload gagal");
+        return;
+      }
+      const data = await res.json();
+      onChange(data.url);
+    } catch {
+      setUploadError("Upload gagal");
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  return (
+    <div className="space-y-2">
+      <div className="flex gap-2 items-center">
+        <Input
+          type="file"
+          accept="image/jpeg,image/png,image/webp"
+          onChange={handleFileChange}
+          className="flex-1 bg-brand-cream border-brand-sand text-sm file:mr-3 file:py-1 file:px-3 file:rounded file:border-0 file:text-sm file:bg-brand-gold/10 file:text-brand-taupe"
+        />
+        {value ? (
+          <div className="relative w-20 h-20 rounded-lg overflow-hidden bg-brand-cream shrink-0">
+            <Image src={value} alt="Preview" fill className="object-cover" sizes="80px" />
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              className="absolute top-0 right-0 w-5 h-5 bg-red-500 text-white rounded-full p-0"
+              onClick={() => onChange("")}
+            >
+              <Trash2 className="w-3 h-3" />
+            </Button>
+          </div>
+        ) : (
+          <div className="w-20 h-20 rounded-lg bg-gradient-to-br from-brand-sand via-brand-cream to-brand-gold/20 flex items-center justify-center shrink-0">
+            <ImageIcon className="w-6 h-6 text-brand-gold/30" />
+          </div>
+        )}
+        {canRemove && (
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon"
+            className="text-red-400 hover:text-red-500 shrink-0"
+            onClick={onRemove}
+          >
+            <Trash2 className="w-4 h-4" />
+          </Button>
+        )}
+      </div>
+      {uploading && <p className="text-xs text-brand-gold">Mengupload...</p>}
+      {uploadError && <p className="text-xs text-red-400">{uploadError}</p>}
+    </div>
+  );
+}
 
 interface VenueFormProps {
   mode: "create" | "edit";
@@ -245,28 +335,17 @@ export function VenueForm({ mode, initialData }: VenueFormProps) {
                 className="border-brand-sand text-brand-taupe"
                 onClick={() => addImage("")}
               >
-                <Plus className="w-3 h-3 mr-1" /> Tambah URL
+                <Plus className="w-3 h-3 mr-1" /> Tambah Gambar
               </Button>
             </div>
             {imageFields.map((field, index) => (
-              <div key={field.id} className="flex gap-2 items-start">
-                <Input
-                  {...register(`images.${index}`)}
-                  placeholder="https://images.unsplash.com/..."
-                  className={cn("flex-1 bg-brand-cream border-brand-sand", errors.images?.[index] && "border-red-400")}
-                />
-                {imageFields.length > 1 && (
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="icon"
-                    className="text-red-400 hover:text-red-500 shrink-0"
-                    onClick={() => removeImage(index)}
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </Button>
-                )}
-              </div>
+              <ImageUploadRow
+                key={field.id}
+                value={watch(`images.${index}`)}
+                onChange={(url) => setValue(`images.${index}`, url)}
+                onRemove={() => removeImage(index)}
+                canRemove={imageFields.length > 1}
+              />
             ))}
           </CardContent>
         </Card>

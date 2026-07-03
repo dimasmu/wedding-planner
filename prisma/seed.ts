@@ -14,11 +14,7 @@ const venues = [
     description:
       "The Hermitage menawarkan suasana elegan klasik Eropa di jantung Jakarta. Ballroom megah dengan kapasitas hingga 500 tamu, dikelilingi taman tropis yang asri. Sempurna untuk pernikahan grand dan intimate.",
     maxCapacity: 500,
-    images: JSON.stringify([
-      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=800",
-      "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=800",
-      "https://images.unsplash.com/photo-1507504031003-b417219a0fde?w=800",
-    ]),
+    images: JSON.stringify([]),
     packages: {
       create: [
         {
@@ -79,11 +75,7 @@ const venues = [
     description:
       "Bangunan heritage kolonial yang telah direstorasi dengan indah. Memadukan arsitektur klasik dengan sentuhan modern, menciptakan suasana romantis yang hangat di tengah udara sejuk Bandung.",
     maxCapacity: 300,
-    images: JSON.stringify([
-      "https://images.unsplash.com/photo-1519741497674-611481863552?w=800",
-      "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=800",
-      "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=800",
-    ]),
+    images: JSON.stringify([]),
     packages: {
       create: [
         {
@@ -127,12 +119,7 @@ const venues = [
     description:
       "Venue pernikahan ikonik di atas tebing dengan pemandangan Samudra Hindia. Kapel kaca yang memukau dan taman tropis yang terawat sempurna. Destinasi impian untuk wedding yang tak terlupakan.",
     maxCapacity: 400,
-    images: JSON.stringify([
-      "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=800",
-      "https://images.unsplash.com/photo-1509927083803-4bd519298ac4?w=800",
-      "https://images.unsplash.com/photo-1438232992991-995b7058bbb3?w=800",
-      "https://images.unsplash.com/photo-1505236858219-8359eb29e329?w=800",
-    ]),
+    images: JSON.stringify([]),
     packages: {
       create: [
         {
@@ -198,11 +185,7 @@ const venues = [
     description:
       "Gedung pertemuan megah bernuansa Jawa klasik di pusat kota Yogyakarta. Arsitektur joglo yang megah dengan sentuhan modern, menciptakan harmoni sempurna antara tradisi dan kemewahan.",
     maxCapacity: 600,
-    images: JSON.stringify([
-      "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800",
-      "https://images.unsplash.com/photo-1478146059778-acee06e6a1f1?w=800",
-      "https://images.unsplash.com/photo-1529636798458-92182e662485?w=800",
-    ]),
+    images: JSON.stringify([]),
     packages: {
       create: [
         {
@@ -247,11 +230,7 @@ const venues = [
     description:
       "Ballroom hotel bintang lima dengan akses langsung ke pusat bisnis Jakarta. Desain kontemporer yang sophisticated dengan teknologi terkini dan layanan bertaraf internasional.",
     maxCapacity: 350,
-    images: JSON.stringify([
-      "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800",
-      "https://images.unsplash.com/photo-1505236858219-8359eb29e329?w=800",
-      "https://images.unsplash.com/photo-1574695141973-1a48c5783ed6?w=800",
-    ]),
+    images: JSON.stringify([]),
     packages: {
       create: [
         {
