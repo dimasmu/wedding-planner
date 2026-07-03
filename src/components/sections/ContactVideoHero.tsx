@@ -1,16 +1,12 @@
 "use client";
 
-import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 
 export function ContactVideoHero() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-
   return (
     <section className="relative h-[85vh] min-h-[600px] overflow-hidden bg-brand-dark">
-      {/* Video background */}
+      {/* Single looping video (not playlist — no ended listener needed) */}
       <video
-        ref={videoRef}
         autoPlay
         muted
         loop
