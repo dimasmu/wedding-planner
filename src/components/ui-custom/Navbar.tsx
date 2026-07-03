@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Menu, Heart } from "lucide-react";
+import { Menu, Heart, LogOut, User as UserIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -15,6 +15,67 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+
+function NavAuth({ mobile }: { mobile?: boolean }) {
+  const [user, setUser] = React.useState<{ name: string } | null | undefined>(undefined);
+
+  React.useEffect(() => {
+    fetch("/api/auth/me")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => setUser(data?.user || null))
+      .catch(() => setUser(null));
+  }, []);
+
+  const handleLogout = async () => {
+    await fetch("/api/auth/logout", { method: "POST" });
+    window.location.href = "/";
+  };
+
+  if (user === undefined) return null;
+
+  if (user) {
+    return (
+      <div className={mobile ? "flex flex-col gap-3" : "flex items-center gap-3"}>
+        <span className={mobile ? "font-serif text-lg text-brand-taupe/60" : "text-sm text-brand-taupe/60"}>
+          <UserIcon className="w-4 h-4 inline mr-1" />
+          {user.name}
+        </span>
+        <Button
+          variant="ghost"
+          className={mobile ? "justify-start text-brand-taupe" : "text-brand-taupe hover:text-red-500"}
+          onClick={handleLogout}
+        >
+          <LogOut className="w-4 h-4 mr-1" />
+          Logout
+        </Button>
+      </div>
+    );
+  }
+
+  if (mobile) {
+    return (
+      <>
+        <Link href="/login" className="font-serif text-lg text-brand-taupe">Login</Link>
+        <Link href="/dashboard" className="w-full">
+          <Button className="w-full bg-brand-gold text-white">Start Planning</Button>
+        </Link>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <Link href="/login">
+        <Button variant="ghost" className="text-brand-taupe hover:text-brand-gold">Login</Button>
+      </Link>
+      <Link href="/dashboard">
+        <Button className="bg-brand-gold text-white hover:bg-brand-taupe hover:text-brand-cream transition-all duration-300">
+          Start Planning →
+        </Button>
+      </Link>
+    </>
+  );
+}
 
 export function Navbar() {
   return (
@@ -74,16 +135,7 @@ export function Navbar() {
         </NavigationMenu>
 
         <div className="hidden md:flex items-center gap-4">
-          <Link href="/login">
-            <Button variant="ghost" className="text-brand-taupe hover:text-brand-gold">
-              Login
-            </Button>
-          </Link>
-          <Link href="/dashboard">
-            <Button className="bg-brand-gold text-white hover:bg-brand-taupe hover:text-brand-cream transition-all duration-300">
-              Start Planning →
-            </Button>
-          </Link>
+          <NavAuth />
         </div>
 
         {/* Mobile Navigation Drawer */}
@@ -121,12 +173,7 @@ export function Navbar() {
                   Pricing
                 </Link>
                 <hr className="border-brand-sand" />
-                <Link href="/login" className="font-serif text-lg text-brand-taupe">
-                  Login
-                </Link>
-                <Link href="/dashboard" className="w-full">
-                  <Button className="w-full bg-brand-gold text-white">Start Planning</Button>
-                </Link>
+                <NavAuth mobile />
               </nav>
             </SheetContent>
           </Sheet>
