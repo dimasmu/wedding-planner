@@ -60,7 +60,7 @@ export function VendorCarousel() {
                 whileHover={{ y: -6 }}
                 className="snap-start shrink-0 w-[220px]"
               >
-                <Link href={`/vendors?category=${label.toLowerCase()}`}>
+                <Link href={`/venue`}>
                   <Card className="bg-white border-brand-sand hover:shadow-lg transition-shadow duration-300 cursor-pointer h-full">
                     <CardContent className="p-6 text-center">
                       <div className="w-16 h-16 bg-brand-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
