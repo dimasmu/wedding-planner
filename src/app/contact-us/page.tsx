@@ -64,14 +64,14 @@ export default function ContactUsPage() {
           </div>
 
           {/* Follow Us — below the two columns */}
-          <div className="mt-16 max-w-6xl mx-auto">
-            <div className="bg-white rounded-2xl p-8 shadow-xl border border-brand-gold/10 text-center">
-              <div className="flex items-center justify-center gap-3 mb-6">
+          <div className="mt-12 max-w-6xl mx-auto">
+            <div className="bg-white rounded-2xl px-8 py-6 shadow-lg border border-brand-gold/10 text-center">
+              <div className="flex items-center justify-center gap-3 mb-4">
                 <div className="h-px w-8 bg-brand-gold/40" />
                 <Sparkles className="w-4 h-4 text-brand-gold" />
                 <div className="h-px w-8 bg-brand-gold/40" />
               </div>
-              <h3 className="font-serif text-xl text-brand-taupe mb-6">
+              <h3 className="font-serif text-lg text-brand-taupe mb-4">
                 Follow Us
               </h3>
               <div className="flex items-center justify-center gap-6">
@@ -82,7 +82,7 @@ export default function ContactUsPage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={social.name}
-                    className="flex flex-col items-center gap-1.5 text-brand-taupe/40 hover:text-brand-gold hover:scale-110 transition-all duration-300"
+                    className="flex flex-col items-center gap-1 text-brand-taupe/40 hover:text-brand-gold hover:scale-110 transition-all duration-300"
                   >
                     {social.icon}
                     <span className="text-[10px] tracking-[0.15em] uppercase">

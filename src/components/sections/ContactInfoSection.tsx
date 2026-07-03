@@ -2,7 +2,7 @@ import { MessageCircle, Mail, MapPin } from "lucide-react";
 
 export function ContactInfoSection() {
   return (
-    <div className="bg-white rounded-2xl p-8 shadow-xl border border-brand-gold/10 h-full">
+    <div className="bg-white rounded-2xl p-8 shadow-xl border border-brand-gold/10 flex flex-col flex-1">
       <h3 className="font-serif text-2xl text-brand-taupe mb-6">
         Contact Information
       </h3>

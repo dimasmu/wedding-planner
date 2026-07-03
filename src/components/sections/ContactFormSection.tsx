@@ -46,7 +46,7 @@ export function ContactFormSection() {
 
   if (status === "success") {
     return (
-      <div className="bg-white rounded-2xl p-8 shadow-xl border border-brand-gold/10 flex flex-col items-center justify-center text-center h-full min-h-[400px]">
+      <div className="bg-white rounded-2xl p-8 shadow-xl border border-brand-gold/10 flex flex-col flex-1 items-center justify-center text-center">
         <CheckCircle2 className="w-16 h-16 text-green-500 mb-4" />
         <h3 className="font-serif text-2xl text-brand-taupe mb-2">
           Terima kasih!
@@ -67,12 +67,12 @@ export function ContactFormSection() {
   }
 
   return (
-    <div className="bg-white rounded-2xl p-8 shadow-xl border border-brand-gold/10 h-full">
+    <div className="bg-white rounded-2xl p-8 shadow-xl border border-brand-gold/10 flex flex-col flex-1">
       <h3 className="font-serif text-2xl text-brand-taupe mb-6">
         Send Us a Message
       </h3>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col flex-1 space-y-5">
         {/* Name */}
         <div>
           <Label htmlFor="name" className="text-brand-taupe">
@@ -115,17 +115,16 @@ export function ContactFormSection() {
         </div>
 
         {/* Message */}
-        <div>
+        <div className="flex flex-col flex-1">
           <Label htmlFor="message" className="text-brand-taupe">
             Pesan <span className="text-red-400">*</span>
           </Label>
           <textarea
             id="message"
-            rows={5}
             placeholder="Ceritakan tentang acara yang ingin Anda rencanakan..."
             {...register("message")}
             className={cn(
-              "mt-1.5 flex w-full rounded-md border bg-brand-cream px-3 py-2 text-sm text-brand-taupe placeholder:text-brand-taupe/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
+              "mt-1.5 flex w-full rounded-md border bg-brand-cream px-3 py-2 text-sm text-brand-taupe placeholder:text-brand-taupe/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 flex-1 min-h-[180px]",
               errors.message
                 ? "border-red-400 focus-visible:ring-red-400"
                 : "border-brand-sand focus-visible:ring-brand-gold/30"
@@ -141,7 +140,7 @@ export function ContactFormSection() {
         <Button
           type="submit"
           disabled={status === "loading"}
-          className="w-full bg-brand-gold text-white hover:bg-brand-taupe hover:text-brand-cream transition-all duration-300 py-6 text-base rounded-md"
+          className="mt-auto w-full py-6 bg-brand-gold text-white hover:bg-brand-taupe hover:text-brand-cream transition-all duration-300 text-base rounded-md"
         >
           {status === "loading" ? (
             <>
