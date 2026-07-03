@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { PrismaMariaDb } from "@prisma/adapter-mariadb";
+import bcrypt from "bcrypt";
 
 const adapter = new PrismaMariaDb(process.env["DATABASE_URL"] ?? "");
 const prisma = new PrismaClient({ adapter });
@@ -9,6 +10,7 @@ const venues = [
     slug: "the-hermitage",
     name: "The Hermitage",
     location: "Jakarta",
+    status: "published",
     description:
       "The Hermitage menawarkan suasana elegan klasik Eropa di jantung Jakarta. Ballroom megah dengan kapasitas hingga 500 tamu, dikelilingi taman tropis yang asri. Sempurna untuk pernikahan grand dan intimate.",
     maxCapacity: 500,
@@ -73,6 +75,7 @@ const venues = [
     slug: "rumah-imam-bonjol",
     name: "Rumah Imam Bonjol",
     location: "Bandung",
+    status: "published",
     description:
       "Bangunan heritage kolonial yang telah direstorasi dengan indah. Memadukan arsitektur klasik dengan sentuhan modern, menciptakan suasana romantis yang hangat di tengah udara sejuk Bandung.",
     maxCapacity: 300,
@@ -120,6 +123,7 @@ const venues = [
     slug: "tirtha-bridal",
     name: "Tirtha Bridal",
     location: "Bali",
+    status: "published",
     description:
       "Venue pernikahan ikonik di atas tebing dengan pemandangan Samudra Hindia. Kapel kaca yang memukau dan taman tropis yang terawat sempurna. Destinasi impian untuk wedding yang tak terlupakan.",
     maxCapacity: 400,
@@ -190,6 +194,7 @@ const venues = [
     slug: "sasana-budaya",
     name: "Gedung Sasana Budaya",
     location: "Yogyakarta",
+    status: "published",
     description:
       "Gedung pertemuan megah bernuansa Jawa klasik di pusat kota Yogyakarta. Arsitektur joglo yang megah dengan sentuhan modern, menciptakan harmoni sempurna antara tradisi dan kemewahan.",
     maxCapacity: 600,
@@ -238,6 +243,7 @@ const venues = [
     slug: "le-meridien",
     name: "Le Meridien",
     location: "Jakarta",
+    status: "published",
     description:
       "Ballroom hotel bintang lima dengan akses langsung ke pusat bisnis Jakarta. Desain kontemporer yang sophisticated dengan teknologi terkini dan layanan bertaraf internasional.",
     maxCapacity: 350,
@@ -288,6 +294,42 @@ const venues = [
 
 async function main() {
   console.log("Seeding database...");
+
+  // Seed admin and editor users
+  const adminPasswordHash = await bcrypt.hash("admin123", 10);
+  const editorPasswordHash = await bcrypt.hash("editor123", 10);
+
+  const existingAdmin = await prisma.user.findUnique({ where: { email: "admin@solaproject.com" } });
+  if (!existingAdmin) {
+    await prisma.user.create({
+      data: {
+        id: Array.from(crypto.getRandomValues(new Uint8Array(16)))
+          .map((b) => b.toString(16).padStart(2, "0"))
+          .join(""),
+        name: "Admin",
+        email: "admin@solaproject.com",
+        passwordHash: adminPasswordHash,
+        role: "admin",
+      },
+    });
+    console.log("Created admin user");
+  }
+
+  const existingEditor = await prisma.user.findUnique({ where: { email: "editor@solaproject.com" } });
+  if (!existingEditor) {
+    await prisma.user.create({
+      data: {
+        id: Array.from(crypto.getRandomValues(new Uint8Array(16)))
+          .map((b) => b.toString(16).padStart(2, "0"))
+          .join(""),
+        name: "Editor",
+        email: "editor@solaproject.com",
+        passwordHash: editorPasswordHash,
+        role: "editor",
+      },
+    });
+    console.log("Created editor user");
+  }
 
   // Delete existing data in correct order (packages first due to FK)
   await prisma.$executeRaw`DELETE FROM \`Package\``;
