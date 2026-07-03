@@ -151,29 +151,32 @@ export function UserTable({
                   </Badge>
                 </TableCell>
                 <TableCell className="text-right">
-                  <div className="flex items-center justify-end gap-2">
-                    <Select
-                      value={user.role}
-                      onValueChange={(v) => v && handleRoleChange(user.id, v)}
-                    >
-                      <SelectTrigger className="w-28 h-8 text-xs border-brand-sand">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="editor">Editor</SelectItem>
-                        <SelectItem value="couple">Couple</SelectItem>
-                        {user.role === "admin" && <SelectItem value="admin">Admin</SelectItem>}
-                      </SelectContent>
-                    </Select>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="text-brand-taupe/60 hover:text-red-500"
-                      onClick={() => setDeleteTarget(user)}
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </Button>
-                  </div>
+                  {user.role === "admin" ? (
+                    <span className="text-xs text-brand-taupe/40 italic">Cannot be modified</span>
+                  ) : (
+                    <div className="flex items-center justify-end gap-2">
+                      <Select
+                        value={user.role}
+                        onValueChange={(v) => v && handleRoleChange(user.id, v)}
+                      >
+                        <SelectTrigger className="w-28 h-8 text-xs border-brand-sand">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="editor">Editor</SelectItem>
+                          <SelectItem value="couple">Couple</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="text-brand-taupe/60 hover:text-red-500"
+                        onClick={() => setDeleteTarget(user)}
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  )}
                 </TableCell>
               </TableRow>
             ))}
