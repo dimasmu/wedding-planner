@@ -46,7 +46,7 @@ export function ContactFormSection() {
 
   if (status === "success") {
     return (
-      <div className="bg-white rounded-2xl p-8 shadow-xl border border-brand-gold/10 flex flex-col items-center justify-center text-center min-h-[400px]">
+      <div className="bg-white rounded-2xl p-8 shadow-xl border border-brand-gold/10 flex flex-col items-center justify-center text-center h-full min-h-[400px]">
         <CheckCircle2 className="w-16 h-16 text-green-500 mb-4" />
         <h3 className="font-serif text-2xl text-brand-taupe mb-2">
           Terima kasih!
@@ -67,7 +67,7 @@ export function ContactFormSection() {
   }
 
   return (
-    <div className="bg-white rounded-2xl p-8 shadow-xl border border-brand-gold/10">
+    <div className="bg-white rounded-2xl p-8 shadow-xl border border-brand-gold/10 h-full">
       <h3 className="font-serif text-2xl text-brand-taupe mb-6">
         Send Us a Message
       </h3>

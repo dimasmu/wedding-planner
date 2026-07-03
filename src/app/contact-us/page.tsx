@@ -5,16 +5,9 @@ import { ContactFormSection } from "@/components/sections/ContactFormSection";
 import { FAQAccordion } from "@/components/sections/FAQAccordion";
 import { RevealSection } from "@/components/ui-custom/RevealSection";
 import Link from "next/link";
+import { Sparkles } from "lucide-react";
 
-function SparklesIcon({ className }: { className?: string }) {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
-      <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
-    </svg>
-  );
-}
-
-const socialLinks = [
+const socialIcons = [
   {
     name: "Instagram",
     href: "https://instagram.com",
@@ -61,54 +54,28 @@ export default function ContactUsPage() {
       {/* 3. Contact Info + Form — Two Columns */}
       <section className="py-28 bg-brand-cream">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            <RevealSection>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto items-stretch">
+            <RevealSection className="flex">
               <ContactInfoSection />
             </RevealSection>
-            <RevealSection delay={100}>
+            <RevealSection delay={100} className="flex">
               <ContactFormSection />
             </RevealSection>
           </div>
-        </div>
-      </section>
 
-      {/* 4. FAQ Accordion */}
-      <RevealSection>
-        <FAQAccordion />
-      </RevealSection>
-
-      {/* 5. Social Media — Connect With Us */}
-      <RevealSection>
-        <section className="py-32 md:py-40 bg-brand-cream relative overflow-hidden">
-          {/* Background ornament */}
-          <div
-            className="absolute -top-32 -right-32 w-96 h-96 rounded-full opacity-[0.03]"
-            style={{
-              background:
-                "radial-gradient(circle, rgb(211 162 127) 0%, transparent 70%)",
-            }}
-          />
-
-          <div className="container mx-auto px-6 max-w-5xl relative z-10">
-            <RevealSection>
-              <div className="text-center mb-20">
-                <div className="flex items-center justify-center gap-3 mb-6">
-                  <div className="h-px w-8 bg-brand-gold/40" />
-                  <SparklesIcon className="w-4 h-4 text-brand-gold" />
-                  <div className="h-px w-8 bg-brand-gold/40" />
-                </div>
-                <h2 className="font-serif text-4xl md:text-5xl text-brand-taupe mb-4">
-                  Connect With Us
-                </h2>
-                <p className="text-brand-taupe/70 text-lg font-light max-w-md mx-auto">
-                  Stay inspired — follow our journey and see the magic we create every day
-                </p>
+          {/* Follow Us — below the two columns */}
+          <div className="mt-16 max-w-6xl mx-auto">
+            <div className="bg-white rounded-2xl p-8 shadow-xl border border-brand-gold/10 text-center">
+              <div className="flex items-center justify-center gap-3 mb-6">
+                <div className="h-px w-8 bg-brand-gold/40" />
+                <Sparkles className="w-4 h-4 text-brand-gold" />
+                <div className="h-px w-8 bg-brand-gold/40" />
               </div>
-            </RevealSection>
-
-            <div className="max-w-2xl mx-auto bg-white/60 backdrop-blur-sm rounded-2xl border border-brand-gold/10 shadow-lg shadow-brand-gold/5 p-10 md:p-14">
-              <div className="grid grid-cols-3 gap-6 md:gap-10">
-                {socialLinks.map((social) => (
+              <h3 className="font-serif text-xl text-brand-taupe mb-6">
+                Follow Us
+              </h3>
+              <div className="flex items-center justify-center gap-6">
+                {socialIcons.map((social) => (
                   <Link
                     key={social.name}
                     href={social.href}
@@ -126,7 +93,12 @@ export default function ContactUsPage() {
               </div>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
+
+      {/* 4. FAQ Accordion */}
+      <RevealSection>
+        <FAQAccordion />
       </RevealSection>
     </>
   );
