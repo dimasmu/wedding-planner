@@ -51,144 +51,134 @@ export default async function VenueDetailPage({
   const price = cheapestPrice(venue.packages);
 
   return (
-    <div className="min-h-screen bg-brand-cream">
-      {/* ── Hero Banner ── */}
-      <section className="relative h-[480px] md:h-[520px] overflow-hidden rounded-b-[24px]">
-        {/* Background Image */}
+    <div className="min-h-screen bg-[#FDFBF7]">
+      {/* ── Hero ── */}
+      <section className="relative h-[380px] md:h-[440px] overflow-hidden">
         {venue.images[0] ? (
           <Image
             src={venue.images[0]}
             alt={venue.name}
             fill
-            className="object-cover scale-105 animate-[heroZoom_8s_ease-out_forwards]"
+            className="object-cover"
             priority
             sizes="100vw"
           />
         ) : (
           <div className="absolute inset-0 bg-gradient-to-br from-brand-taupe via-brand-taupe/90 to-brand-dark" />
         )}
+        <div className="absolute inset-0 bg-brand-dark/50" />
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#FDFBF7] to-transparent" />
 
-        {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-brand-dark/55" />
-        <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/50 via-brand-dark/20 to-transparent" />
-
-        {/* Bottom Fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-brand-cream to-transparent" />
-
-        {/* ── Back Navigation ── */}
-        <div className="absolute top-8 left-4 md:left-8 z-20">
+        {/* Back */}
+        <div className="absolute top-6 left-4 md:left-8 z-20">
           <Link
             href="/venue"
-            className="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur-md border border-white/20 rounded-full text-sm text-white hover:bg-white/30 transition-all duration-300"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-white/15 backdrop-blur-md rounded-full text-sm text-white/90 hover:bg-white/25 transition-colors"
           >
-            <ArrowLeft className="w-4 h-4" /> Kembali ke Katalog
+            <ArrowLeft className="w-4 h-4" /> Kembali
           </Link>
         </div>
 
-        {/* ── Hero Content ── */}
+        {/* Center content */}
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
-          <div className="max-w-2xl mx-auto">
-            {/* Decorative Divider */}
-            <div className="flex items-center justify-center gap-3 mb-6">
-              <div className="h-px w-10 bg-gradient-to-r from-transparent to-brand-gold/50" />
-              <Sparkles className="w-4 h-4 text-brand-gold" />
-              <div className="h-px w-10 bg-gradient-to-l from-transparent to-brand-gold/50" />
-            </div>
-
-            {/* Hotel Name */}
-            <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white mb-5 tracking-tight leading-[1.1]">
-              {venue.name}
-            </h1>
-
-            {/* Location + Capacity */}
-            <div className="flex items-center justify-center gap-3 text-white/80 text-sm md:text-base mb-6">
-              <span className="inline-flex items-center gap-1.5">
-                <MapPin className="w-3.5 h-3.5 text-brand-gold/70" />
-                {venue.location}
-              </span>
-              <span className="w-1 h-1 rounded-full bg-white/40" />
-              <span className="inline-flex items-center gap-1.5">
-                <Users className="w-3.5 h-3.5 text-brand-gold/70" />
-                {venue.maxCapacity} Pax
-              </span>
-            </div>
-
-            {/* Category Badges */}
-            <div className="flex flex-wrap items-center justify-center gap-2 mb-4">
-              <span className="text-[11px] px-3 py-1 bg-white/15 backdrop-blur-sm border border-white/15 text-white/90 rounded-full font-medium">Ballroom</span>
-              <span className="text-[11px] px-3 py-1 bg-white/15 backdrop-blur-sm border border-white/15 text-white/90 rounded-full font-medium">Indoor</span>
-              <span className="text-[11px] px-3 py-1 bg-white/15 backdrop-blur-sm border border-white/15 text-white/90 rounded-full font-medium">Luxury</span>
-              <span className="text-[11px] px-3 py-1 bg-white/15 backdrop-blur-sm border border-white/15 text-white/90 rounded-full font-medium">Hotel</span>
-            </div>
-
-            {/* Starting Price */}
+          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl text-white tracking-tight leading-[1.15] mb-4">
+            {venue.name}
+          </h1>
+          <div className="flex items-center gap-4 text-white/70 text-sm md:text-base">
+            <span className="inline-flex items-center gap-1.5">
+              <MapPin className="w-3.5 h-3.5 text-brand-gold/60" />
+              {venue.location}
+            </span>
+            <span className="w-1 h-1 rounded-full bg-white/30" />
+            <span className="inline-flex items-center gap-1.5">
+              <Users className="w-3.5 h-3.5 text-brand-gold/60" />
+              {venue.maxCapacity} tamu
+            </span>
             {price && (
-              <p className="text-white/90 text-sm md:text-base">
-                <span className="text-white/60">Mulai dari </span>
+              <>
+                <span className="w-1 h-1 rounded-full bg-white/30" />
                 <span className="font-semibold text-brand-gold">{formatIDR(price)}</span>
-              </p>
+              </>
             )}
           </div>
         </div>
       </section>
 
       {/* ── Description ── */}
-      <div className="max-w-3xl mx-auto px-4 md:px-8 -mt-8 relative z-10">
-        <div className="bg-white rounded-3xl shadow-xl shadow-brand-dark/5 border border-brand-sand/50 p-8 md:p-10">
-          <p className="text-brand-taupe/70 leading-relaxed text-base md:text-lg">
-            {venue.description}
-          </p>
+      <section className="max-w-3xl mx-auto px-4 md:px-8 py-12">
+        <div className="flex items-center gap-3 mb-5">
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent to-brand-gold/25" />
+          <Sparkles className="w-4 h-4 text-brand-gold/60" />
+          <div className="h-px flex-1 bg-gradient-to-l from-transparent to-brand-gold/25" />
         </div>
-      </div>
+        <p className="text-brand-taupe/65 leading-relaxed text-base md:text-lg">
+          {venue.description}
+        </p>
+      </section>
 
       {/* ── Packages ── */}
       {venue.packages.length > 0 && (
-        <div className="max-w-7xl mx-auto px-4 md:px-8 pt-20 pb-20">
+        <section className="max-w-7xl mx-auto px-4 md:px-8 pb-20">
           <div className="text-center mb-10">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-px w-8 bg-brand-gold/40" />
-              <Sparkles className="w-4 h-4 text-brand-gold" />
-              <div className="h-px w-8 bg-brand-gold/40" />
-            </div>
-            <h2 className="font-serif text-2xl md:text-3xl text-brand-taupe mb-2">Paket Wedding</h2>
-            <p className="text-brand-taupe/50 text-sm">Pilih paket yang sesuai dengan kebutuhan Anda</p>
+            <h2 className="font-serif text-2xl md:text-3xl text-brand-taupe">Paket Wedding</h2>
+            <p className="text-brand-taupe/45 text-sm mt-1">
+              Pilih paket yang sesuai dengan kebutuhan
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {venue.packages.map((pkg) => (
               <div
                 key={pkg.id}
-                className="bg-white rounded-2xl shadow-lg shadow-brand-dark/3 border border-brand-sand/50 p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                className="bg-white rounded-2xl border border-brand-sand/60 p-6 md:p-8 hover:border-brand-gold/30 hover:shadow-md transition-all duration-300 flex flex-col"
               >
-                <div className="flex items-start justify-between mb-4">
-                  <div>
-                    <h3 className="font-serif text-lg text-brand-taupe font-semibold mb-1">{pkg.name}</h3>
-                    <span className="text-xs px-2.5 py-0.5 bg-brand-gold/10 text-brand-gold rounded-full font-medium">
-                      <Users className="w-3 h-3 inline mr-1" /> {pkg.pax} Pax
-                    </span>
-                  </div>
+                <div className="mb-5">
+                  <span className="text-xs text-brand-gold/70 font-medium bg-brand-gold/5 px-2.5 py-1 rounded-full">
+                    {pkg.pax} tamu
+                  </span>
                 </div>
-                <p className="text-2xl font-bold text-brand-taupe mb-6">{formatIDR(pkg.price)}</p>
-                <ul className="space-y-2 mb-6">
-                  {pkg.features.map((feature, fi) => (
-                    <li key={fi} className="flex items-start gap-2 text-sm text-brand-taupe/65">
-                      <Sparkles className="w-3.5 h-3.5 text-brand-gold/60 shrink-0 mt-0.5" />
-                      <span>{feature}</span>
+                <h3 className="font-serif text-lg text-brand-taupe font-semibold mb-1">
+                  {pkg.name}
+                </h3>
+                <p className="text-2xl font-bold text-brand-taupe mt-2 mb-5">
+                  {formatIDR(pkg.price)}
+                </p>
+                <ul className="space-y-2 mb-6 flex-1">
+                  {pkg.features.slice(0, 5).map((feature, fi) => (
+                    <li key={fi} className="flex items-start gap-2 text-sm text-brand-taupe/55">
+                      <span className="w-1 h-1 rounded-full bg-brand-gold/40 mt-2 shrink-0" />
+                      {feature}
                     </li>
                   ))}
+                  {pkg.features.length > 5 && (
+                    <li className="text-xs text-brand-taupe/35 pl-3">
+                      +{pkg.features.length - 5} fasilitas lainnya
+                    </li>
+                  )}
                 </ul>
                 <a
                   href={pkg.bookingUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block w-full py-3 bg-brand-gold text-white rounded-xl text-sm font-medium text-center hover:bg-brand-taupe transition-colors"
+                  className="block w-full py-3 bg-brand-gold text-white rounded-xl text-sm font-medium text-center hover:bg-brand-taupe transition-colors mt-auto"
                 >
                   Pesan Sekarang
                 </a>
               </div>
             ))}
           </div>
-        </div>
+        </section>
+      )}
+
+      {/* ── Empty state: no packages ── */}
+      {venue.packages.length === 0 && (
+        <section className="max-w-7xl mx-auto px-4 md:px-8 pb-20">
+          <div className="text-center py-16">
+            <p className="text-brand-taupe/40 font-serif text-lg">
+              Belum ada paket tersedia untuk venue ini.
+            </p>
+          </div>
+        </section>
       )}
     </div>
   );
