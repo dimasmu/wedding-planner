@@ -8,6 +8,7 @@ import {
   ClipboardCheck,
   DollarSign,
   Users,
+  Building2,
   Settings,
   Heart,
   Menu,
@@ -20,6 +21,7 @@ const navItems = [
   { href: "/dashboard/checklist", label: "Checklist", icon: ClipboardCheck },
   { href: "/dashboard/budget", label: "Budget", icon: DollarSign },
   { href: "/dashboard/guests", label: "Guest List", icon: Users },
+  { href: "/dashboard/venues", label: "Venues", icon: Building2 },
   { href: "/dashboard/settings", label: "Settings", icon: Settings },
 ];
 
