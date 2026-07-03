@@ -51,6 +51,11 @@ export function Navbar() {
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
+              <Link href="/contact-us" className={navigationMenuTriggerStyle()}>
+                Contact Us
+              </Link>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
               <Link href="/vendors" className={navigationMenuTriggerStyle()}>
                 Find Vendors
               </Link>
@@ -102,6 +107,9 @@ export function Navbar() {
                 </Link>
                 <Link href="/testimoni" className="font-serif text-lg text-brand-taupe">
                   Testimonials
+                </Link>
+                <Link href="/contact-us" className="font-serif text-lg text-brand-taupe">
+                  Contact Us
                 </Link>
                 <Link href="/vendors" className="font-serif text-lg text-brand-taupe">
                   Find Vendors

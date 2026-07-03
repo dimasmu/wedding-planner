@@ -27,6 +27,9 @@ export function Footer() {
               Explore
             </h4>
             <nav className="flex flex-col gap-2">
+              <Link href="/contact-us" className="text-sm text-brand-cream/60 hover:text-brand-gold transition-colors">
+                Contact Us
+              </Link>
               <Link href="/vendors" className="text-sm text-brand-cream/60 hover:text-brand-gold transition-colors">
                 Find Vendors
               </Link>
