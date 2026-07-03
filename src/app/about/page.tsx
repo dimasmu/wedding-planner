@@ -62,14 +62,7 @@ function LogoMarquee({ logos, direction }: { logos: string[]; direction: "left" 
   );
 }
 
-const faqs = [
-  { q: "What types of events does SOLA plan?", a: "We specialize in weddings, corporate events, private parties, anniversaries, and milestone celebrations. Whether it's an intimate gathering of 20 or a grand celebration of 500+, we have the experience and vendor network to bring your vision to life." },
-  { q: "How far in advance should I book SOLA?", a: "We recommend booking at least 6–12 months in advance for weddings and large-scale events. For smaller celebrations, 2–3 months is usually sufficient. That said, we always do our best to accommodate last-minute requests — just reach out and ask!" },
-  { q: "Do you work with specific vendors or can I bring my own?", a: "We have a curated network of trusted vendors we've worked with for years, but we're also happy to collaborate with vendors you've already chosen. Our goal is flexibility — we adapt to your preferences while ensuring quality at every step." },
-  { q: "What is your pricing structure?", a: "Our pricing is fully transparent. We offer tiered packages based on event size, complexity, and services required. After our initial consultation, you'll receive a detailed proposal with no hidden fees. We believe you should know exactly what you're paying for." },
-  { q: "Can SOLA handle destination events?", a: "Yes! We love destination events. Our team is experienced in coordinating logistics across different cities and countries. We handle venue scouting, local vendor coordination, travel arrangements, and everything in between." },
-  { q: "What happens if something goes wrong on the event day?", a: "Every event has its surprises — and we're prepared for them. Our team always has backup plans for critical elements, and an on-site coordinator ensures any issues are resolved before you even notice them." },
-];
+import { faqs } from "@/lib/data/faq";
 
 const storySteps = [
   { year: "2018", title: "A Passion Ignited", text: "SOLA began with a simple belief: every celebration deserves to be extraordinary. What started as helping friends and family plan their dream weddings — a favor born from passion — quickly revealed a calling." },
@@ -577,10 +570,10 @@ export default function AboutPage() {
             <div className="text-center mb-16">
               <SimpleLineDotDivider />
               <h2 className="font-serif text-4xl md:text-5xl text-white italic mb-4">
-                Your Questions, Answered
+                Pertanyaan yang Sering Diajukan
               </h2>
               <p className="text-white/45 text-lg font-light italic">
-                Everything you need to know
+                Semua yang perlu Anda ketahui
               </p>
             </div>
           </RevealSection>
@@ -595,12 +588,12 @@ export default function AboutPage() {
                         <span className="font-serif text-xl italic text-brand-gold/35 w-8 shrink-0 mr-3 tabular-nums">
                           {String(i + 1).padStart(2, "0")}
                         </span>
-                        <span className="text-left">{faq.q}</span>
+                        <span className="text-left">{faq.question}</span>
                       </AccordionTrigger>
                       <AccordionContent>
                         <div className="pl-12 pr-4 pb-5">
                           <p className="text-brand-taupe/65 leading-relaxed text-sm md:text-base">
-                            {faq.a}
+                            {faq.answer}
                           </p>
                         </div>
                       </AccordionContent>

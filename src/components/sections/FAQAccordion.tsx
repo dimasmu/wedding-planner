@@ -5,39 +5,7 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "@/components/ui/accordion";
-
-const faqs = [
-  {
-    id: "q1",
-    question: "Berapa lama persiapan sebelum acara?",
-    answer:
-      "Kami merekomendasikan booking minimal 3-6 bulan sebelum hari H untuk memastikan semua detail tertata dengan sempurna. Timeline bisa lebih fleksibel tergantung skala acara Anda.",
-  },
-  {
-    id: "q2",
-    question: "Apakah bisa request custom dekorasi?",
-    answer:
-      "Tentu! Setiap dekorasi kami desain khusus sesuai tema dan keinginan Anda. Tidak ada paket yang benar-benar sama — visi Anda adalah prioritas kami.",
-  },
-  {
-    id: "q3",
-    question: "Bagaimana cara booking?",
-    answer:
-      "Hubungi kami via WhatsApp atau isi form di halaman ini. Tim kami akan merespons dalam 1x24 jam untuk konsultasi awal gratis.",
-  },
-  {
-    id: "q4",
-    question: "Apakah bisa mengunjungi kantor?",
-    answer:
-      "Bisa! Kantor kami buka Senin-Jumat pukul 09.00-17.00 WIB. Sebaiknya buat janji dulu via WhatsApp agar tim kami siap menyambut Anda.",
-  },
-  {
-    id: "q5",
-    question: "Berapa biaya paket wedding?",
-    answer:
-      "Setiap pernikahan unik, jadi biaya disesuaikan dengan kebutuhan dan skala acara Anda. Konsultasi awal gratis — kami akan bantu susun estimasi yang sesuai budget Anda tanpa tekanan.",
-  },
-];
+import { faqs } from "@/lib/data/faq";
 
 function SectionOrnament() {
   return (
