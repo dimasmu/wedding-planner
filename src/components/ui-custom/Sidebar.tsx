@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
@@ -9,6 +10,7 @@ import {
   DollarSign,
   Users,
   Building2,
+  UserCog,
   Settings,
   Heart,
   Menu,
@@ -16,16 +18,26 @@ import {
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
-const navItems = [
-  { href: "/dashboard", label: "Overview", icon: LayoutDashboard },
-  { href: "/dashboard/checklist", label: "Checklist", icon: ClipboardCheck },
-  { href: "/dashboard/budget", label: "Budget", icon: DollarSign },
-  { href: "/dashboard/guests", label: "Guest List", icon: Users },
-  { href: "/dashboard/venues", label: "Venues", icon: Building2 },
-  { href: "/dashboard/settings", label: "Settings", icon: Settings },
+interface NavItem {
+  href: string;
+  label: string;
+  icon: React.ComponentType<{ className?: string }>;
+  roles: string[];
+}
+
+const allNavItems: NavItem[] = [
+  { href: "/dashboard", label: "Overview", icon: LayoutDashboard, roles: ["admin", "editor", "couple"] },
+  { href: "/dashboard/checklist", label: "Checklist", icon: ClipboardCheck, roles: ["admin", "editor", "couple"] },
+  { href: "/dashboard/budget", label: "Budget", icon: DollarSign, roles: ["admin", "editor", "couple"] },
+  { href: "/dashboard/guests", label: "Guest List", icon: Users, roles: ["admin", "editor", "couple"] },
+  { href: "/dashboard/venues", label: "Venues", icon: Building2, roles: ["admin", "editor"] },
+  { href: "/dashboard/users", label: "Users", icon: UserCog, roles: ["admin"] },
+  { href: "/dashboard/settings", label: "Settings", icon: Settings, roles: ["admin", "editor", "couple"] },
 ];
 
-function NavLinks({ pathname }: { pathname: string }) {
+function NavLinks({ pathname, role }: { pathname: string; role: string | null }) {
+  const navItems = allNavItems.filter((item) => role && item.roles.includes(role));
+
   return (
     <nav className="flex flex-col gap-1">
       {navItems.map(({ href, label, icon: Icon }) => (
@@ -49,6 +61,16 @@ function NavLinks({ pathname }: { pathname: string }) {
 
 export function Sidebar() {
   const pathname = usePathname();
+  const [role, setRole] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    fetch("/api/auth/me")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => setRole(data?.user?.role || null))
+      .catch(() => setRole(null));
+  }, []);
+
+  const activeLabel = allNavItems.find((n) => n.href === pathname)?.label || "Menu";
 
   return (
     <>
@@ -60,7 +82,7 @@ export function Sidebar() {
               SOLA
             </span>
           </Link>
-          <NavLinks pathname={pathname} />
+          <NavLinks pathname={pathname} role={role} />
         </div>
       </aside>
 
@@ -70,11 +92,11 @@ export function Sidebar() {
             render={<Button variant="ghost" className="text-brand-taupe gap-2" />}
           >
             <Menu className="w-4 h-4" />
-            {navItems.find((n) => n.href === pathname)?.label || "Menu"}
+            {activeLabel}
           </SheetTrigger>
           <SheetContent side="left" className="bg-white w-[260px]">
             <div className="mt-8">
-              <NavLinks pathname={pathname} />
+              <NavLinks pathname={pathname} role={role} />
             </div>
           </SheetContent>
         </Sheet>

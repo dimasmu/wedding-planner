@@ -38,7 +38,7 @@ export async function PUT(
   try {
     const { slug } = await params;
     const body = await request.json();
-    const { name, location, description, maxCapacity, images } = body;
+    const { name, location, description, maxCapacity, images, status } = body;
 
     const venue = await db.venue.update({
       where: { slug },
@@ -48,6 +48,7 @@ export async function PUT(
         ...(description !== undefined && { description }),
         ...(maxCapacity !== undefined && { maxCapacity }),
         ...(images !== undefined && { images: JSON.stringify(images) }),
+        ...(status !== undefined && { status }),
       },
     });
 

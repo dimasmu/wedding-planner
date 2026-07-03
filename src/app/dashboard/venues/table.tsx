@@ -21,7 +21,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Pencil, Trash2, Search, ChevronLeft, ChevronRight } from "lucide-react";
+import { Pencil, Trash2, Search, ChevronLeft, ChevronRight, Send } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { toast } from "sonner";
 
 interface VenueRow {
   id: number;
@@ -30,6 +32,7 @@ interface VenueRow {
   location: string;
   maxCapacity: number;
   packageCount: number;
+  status: string;
 }
 
 interface PageData {
@@ -52,6 +55,7 @@ export function VenueTable({
   const [search, setSearch] = useState(initialSearch);
   const [deleteTarget, setDeleteTarget] = useState<VenueRow | null>(null);
   const [deleting, setDeleting] = useState(false);
+  const [toggling, setToggling] = useState<number | null>(null);
 
   const data = initialData;
 
@@ -74,6 +78,24 @@ export function VenueTable({
       // handle error silently
     } finally {
       setDeleting(false);
+    }
+  };
+
+  const handleToggleStatus = async (venue: VenueRow) => {
+    setToggling(venue.id);
+    try {
+      const newStatus = venue.status === "published" ? "draft" : "published";
+      await fetch(`/api/venues/${venue.slug}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: newStatus }),
+      });
+      toast.success(newStatus === "published" ? "Venue dipublikasikan" : "Venue di-unpublish");
+      router.refresh();
+    } catch {
+      toast("Gagal mengubah status");
+    } finally {
+      setToggling(null);
     }
   };
 
@@ -105,13 +127,14 @@ export function VenueTable({
               <TableHead className="font-serif text-brand-taupe">Lokasi</TableHead>
               <TableHead className="font-serif text-brand-taupe">Kapasitas</TableHead>
               <TableHead className="font-serif text-brand-taupe">Paket</TableHead>
+              <TableHead className="font-serif text-brand-taupe">Status</TableHead>
               <TableHead className="font-serif text-brand-taupe text-right">Aksi</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {data.venues.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={5} className="text-center py-10 text-brand-taupe/60">
+                <TableCell colSpan={6} className="text-center py-10 text-brand-taupe/60">
                   Belum ada venue. Tambah venue pertama Anda.
                 </TableCell>
               </TableRow>
@@ -124,6 +147,11 @@ export function VenueTable({
                   <TableCell className="text-brand-taupe/70">{venue.location}</TableCell>
                   <TableCell className="text-brand-taupe/70">{venue.maxCapacity}</TableCell>
                   <TableCell className="text-brand-taupe/70">{venue.packageCount}</TableCell>
+                  <TableCell>
+                    <Badge className={venue.status === "published" ? "bg-green-50 text-green-600" : "bg-gray-100 text-gray-600"}>
+                      {venue.status === "published" ? "Published" : "Draft"}
+                    </Badge>
+                  </TableCell>
                   <TableCell className="text-right">
                     <div className="flex items-center justify-end gap-1">
                       <Link href={`/dashboard/venues/${venue.slug}`}>
@@ -131,6 +159,16 @@ export function VenueTable({
                           <Pencil className="w-4 h-4" />
                         </Button>
                       </Link>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="text-brand-taupe/60 hover:text-brand-gold"
+                        onClick={() => handleToggleStatus(venue)}
+                        disabled={toggling === venue.id}
+                        title={venue.status === "published" ? "Unpublish" : "Publish"}
+                      >
+                        <Send className="w-4 h-4" />
+                      </Button>
                       <Button
                         variant="ghost"
                         size="icon"

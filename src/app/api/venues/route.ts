@@ -11,11 +11,13 @@ export async function GET(request: NextRequest) {
     const page = Math.max(1, parseInt(searchParams.get("page") || "1"));
     const perPage = Math.min(50, Math.max(1, parseInt(searchParams.get("perPage") || "10")));
 
+    const isDashboard = searchParams.get("all") === "true";
     const where = {
       ...(search && { name: { contains: search } }),
       ...(location && { location }),
       ...(minCapacity && { maxCapacity: { gte: Number(minCapacity) } }),
       ...(maxCapacity && { maxCapacity: { lte: Number(maxCapacity) } }),
+      ...(!isDashboard && { status: "published" }),
     };
 
     const [venues, total] = await Promise.all([
@@ -60,7 +62,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, slug, location, description, maxCapacity, images } = body;
+    const { name, slug, location, description, maxCapacity, images, status } = body;
 
     if (!name || !slug) {
       return NextResponse.json(
@@ -77,6 +79,7 @@ export async function POST(request: NextRequest) {
         description: description || "",
         maxCapacity: maxCapacity || 0,
         images: JSON.stringify(images || []),
+        status: status || "draft",
       },
     });
 
