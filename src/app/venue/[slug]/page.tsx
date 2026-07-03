@@ -81,28 +81,32 @@ export default async function VenueDetailPage({
 
         {/* Center content */}
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
-          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl text-white tracking-tight leading-[1.15] mb-4">
+          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl text-white tracking-tight leading-[1.15]">
             {venue.name}
           </h1>
-          <div className="flex items-center gap-4 text-white/70 text-sm md:text-base">
-            <span className="inline-flex items-center gap-1.5">
-              <MapPin className="w-3.5 h-3.5 text-brand-gold/60" />
-              {venue.location}
-            </span>
-            <span className="w-1 h-1 rounded-full bg-white/30" />
-            <span className="inline-flex items-center gap-1.5">
-              <Users className="w-3.5 h-3.5 text-brand-gold/60" />
-              {venue.maxCapacity} tamu
-            </span>
-            {price && (
-              <>
-                <span className="w-1 h-1 rounded-full bg-white/30" />
-                <span className="font-semibold text-brand-gold">{formatIDR(price)}</span>
-              </>
-            )}
-          </div>
         </div>
       </section>
+
+      {/* ── Meta Info Bar ── */}
+      <div className="max-w-3xl mx-auto px-4 md:px-8 py-8">
+        <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-brand-taupe/55 text-sm md:text-base">
+          <span className="inline-flex items-center gap-1.5">
+            <MapPin className="w-4 h-4 text-brand-gold/50" />
+            {venue.location}
+          </span>
+          <span className="w-1 h-1 rounded-full bg-brand-gold/25" />
+          <span className="inline-flex items-center gap-1.5">
+            <Users className="w-4 h-4 text-brand-gold/50" />
+            {venue.maxCapacity} tamu
+          </span>
+          {price && (
+            <>
+              <span className="w-1 h-1 rounded-full bg-brand-gold/25" />
+              <span className="font-semibold text-brand-gold">{formatIDR(price)}</span>
+            </>
+          )}
+        </div>
+      </div>
 
       {/* ── Description ── */}
       <section className="max-w-3xl mx-auto px-4 md:px-8 py-12">
