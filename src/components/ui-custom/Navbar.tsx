@@ -36,10 +36,13 @@ function NavAuth({ mobile }: { mobile?: boolean }) {
   if (user) {
     return (
       <div className={mobile ? "flex flex-col gap-3" : "flex items-center gap-3"}>
-        <span className={mobile ? "font-serif text-lg text-brand-taupe/60" : "text-sm text-brand-taupe/60"}>
+        <Link
+          href="/dashboard"
+          className={mobile ? "font-serif text-lg text-brand-taupe/60 hover:text-brand-gold" : "text-sm text-brand-taupe/60 hover:text-brand-gold flex items-center"}
+        >
           <UserIcon className="w-4 h-4 inline mr-1" />
           {user.name}
-        </span>
+        </Link>
         <Button
           variant="ghost"
           className={mobile ? "justify-start text-brand-taupe" : "text-brand-taupe hover:text-red-500"}
