@@ -4,36 +4,50 @@ import { db } from "@/lib/db";
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = request.nextUrl;
-    const search = searchParams.get("search");
-    const location = searchParams.get("location");
-    const minCapacity = searchParams.get("minCapacity");
-    const maxCapacity = searchParams.get("maxCapacity");
+    const search = searchParams.get("search") || undefined;
+    const location = searchParams.get("location") || undefined;
+    const minCapacity = searchParams.get("minCapacity") || undefined;
+    const maxCapacity = searchParams.get("maxCapacity") || undefined;
+    const page = Math.max(1, parseInt(searchParams.get("page") || "1"));
+    const perPage = Math.min(50, Math.max(1, parseInt(searchParams.get("perPage") || "10")));
 
-    const venues = await db.venue.findMany({
-      where: {
-        ...(search && { name: { contains: search } }),
-        ...(location && { location }),
-        ...(minCapacity && { maxCapacity: { gte: Number(minCapacity) } }),
-        ...(maxCapacity && { maxCapacity: { lte: Number(maxCapacity) } }),
-      },
-      include: {
-        packages: {
-          select: { price: true },
-          orderBy: { price: "asc" },
+    const where = {
+      ...(search && { name: { contains: search } }),
+      ...(location && { location }),
+      ...(minCapacity && { maxCapacity: { gte: Number(minCapacity) } }),
+      ...(maxCapacity && { maxCapacity: { lte: Number(maxCapacity) } }),
+    };
+
+    const [venues, total] = await Promise.all([
+      db.venue.findMany({
+        where,
+        include: {
+          packages: {
+            select: { price: true },
+            orderBy: { price: "asc" },
+          },
+          _count: { select: { packages: true } },
         },
-      },
-      orderBy: { createdAt: "desc" },
-    });
+        orderBy: { createdAt: "desc" },
+        skip: (page - 1) * perPage,
+        take: perPage,
+      }),
+      db.venue.count({ where }),
+    ]);
 
     const venuesWithCheapestPrice = venues.map((v) => ({
       ...v,
       images: JSON.parse(v.images) as string[],
-      cheapestPrice: v.packages[0]?.price
-        ? Number(v.packages[0].price)
-        : null,
+      cheapestPrice: v.packages[0]?.price ? Number(v.packages[0].price) : null,
+      packageCount: v._count.packages,
     }));
 
-    return NextResponse.json({ venues: venuesWithCheapestPrice });
+    return NextResponse.json({
+      venues: venuesWithCheapestPrice,
+      total,
+      page,
+      totalPages: Math.ceil(total / perPage),
+    });
   } catch (error) {
     console.error("GET /api/venues error:", error);
     return NextResponse.json(
