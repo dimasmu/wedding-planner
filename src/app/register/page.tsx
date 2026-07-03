@@ -17,14 +17,14 @@ const registerSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Please enter a valid email"),
   password: z.string().min(6, "Password must be at least 6 characters"),
-  role: z.enum(["couple", "vendor"]),
+  role: z.enum(["couple", "editor"]),
 });
 
 type RegisterFormData = z.infer<typeof registerSchema>;
 
 export default function RegisterPage() {
   const [isLoading, setIsLoading] = useState(false);
-  const [role, setRole] = useState<"couple" | "vendor">("couple");
+  const [role, setRole] = useState<"couple" | "editor">("couple");
 
   const {
     register,
@@ -80,8 +80,8 @@ export default function RegisterPage() {
               <TabsTrigger value="couple" className="data-[state=active]:bg-brand-gold data-[state=active]:text-white">
                 I&rsquo;m a Couple
               </TabsTrigger>
-              <TabsTrigger value="vendor" className="data-[state=active]:bg-brand-gold data-[state=active]:text-white">
-                I&rsquo;m a Vendor
+              <TabsTrigger value="editor" className="data-[state=active]:bg-brand-gold data-[state=active]:text-white">
+                I&rsquo;m an Editor
               </TabsTrigger>
             </TabsList>
           </Tabs>
