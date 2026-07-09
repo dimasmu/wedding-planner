@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import type { Package } from "@prisma/client";
 import { db } from "@/lib/db";
 
 export async function GET(
@@ -18,7 +19,7 @@ export async function GET(
       venue: {
         ...venue,
         images: JSON.parse(venue.images) as string[],
-        packages: venue.packages.map((pkg) => ({
+        packages: venue.packages.map((pkg: Package) => ({
           ...pkg,
           price: Number(pkg.price),
           content: pkg.content,
