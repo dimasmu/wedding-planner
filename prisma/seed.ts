@@ -1,8 +1,8 @@
 import { PrismaClient } from "@prisma/client";
-import { PrismaMariaDb } from "@prisma/adapter-mariadb";
+import { PrismaPg } from "@prisma/adapter-pg";
 import bcrypt from "bcrypt";
 
-const adapter = new PrismaMariaDb(process.env["DATABASE_URL"] ?? "");
+const adapter = new PrismaPg(process.env["DATABASE_URL"] ?? "");
 const prisma = new PrismaClient({ adapter });
 
 const venues = [
