@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/navigation-menu";
 
 function NavAuth({ mobile }: { mobile?: boolean }) {
-  const [user, setUser] = React.useState<{ name: string } | null | undefined>(undefined);
+  const [user, setUser] = React.useState<{ name: string } | null>(null);
 
   React.useEffect(() => {
     fetch("/api/auth/me")
@@ -30,8 +30,6 @@ function NavAuth({ mobile }: { mobile?: boolean }) {
     await fetch("/api/auth/logout", { method: "POST" });
     window.location.href = "/";
   };
-
-  if (user === undefined) return null;
 
   if (user) {
     return (
