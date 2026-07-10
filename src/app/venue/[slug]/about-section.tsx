@@ -26,7 +26,7 @@ export function AboutSection({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.6 }}
-      className="max-w-3xl mx-auto px-4 md:px-8 py-16 md:py-24"
+      className="max-w-4xl mx-auto px-4 md:px-8 py-16 md:py-24"
     >
       {/* Decorative line */}
       <div className="flex items-center gap-3 mb-8">

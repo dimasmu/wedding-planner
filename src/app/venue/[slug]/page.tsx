@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
 import { VenueHero } from "./venue-hero";
-import { InfoChips } from "./info-chips";
 import { ImageGallery } from "./image-gallery";
 import { AboutSection } from "./about-section";
 import { PackageCard } from "./package-card";
@@ -70,14 +69,6 @@ export default async function VenueDetailPage({
         cheapestPrice={price}
         image={venue.images[0] || null}
         bookingUrl={bookingUrl}
-      />
-
-      {/* Info Chips */}
-      <InfoChips
-        location={venue.location}
-        maxCapacity={venue.maxCapacity}
-        packageCount={venue.packages.length}
-        cheapestPrice={price}
       />
 
       {/* Image Gallery */}

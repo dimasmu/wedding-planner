@@ -20,7 +20,7 @@ export function ImageGallery({ images, venueName }: ImageGalleryProps) {
   const remaining = images.length - 5;
 
   return (
-    <section className="max-w-7xl mx-auto px-4 md:px-8 py-10">
+    <section>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3 rounded-2xl overflow-hidden">
         {/* Featured image */}
         <button
