@@ -1,0 +1,97 @@
+"use client";
+
+import { useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+
+interface PackageData {
+  id: number;
+  name: string;
+  pax: number;
+  price: number;
+  content: string;
+  bookingUrl: string;
+}
+
+function formatIDR(amount: number): string {
+  return "Rp " + amount.toLocaleString("id-ID");
+}
+
+export function PackageCard({ pkg }: { pkg: PackageData }) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      {/* Card */}
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        className="bg-white rounded-2xl border border-brand-sand/60 p-6 md:p-8 hover:border-brand-gold/30 hover:shadow-md transition-all duration-300 flex flex-col text-left cursor-pointer w-full"
+      >
+        {/* Pax badge */}
+        <div className="mb-5">
+          <span className="text-xs text-brand-gold/70 font-medium bg-brand-gold/5 px-2.5 py-1 rounded-full">
+            {pkg.pax} tamu
+          </span>
+        </div>
+
+        {/* Name */}
+        <h3 className="font-serif text-lg text-brand-taupe font-semibold mb-1">
+          {pkg.name}
+        </h3>
+
+        {/* Price */}
+        <p className="text-2xl font-bold text-brand-taupe mt-2 mb-4">
+          {formatIDR(pkg.price)}
+        </p>
+
+        {/* Content preview — line-clamp + fade */}
+        {pkg.content && (
+          <div className="relative mb-4">
+            <div
+              className="prose prose-sm max-w-none line-clamp-3 text-brand-taupe/55 [&_h3]:text-sm [&_h3]:font-semibold [&_h3]:text-brand-taupe/60 [&_h3]:mb-1 [&_h3]:mt-2 [&_ul]:pl-4 [&_ul]:space-y-0.5 [&_ul]:my-1 [&_li]:text-brand-taupe/50 [&_li]:text-xs"
+              dangerouslySetInnerHTML={{ __html: pkg.content }}
+            />
+            <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-white to-transparent pointer-events-none" />
+          </div>
+        )}
+
+        {/* CTA */}
+        <span className="text-xs font-medium text-brand-gold/70 hover:text-brand-gold mt-auto inline-flex items-center gap-1">
+          Lihat Detail
+          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </span>
+      </button>
+
+      {/* Modal */}
+      <DialogContent className="sm:max-w-lg max-h-[85vh] overflow-y-auto bg-[#FDFBF7] border-brand-sand/40">
+        <DialogHeader className="gap-3">
+          <span className="text-xs text-brand-gold/70 font-medium bg-brand-gold/5 px-2.5 py-1 rounded-full w-fit">
+            {pkg.pax} tamu
+          </span>
+          <DialogTitle className="font-serif text-xl text-brand-taupe">
+            {pkg.name}
+          </DialogTitle>
+          <p className="text-2xl font-bold text-brand-taupe">
+            {formatIDR(pkg.price)}
+          </p>
+        </DialogHeader>
+
+        {pkg.content && (
+          <div className="pt-4 border-t border-brand-sand/40">
+            <div
+              className="prose prose-sm max-w-none text-brand-taupe/65 [&_h3]:text-base [&_h3]:font-semibold [&_h3]:text-brand-taupe/70 [&_h3]:mb-2 [&_h3]:mt-4 [&_ul]:pl-5 [&_ul]:space-y-1.5 [&_ul]:my-3 [&_li]:text-sm [&_li]:text-brand-taupe/55 [&_li]:marker:text-brand-gold/40"
+              dangerouslySetInnerHTML={{ __html: pkg.content }}
+            />
+          </div>
+        )}
+      </DialogContent>
+    </Dialog>
+  );
+}

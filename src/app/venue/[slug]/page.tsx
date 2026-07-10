@@ -3,6 +3,7 @@ import Image from "next/image";
 import { ArrowLeft, MapPin, Users, Sparkles } from "lucide-react";
 import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
+import { PackageCard } from "./package-card";
 
 interface PackageData {
   id: number;
@@ -141,36 +142,7 @@ export default async function VenueDetailPage({
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {venue.packages.map((pkg) => (
-              <div
-                key={pkg.id}
-                className="bg-white rounded-2xl border border-brand-sand/60 p-6 md:p-8 hover:border-brand-gold/30 hover:shadow-md transition-all duration-300 flex flex-col"
-              >
-                <div className="mb-5">
-                  <span className="text-xs text-brand-gold/70 font-medium bg-brand-gold/5 px-2.5 py-1 rounded-full">
-                    {pkg.pax} tamu
-                  </span>
-                </div>
-                <h3 className="font-serif text-lg text-brand-taupe font-semibold mb-1">
-                  {pkg.name}
-                </h3>
-                <p className="text-2xl font-bold text-brand-taupe mt-2 mb-5">
-                  {formatIDR(pkg.price)}
-                </p>
-                {pkg.content && (
-                  <div
-                    className="prose prose-sm max-w-none mb-6 flex-1 text-brand-taupe/55 [&_h3]:text-sm [&_h3]:font-semibold [&_h3]:text-brand-taupe/60 [&_h3]:mb-2 [&_h3]:mt-3 [&_ul]:pl-4 [&_ul]:space-y-1 [&_ul]:my-2 [&_li]:text-brand-taupe/50 [&_li]:text-sm"
-                    dangerouslySetInnerHTML={{ __html: pkg.content }}
-                  />
-                )}
-                <a
-                  href={pkg.bookingUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block w-full py-3 bg-brand-gold text-white rounded-xl text-sm font-medium text-center hover:bg-brand-taupe transition-colors mt-auto"
-                >
-                  Pesan Sekarang
-                </a>
-              </div>
+              <PackageCard key={pkg.id} pkg={pkg} />
             ))}
           </div>
         </section>
