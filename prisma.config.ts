@@ -7,6 +7,7 @@ export default defineConfig({
     seed: "tsx prisma/seed.ts",
   },
   datasource: {
-    url: process.env["DATABASE_URL"] ?? "",
+    // Use DIRECT_URL (unpooled) for migrations - PgBouncer blocks DDL
+    url: process.env["DIRECT_URL"] ?? process.env["DATABASE_URL"] ?? "",
   },
 });
