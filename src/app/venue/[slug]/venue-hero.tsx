@@ -76,13 +76,13 @@ export function VenueHero({
           {name}
         </h1>
 
-        <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-white/60 mb-5">
+        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-base md:text-lg text-white/60 mb-6">
           <span className="inline-flex items-center gap-1.5">
-            <MapPin className="w-4 h-4 text-brand-gold/70" />
+            <MapPin className="w-5 h-5 text-brand-gold/70" />
             {location}
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <Users className="w-4 h-4 text-brand-gold/70" />
+            <Users className="w-5 h-5 text-brand-gold/70" />
             {maxCapacity} tamu
           </span>
           {cheapestPrice !== null && (
@@ -92,22 +92,18 @@ export function VenueHero({
           )}
         </div>
 
-        <p className="text-white/55 leading-relaxed mb-8 max-w-lg mx-auto text-sm md:text-base">
-          {shortDesc}
-        </p>
-
         <div className="flex flex-wrap justify-center gap-3">
           <button
             type="button"
             onClick={scrollToPackages}
-            className="inline-flex items-center gap-2 px-6 py-3 bg-brand-gold text-white rounded-full text-sm font-medium hover:bg-brand-taupe transition-colors"
+            className="inline-flex items-center gap-2 px-7 py-3.5 bg-brand-gold text-white rounded-full text-sm md:text-base font-medium hover:bg-brand-taupe transition-colors"
           >
             Lihat Paket
             <ChevronDown className="w-4 h-4" />
           </button>
           <a
             href={bookingUrl || "tel:"}
-            className="inline-flex items-center gap-2 px-6 py-3 bg-white/15 backdrop-blur-md border border-white/20 rounded-full text-sm font-medium text-white/90 hover:bg-white/25 transition-colors"
+            className="inline-flex items-center gap-2 px-7 py-3.5 bg-white/15 backdrop-blur-md border border-white/20 rounded-full text-sm md:text-base font-medium text-white/90 hover:bg-white/25 transition-colors"
           >
             Hubungi Kami
           </a>
