@@ -70,7 +70,7 @@ export function PackageCard({ pkg }: { pkg: PackageData }) {
       </button>
 
       {/* Modal */}
-      <DialogContent className="sm:max-w-lg max-h-[85vh] overflow-y-auto bg-[#FDFBF7] border-brand-sand/40">
+      <DialogContent className="sm:max-w-2xl max-h-[85vh] overflow-y-auto bg-[#FDFBF7] border-brand-sand/40">
         <DialogHeader className="gap-3">
           <span className="text-xs text-brand-gold/70 font-medium bg-brand-gold/5 px-2.5 py-1 rounded-full w-fit">
             {pkg.pax} tamu
