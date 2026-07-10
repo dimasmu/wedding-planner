@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
+import { db } from "@/lib/db";
 
 interface VenueRow {
   id: number;
@@ -20,12 +21,38 @@ interface PageData {
 }
 
 async function getVenues(page: number, search: string): Promise<PageData> {
-  const res = await fetch(
-    `/api/venues?page=${page}&perPage=10&search=${encodeURIComponent(search || "")}&all=true`,
-    { cache: "no-store" }
-  );
-  if (!res.ok) return { venues: [], total: 0, page: 1, totalPages: 1 };
-  return res.json();
+  const perPage = 10;
+  const where = search
+    ? { name: { contains: search } }
+    : {};
+
+  const [venues, total] = await Promise.all([
+    db.venue.findMany({
+      where,
+      include: {
+        _count: { select: { packages: true } },
+      },
+      orderBy: { createdAt: "desc" },
+      skip: (page - 1) * perPage,
+      take: perPage,
+    }),
+    db.venue.count({ where }),
+  ]);
+
+  return {
+    venues: venues.map((v) => ({
+      id: v.id,
+      slug: v.slug,
+      name: v.name,
+      location: v.location,
+      maxCapacity: v.maxCapacity,
+      packageCount: v._count.packages,
+      status: v.status,
+    })),
+    total,
+    page,
+    totalPages: Math.ceil(total / perPage),
+  };
 }
 
 import { VenueTable } from "./table";

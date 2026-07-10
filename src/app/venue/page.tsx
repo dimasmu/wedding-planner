@@ -1,3 +1,4 @@
+import { db } from "@/lib/db";
 import { VenueCard } from "@/components/venue/VenueCard";
 
 interface VenueData {
@@ -11,10 +12,26 @@ interface VenueData {
 }
 
 async function getVenues(): Promise<VenueData[]> {
-  const res = await fetch(`/api/venues`, { cache: "no-store" });
-  if (!res.ok) return [];
-  const data = await res.json();
-  return data.venues;
+  const venues = await db.venue.findMany({
+    where: { status: "published" },
+    include: {
+      packages: {
+        select: { price: true },
+        orderBy: { price: "asc" },
+      },
+    },
+    orderBy: { createdAt: "desc" },
+  });
+
+  return venues.map((v) => ({
+    id: v.id,
+    slug: v.slug,
+    name: v.name,
+    location: v.location,
+    maxCapacity: v.maxCapacity,
+    images: JSON.parse(v.images) as string[],
+    cheapestPrice: v.packages[0]?.price ? Number(v.packages[0].price) : null,
+  }));
 }
 
 import { ClientVenueList } from "./client";

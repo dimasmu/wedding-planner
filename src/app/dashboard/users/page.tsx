@@ -1,3 +1,5 @@
+import { db } from "@/lib/db";
+
 interface UserRow {
   id: string;
   name: string;
@@ -14,12 +16,34 @@ interface PageData {
 }
 
 async function getUsers(page: number, search: string): Promise<PageData> {
-  const res = await fetch(
-    `/api/users?page=${page}&perPage=10&search=${encodeURIComponent(search || "")}`,
-    { cache: "no-store" }
-  );
-  if (!res.ok) return { users: [], total: 0, page: 1, totalPages: 1 };
-  return res.json();
+  const perPage = 10;
+  const where = search
+    ? { OR: [{ name: { contains: search } }, { email: { contains: search } }] }
+    : {};
+
+  const [users, total] = await Promise.all([
+    db.user.findMany({
+      where,
+      select: { id: true, name: true, email: true, role: true, createdAt: true },
+      orderBy: { createdAt: "desc" },
+      skip: (page - 1) * perPage,
+      take: perPage,
+    }),
+    db.user.count({ where }),
+  ]);
+
+  return {
+    users: users.map((u) => ({
+      id: u.id,
+      name: u.name,
+      email: u.email,
+      role: u.role,
+      createdAt: u.createdAt.toISOString(),
+    })),
+    total,
+    page,
+    totalPages: Math.ceil(total / perPage),
+  };
 }
 
 import { UserTable } from "./table";

@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, MapPin, Users, Sparkles } from "lucide-react";
 import { notFound } from "next/navigation";
+import { db } from "@/lib/db";
 
 interface PackageData {
   id: number;
@@ -23,10 +24,19 @@ interface VenueDetail {
 }
 
 async function getVenue(slug: string): Promise<VenueDetail | null> {
-  const res = await fetch(`/api/venues/${slug}`, { cache: "no-store" });
-  if (!res.ok) return null;
-  const data = await res.json();
-  return data.venue;
+  const venue = await db.venue.findUnique({
+    where: { slug },
+    include: { packages: { orderBy: { price: "asc" } } },
+  });
+  if (!venue) return null;
+  return {
+    ...venue,
+    images: JSON.parse(venue.images) as string[],
+    packages: venue.packages.map((pkg) => ({
+      ...pkg,
+      price: Number(pkg.price),
+    })),
+  };
 }
 
 function formatIDR(amount: number): string {

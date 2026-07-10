@@ -1,4 +1,5 @@
 import { VenueForm } from "../form";
+import { db } from "@/lib/db";
 
 interface VenueData {
   name: string;
@@ -18,10 +19,19 @@ interface VenueData {
 }
 
 async function getVenue(slug: string): Promise<VenueData | null> {
-  const res = await fetch(`/api/venues/${slug}`, { cache: "no-store" });
-  if (!res.ok) return null;
-  const data = await res.json();
-  return data.venue;
+  const venue = await db.venue.findUnique({
+    where: { slug },
+    include: { packages: { orderBy: { price: "asc" } } },
+  });
+  if (!venue) return null;
+  return {
+    ...venue,
+    images: JSON.parse(venue.images) as string[],
+    packages: venue.packages.map((pkg) => ({
+      ...pkg,
+      price: Number(pkg.price),
+    })),
+  };
 }
 
 export default async function EditVenuePage({
