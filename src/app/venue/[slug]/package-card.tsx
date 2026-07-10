@@ -4,7 +4,6 @@ import { useState } from "react";
 import {
   Dialog,
   DialogContent,
-  DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
 
@@ -70,27 +69,41 @@ export function PackageCard({ pkg }: { pkg: PackageData }) {
       </button>
 
       {/* Modal */}
-      <DialogContent className="sm:max-w-2xl max-h-[85vh] overflow-y-auto bg-[#FDFBF7] border-brand-sand/40">
-        <DialogHeader className="gap-3">
-          <span className="text-xs text-brand-gold/70 font-medium bg-brand-gold/5 px-2.5 py-1 rounded-full w-fit">
+      <DialogContent className="sm:max-w-2xl max-h-[85vh] overflow-y-auto bg-[#FDFBF7] border-brand-sand/40 p-0 gap-0">
+        {/* Gradient header */}
+        <div className="bg-gradient-to-br from-brand-gold/10 via-brand-gold/5 to-transparent px-6 md:px-8 pt-8 pb-6">
+          <span className="text-xs text-brand-gold/70 font-medium bg-brand-gold/10 px-2.5 py-1 rounded-full">
             {pkg.pax} tamu
           </span>
-          <DialogTitle className="font-serif text-xl text-brand-taupe">
+          <DialogTitle className="font-serif text-xl md:text-2xl text-brand-taupe mt-3 mb-1">
             {pkg.name}
           </DialogTitle>
-          <p className="text-2xl font-bold text-brand-taupe">
+          <p className="text-2xl md:text-3xl font-bold text-brand-taupe">
             {formatIDR(pkg.price)}
           </p>
-        </DialogHeader>
+        </div>
 
+        {/* Content */}
         {pkg.content && (
-          <div className="pt-4 border-t border-brand-sand/40">
+          <div className="px-6 md:px-8 py-6">
             <div
-              className="prose prose-sm max-w-none text-brand-taupe/65 [&_h3]:text-base [&_h3]:font-semibold [&_h3]:text-brand-taupe/70 [&_h3]:mb-2 [&_h3]:mt-4 [&_ul]:pl-5 [&_ul]:space-y-1.5 [&_ul]:my-3 [&_li]:text-sm [&_li]:text-brand-taupe/55 [&_li]:marker:text-brand-gold/40"
+              className="[&_h3]:text-sm [&_h3]:font-semibold [&_h3]:text-brand-taupe/75 [&_h3]:uppercase [&_h3]:tracking-wider [&_h3]:mb-3 [&_h3]:mt-6 [&_h3]:first:mt-0 [&_ul]:list-none [&_ul]:p-0 [&_ul]:m-0 [&_ul]:space-y-2 [&_li]:relative [&_li]:pl-5 [&_li]:text-sm [&_li]:text-brand-taupe/55 [&_li]:before:absolute [&_li]:before:left-0 [&_li]:before:top-[0.6em] [&_li]:before:w-1.5 [&_li]:before:h-1.5 [&_li]:before:rounded-full [&_li]:before:bg-brand-gold/40"
               dangerouslySetInnerHTML={{ __html: pkg.content }}
             />
           </div>
         )}
+
+        {/* Footer CTA */}
+        <div className="sticky bottom-0 px-6 md:px-8 py-5 bg-white border-t border-brand-sand/40 rounded-b-xl">
+          <a
+            href={pkg.bookingUrl || "#"}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block w-full py-3 bg-brand-gold text-white rounded-xl text-sm font-medium text-center hover:bg-brand-taupe transition-colors"
+          >
+            Konsultasi Gratis
+          </a>
+        </div>
       </DialogContent>
     </Dialog>
   );
