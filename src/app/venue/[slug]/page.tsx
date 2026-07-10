@@ -1,9 +1,11 @@
-import Link from "next/link";
-import Image from "next/image";
-import { ArrowLeft, MapPin, Users, Sparkles } from "lucide-react";
 import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
+import { VenueHero } from "./venue-hero";
+import { InfoChips } from "./info-chips";
+import { ImageGallery } from "./image-gallery";
+import { AboutSection } from "./about-section";
 import { PackageCard } from "./package-card";
+import { FooterCTA } from "./footer-cta";
 
 interface PackageData {
   id: number;
@@ -40,10 +42,6 @@ async function getVenue(slug: string): Promise<VenueDetail | null> {
   };
 }
 
-function formatIDR(amount: number): string {
-  return "Rp " + amount.toLocaleString("id-ID");
-}
-
 function cheapestPrice(packages: PackageData[]): number | null {
   if (packages.length === 0) return null;
   return Math.min(...packages.map((p) => p.price));
@@ -59,87 +57,51 @@ export default async function VenueDetailPage({
   if (!venue) notFound();
 
   const price = cheapestPrice(venue.packages);
+  const bookingUrl = venue.packages[0]?.bookingUrl || "";
 
   return (
-    <div className="min-h-screen bg-[#FDFBF7]">
-      {/* ── Hero ── */}
-      <section className="relative h-[380px] md:h-[440px] overflow-hidden">
-        {venue.images[0] ? (
-          <Image
-            src={venue.images[0]}
-            alt={venue.name}
-            fill
-            className="object-cover"
-            priority
-            sizes="100vw"
-          />
-        ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-brand-taupe via-brand-taupe/90 to-brand-dark" />
-        )}
-        <div className="absolute inset-0 bg-brand-dark/50" />
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#FDFBF7] to-transparent" />
+    <div className="min-h-screen bg-brand-cream">
+      {/* Hero */}
+      <VenueHero
+        name={venue.name}
+        location={venue.location}
+        description={venue.description}
+        maxCapacity={venue.maxCapacity}
+        cheapestPrice={price}
+        image={venue.images[0] || null}
+        bookingUrl={bookingUrl}
+      />
 
-        {/* Back */}
-        <div className="absolute top-6 left-4 md:left-8 z-20">
-          <Link
-            href="/venue"
-            className="inline-flex items-center gap-2 px-4 py-2 bg-white/15 backdrop-blur-md rounded-full text-sm text-white/90 hover:bg-white/25 transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4" /> Kembali
-          </Link>
-        </div>
+      {/* Info Chips */}
+      <InfoChips
+        location={venue.location}
+        maxCapacity={venue.maxCapacity}
+        packageCount={venue.packages.length}
+        cheapestPrice={price}
+      />
 
-        {/* Center content */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
-          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl text-white tracking-tight leading-[1.15]">
-            {venue.name}
-          </h1>
-        </div>
-      </section>
+      {/* Image Gallery */}
+      <ImageGallery images={venue.images} venueName={venue.name} />
 
-      {/* ── Meta Info Bar ── */}
-      <div className="max-w-3xl mx-auto px-4 md:px-8 py-8">
-        <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-brand-taupe/55 text-sm md:text-base">
-          <span className="inline-flex items-center gap-1.5">
-            <MapPin className="w-4 h-4 text-brand-gold/50" />
-            {venue.location}
-          </span>
-          <span className="w-1 h-1 rounded-full bg-brand-gold/25" />
-          <span className="inline-flex items-center gap-1.5">
-            <Users className="w-4 h-4 text-brand-gold/50" />
-            {venue.maxCapacity} tamu
-          </span>
-          {price && (
-            <>
-              <span className="w-1 h-1 rounded-full bg-brand-gold/25" />
-              <span className="font-semibold text-brand-gold">{formatIDR(price)}</span>
-            </>
-          )}
-        </div>
-      </div>
+      {/* About */}
+      <AboutSection
+        description={venue.description}
+        location={venue.location}
+        maxCapacity={venue.maxCapacity}
+        cheapestPrice={price}
+      />
 
-      {/* ── Description ── */}
-      <section className="max-w-3xl mx-auto px-4 md:px-8 py-12">
-        <div className="flex items-center gap-3 mb-5">
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent to-brand-gold/25" />
-          <Sparkles className="w-4 h-4 text-brand-gold/60" />
-          <div className="h-px flex-1 bg-gradient-to-l from-transparent to-brand-gold/25" />
-        </div>
-        <p className="text-brand-taupe/65 leading-relaxed text-base md:text-lg">
-          {venue.description}
-        </p>
-      </section>
-
-      {/* ── Packages ── */}
+      {/* Packages */}
       {venue.packages.length > 0 && (
-        <section className="max-w-7xl mx-auto px-4 md:px-8 pb-20">
-          <div className="text-center mb-10">
-            <h2 className="font-serif text-2xl md:text-3xl text-brand-taupe">Paket Wedding</h2>
-            <p className="text-brand-taupe/45 text-sm mt-1">
-              Pilih paket yang sesuai dengan kebutuhan
+        <section id="packages-section" className="max-w-7xl mx-auto px-4 md:px-8 py-16 md:py-24">
+          <div className="text-center mb-12">
+            <h2 className="font-serif text-2xl md:text-3xl text-brand-taupe">
+              Paket Wedding
+            </h2>
+            <p className="text-brand-taupe/45 text-sm mt-2">
+              Pilih paket yang sesuai dengan kebutuhan Anda
             </p>
           </div>
-
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {venue.packages.map((pkg) => (
               <PackageCard key={pkg.id} pkg={pkg} />
@@ -148,9 +110,9 @@ export default async function VenueDetailPage({
         </section>
       )}
 
-      {/* ── Empty state: no packages ── */}
+      {/* Empty state */}
       {venue.packages.length === 0 && (
-        <section className="max-w-7xl mx-auto px-4 md:px-8 pb-20">
+        <section className="max-w-7xl mx-auto px-4 md:px-8 py-16">
           <div className="text-center py-16">
             <p className="text-brand-taupe/40 font-serif text-lg">
               Belum ada paket tersedia untuk venue ini.
@@ -158,6 +120,12 @@ export default async function VenueDetailPage({
           </div>
         </section>
       )}
+
+      {/* Footer CTA */}
+      <FooterCTA bookingUrl={bookingUrl} />
+
+      {/* Bottom divider */}
+      <div className="h-px bg-gradient-to-r from-transparent via-brand-sand to-transparent" />
     </div>
   );
 }
