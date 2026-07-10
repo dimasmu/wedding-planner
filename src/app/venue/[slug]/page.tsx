@@ -23,8 +23,7 @@ interface VenueDetail {
 }
 
 async function getVenue(slug: string): Promise<VenueDetail | null> {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-  const res = await fetch(`${baseUrl}/api/venues/${slug}`, { cache: "no-store" });
+  const res = await fetch(`/api/venues/${slug}`, { cache: "no-store" });
   if (!res.ok) return null;
   const data = await res.json();
   return data.venue;

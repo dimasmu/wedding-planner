@@ -11,8 +11,7 @@ interface VenueData {
 }
 
 async function getVenues(): Promise<VenueData[]> {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-  const res = await fetch(`${baseUrl}/api/venues`, { cache: "no-store" });
+  const res = await fetch(`/api/venues`, { cache: "no-store" });
   if (!res.ok) return [];
   const data = await res.json();
   return data.venues;

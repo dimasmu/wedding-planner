@@ -14,9 +14,8 @@ interface PageData {
 }
 
 async function getUsers(page: number, search: string): Promise<PageData> {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
   const res = await fetch(
-    `${baseUrl}/api/users?page=${page}&perPage=10&search=${encodeURIComponent(search || "")}`,
+    `/api/users?page=${page}&perPage=10&search=${encodeURIComponent(search || "")}`,
     { cache: "no-store" }
   );
   if (!res.ok) return { users: [], total: 0, page: 1, totalPages: 1 };

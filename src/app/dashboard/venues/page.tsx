@@ -20,9 +20,8 @@ interface PageData {
 }
 
 async function getVenues(page: number, search: string): Promise<PageData> {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
   const res = await fetch(
-    `${baseUrl}/api/venues?page=${page}&perPage=10&search=${encodeURIComponent(search || "")}&all=true`,
+    `/api/venues?page=${page}&perPage=10&search=${encodeURIComponent(search || "")}&all=true`,
     { cache: "no-store" }
   );
   if (!res.ok) return { venues: [], total: 0, page: 1, totalPages: 1 };
