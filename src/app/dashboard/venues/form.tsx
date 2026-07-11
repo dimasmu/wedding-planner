@@ -66,14 +66,18 @@ function ImageUploadRow({
     try {
       const formData = new FormData();
       formData.append("file", file);
-      const res = await fetch("/api/upload", { method: "POST", body: formData });
+      formData.append("upload_preset", "sola_venue_upload");
+      const res = await fetch(
+        "https://api.cloudinary.com/v1_1/gm3kcifb/image/upload",
+        { method: "POST", body: formData }
+      );
       if (!res.ok) {
         const err = await res.json();
-        setUploadError(err.error || "Upload gagal");
+        setUploadError(err.error?.message || "Upload gagal");
         return;
       }
       const data = await res.json();
-      onChange(data.url);
+      onChange(data.secure_url);
     } catch {
       setUploadError("Upload gagal");
     } finally {
