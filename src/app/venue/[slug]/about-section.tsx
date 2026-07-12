@@ -26,7 +26,7 @@ export function AboutSection({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.6 }}
-      className="max-w-4xl mx-auto px-4 md:px-8 py-16 md:py-24"
+      className="max-w-7xl mx-auto px-4 md:px-8 py-16 md:py-24"
     >
       {/* Decorative line */}
       <div className="flex items-center gap-3 mb-8">
@@ -42,24 +42,7 @@ export function AboutSection({
       <p className="text-brand-taupe/60 leading-relaxed text-base md:text-lg text-center mb-10">
         {description}
       </p>
-
-      {/* Stat pills */}
-      <div className="flex flex-wrap justify-center gap-4">
-        <div className="flex items-center gap-2 px-5 py-3 bg-white rounded-full border border-brand-sand/60 shadow-sm">
-          <MapPin className="w-4 h-4 text-brand-gold/60" />
-          <span className="text-sm text-brand-taupe/70">{location}</span>
-        </div>
-        <div className="flex items-center gap-2 px-5 py-3 bg-white rounded-full border border-brand-sand/60 shadow-sm">
-          <Users className="w-4 h-4 text-brand-gold/60" />
-          <span className="text-sm text-brand-taupe/70">{maxCapacity} tamu</span>
-        </div>
-        {cheapestPrice !== null && (
-          <div className="flex items-center gap-2 px-5 py-3 bg-white rounded-full border border-brand-gold/30 shadow-sm">
-            <Banknote className="w-4 h-4 text-brand-gold" />
-            <span className="text-sm font-medium text-brand-gold">{formatIDR(cheapestPrice)}</span>
-          </div>
-        )}
-      </div>
+      
     </motion.section>
   );
 }

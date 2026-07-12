@@ -70,10 +70,7 @@ export default async function VenueDetailPage({
         image={venue.images[0] || null}
         bookingUrl={bookingUrl}
       />
-
-      {/* Image Gallery */}
-      <ImageGallery images={venue.images} venueName={venue.name} />
-
+      
       {/* About */}
       <AboutSection
         description={venue.description}
